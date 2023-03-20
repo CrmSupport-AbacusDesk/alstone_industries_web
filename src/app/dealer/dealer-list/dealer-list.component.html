@@ -76,7 +76,7 @@
           </div>
       </div>
       
-      <div class="css-table" >
+      <div class="css-table hr-scroll-table" >
           <div class="sticky-header">
               <div class="header">
                   <table>
@@ -84,12 +84,14 @@
                           <td class="w30 text-center"><mat-checkbox name="select_all" [(ngModel)]="select_all" (change)="select_all_data()"></mat-checkbox></td>
                           <th class="w30">&nbsp;</th>
                           <th class="w150">Date / Created By</th>
-                          <th>Company Name</th>
+                          <th class="w150">Company Name</th>
                           <th class="w150">Contact Person</th>
                           <th class="w100">Mobile</th>
                           <th class="w130">State</th>
                           <th class="w130">District</th>
                           <th class="w130 text-center">Company Point Transfer</th>
+                          <th class="w180 text-center">Assigned Sales User</th>
+
                           <th class="w150 text-center">
                             <div class="ml0">
                                 <button mat-button style="padding: 0px 6px !important;" (click)="sortByWallet()">
@@ -98,7 +100,7 @@
                                 </button>
                             </div>
                           </th>
-                          <th class="w70 text-center">Requests</th>
+                          <!-- <th class="w70 text-center">Requests</th> -->
                           <!-- <th class="w65 text-center">User Type</th> -->
                           <th class="w100 text-center">Status</th>
                       </tr>
@@ -121,7 +123,7 @@
                                 </mat-form-field>
                             </div>
                           </th>     
-                          <th >
+                          <th class="w150">
                             <div class="search-form">
                                 <input type="text" placeholder="Company Name" [(ngModel)]="filter.search_company_name"  (keyup.enter)="current_page = 1;getDealerList('')">
                                 <i class="material-icons">search</i>
@@ -154,13 +156,19 @@
 
 
                           <th class="w130"></th>
+                          <th class="w180">
+                            <div class="search-form">
+                                <input type="text" placeholder="Sales user" [(ngModel)]="filter.full_name"  (keyup.enter)="current_page = 1;getDealerList('')">
+                                <i class="material-icons">search</i>
+                            </div>
+                        </th>
                           <th class="w150">
                             <div class="search-form">
                                 <!-- <input type="text" placeholder="Search" [(ngModel)]="filter.total_wallet_point"  (keyup.enter)="current_page = 1;getDealerList('')">
                                 <i class="material-icons">search</i> -->
                             </div>
                           </th>
-                          <th class="w70"></th>
+                          <!-- <th class="w70"></th> -->
                           <!-- <th class="w65"></th> -->
                           <th class="w100">
                             <div class="form-area">
@@ -183,84 +191,91 @@
                   </table>
               </div>
           </div>
+
+
+          <div class="css-table" *ngIf="dealers.length">
+            <div class="table-container">
+                <div class="table-body">
+                    <table>
+                        <tr *ngFor="let val of dealers; let i = index">
+                            <td class="w30 text-center" style="border-right: 0px !important;"><mat-checkbox name="checked" [(ngModel)]="val.checked" (change)="select_item($event,i)"></mat-checkbox></td>
+                            <td class="w30">{{ ( (current_page - 1 ) * 20 ) + ( i+1 ) }}</td>
+                            <td class="w150">
+                                  <ng-container *ngIf="val.date_created  != '0000-00-00 00:00:00' "> 
+                                    {{val.date_created | date: 'dd MMM yyyy'}}
+                                  </ng-container> / 
+                                  <ng-container *ngIf="val.created_by  == null " > 
+                                        Self
+                                  </ng-container>
+                                  <ng-container *ngIf="val.created_by !==''">
+                                      {{val.created_by}}
+                                  </ng-container>  
+                              </td>
+                            <td class="w150"><a class="blue" routerLink="/dealer-detail/{{val.id}}/{{current_page}}" (click)="set_filter(filter)" routerLinkActive="active">{{val.company_name}}</a></td>
+                            <td class="w150">{{val.first_name | titlecase }} {{val.last_name | titlecase }}</td>
+                            <td class="w100">{{val.mobile_no}}</td>
+                            <td class="w130">{{val.state | titlecase }}</td>
+                            <td class="w130">{{val.district | titlecase }}</td>
+      
+                            <td class="w130 text-center"> {{val.total_company_points}}</td>
+                            <td class="w180 text-center">{{val.full_name}}</td>
+      
+      
+      
+                            <td class="w150 text-center"> {{val.total_wallet_point}}</td>
+      
+      
+                           
+                            <!-- <td class="w70 text-center"><span class="back-bg">{{val.redeem_request}}</span></td> -->
+      
+                            <!-- <td class="w65 text-center"><a class="blue" style="cursor: pointer;" (click)="changeType(2,  val.id, val.company_name, val.user_type)">Change</a></td> -->
+      
+                            <td class="w100">
+                                <div class="center">
+                                    <select class="{{val.status}}"  [name]="'status'+i" placeholder="Status" [(ngModel)]="val.status" (change)="dealerStatus(i) ">
+                                        <option class="Verified" value="Verified">Verified</option>
+                                        <option class="Reject" value="Reject">Reject</option>
+                                        <option class="Pending" value="Pending">Pending</option>
+                                        <option class="Suspect" value="Suspect">Suspect</option>
+                                    </select> 
+                                    <div class="over-sec">
+                                        <i class="material-icons deactive"  (click)="deleteDealer(val.id)" style="background: #ca9137 !important;">delete_sweep</i>
+                                    </div> 
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+        
+        <div class="container-outer">
+            <div class="date-not" *ngIf="!loading_list && !dealers.length && ( (filter.status == 'All' && dealer_all ) || (filter.status == 'Pending' && dealer_pending ) || (filter.status == 'Verified' && dealer_verified ) || (filter.status == 'Reject' && dealer_reject ) || (filter.status == 'Suspect' && dealer_suspect )   )">
+                <div class="no-img">
+                    <img src="assets/result-not-found.png"> 
+                </div>
+            </div>
+            <div class="date-not"  *ngIf="!loading_list && ( (filter.status == 'All' && !dealer_all ) || (filter.status == 'Pending' && !dealer_pending ) || (filter.status == 'Verified' && !dealer_verified ) || (filter.status == 'Reject' && !dealer_reject ) || (filter.status == 'Suspect' && !dealer_suspect )  ) ">
+                <div class="no-img">
+                    <img src="assets/not-available.jpg"> 
+                </div>
+            </div>
+        </div>
+      
+        <div class="fab-btns">
+          <button (click)="exportDealer()" *ngIf="dealers.length" mat-fab class="excel">
+              <img src="assets/excel.svg">
+          </button>
+          <button mat-fab color="primary" routerLink="/dealer-add"  routerLinkActive="active" >
+              <mat-icon>add</mat-icon>
+          </button>
       </div>
+      </div>
+
+     
   </div>   
   
   
-  <div class="css-table" *ngIf="dealers.length">
-      <div class="table-container">
-          <div class="table-body">
-              <table>
-                  <tr *ngFor="let val of dealers; let i = index">
-                      <td class="w30 text-center" style="border-right: 0px !important;"><mat-checkbox name="checked" [(ngModel)]="val.checked" (change)="select_item($event,i)"></mat-checkbox></td>
-                      <td class="w30">{{ ( (current_page - 1 ) * 20 ) + ( i+1 ) }}</td>
-                      <td class="w150">
-                            <ng-container *ngIf="val.date_created  != '0000-00-00 00:00:00' "> 
-                              {{val.date_created | date: 'dd MMM yyyy'}}
-                            </ng-container> / 
-                            <ng-container *ngIf="val.created_by  == null " > 
-                                  Self
-                            </ng-container>
-                            <ng-container *ngIf="val.created_by !==''">
-                                {{val.created_by}}
-                            </ng-container>  
-                        </td>
-                      <td><a class="blue" routerLink="/dealer-detail/{{val.id}}/{{current_page}}" (click)="set_filter(filter)" routerLinkActive="active">{{val.company_name}}</a></td>
-                      <td class="w150">{{val.first_name | titlecase }} {{val.last_name | titlecase }}</td>
-                      <td class="w100">{{val.mobile_no}}</td>
-                      <td class="w130">{{val.state | titlecase }}</td>
-                      <td class="w130">{{val.district | titlecase }}</td>
-
-                      <td class="w130 text-center"> {{val.total_company_points}}</td>
-
-
-                      <td class="w150 text-center"> {{val.total_wallet_point}}</td>
-
-
-                     
-                      <td class="w70 text-center"><span class="back-bg">{{val.redeem_request}}</span></td>
-
-                      <!-- <td class="w65 text-center"><a class="blue" style="cursor: pointer;" (click)="changeType(2,  val.id, val.company_name, val.user_type)">Change</a></td> -->
-
-                      <td class="w100">
-                          <div class="center">
-                              <select class="{{val.status}}"  [name]="'status'+i" placeholder="Status" [(ngModel)]="val.status" (change)="dealerStatus(i) ">
-                                  <option class="Verified" value="Verified">Verified</option>
-                                  <option class="Reject" value="Reject">Reject</option>
-                                  <option class="Pending" value="Pending">Pending</option>
-                                  <option class="Suspect" value="Suspect">Suspect</option>
-                              </select> 
-                              <div class="over-sec">
-                                  <i class="material-icons deactive"  (click)="deleteDealer(val.id)" style="background: #ca9137 !important;">delete_sweep</i>
-                              </div> 
-                          </div>
-                      </td>
-                  </tr>
-              </table>
-          </div>
-      </div>
-  </div>
-  
-  <div class="container-outer">
-      <div class="date-not" *ngIf="!loading_list && !dealers.length && ( (filter.status == 'All' && dealer_all ) || (filter.status == 'Pending' && dealer_pending ) || (filter.status == 'Verified' && dealer_verified ) || (filter.status == 'Reject' && dealer_reject ) || (filter.status == 'Suspect' && dealer_suspect )   )">
-          <div class="no-img">
-              <img src="assets/result-not-found.png"> 
-          </div>
-      </div>
-      <div class="date-not"  *ngIf="!loading_list && ( (filter.status == 'All' && !dealer_all ) || (filter.status == 'Pending' && !dealer_pending ) || (filter.status == 'Verified' && !dealer_verified ) || (filter.status == 'Reject' && !dealer_reject ) || (filter.status == 'Suspect' && !dealer_suspect )  ) ">
-          <div class="no-img">
-              <img src="assets/not-available.jpg"> 
-          </div>
-      </div>
-  </div>
-
-  <div class="fab-btns">
-    <button (click)="exportDealer()" *ngIf="dealers.length" mat-fab class="excel">
-        <img src="assets/excel.svg">
-    </button>
-    <button mat-fab color="primary" routerLink="/dealer-add"  routerLinkActive="active" >
-        <mat-icon>add</mat-icon>
-    </button>
-</div>
+ 
 
 </div>

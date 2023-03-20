@@ -1,0 +1,214 @@
+
+<div class="main-container" >
+  <div class="padding10">
+    
+    <div class="loader" *ngIf="loading_list">
+      <div class="loding-logo">
+        <mat-spinner></mat-spinner>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col s12">
+        <div class="sprate-box">
+          <div class="full-offer">
+            <div class="top-heading no-justify">
+              <a class="back-btn" routerLink="/purchase-list"><i class="material-icons">arrow_back</i></a>
+              <h2>PURCHASE ORDER DETAIL</h2>
+              <!-- <div class="btn-align">
+                <button class="back-btn" (click)="openBonusPoint()">BONUS POINTS</button>
+              </div> -->
+            </div>
+            
+            <div class="detail-info pr0">
+              <div class="basic-details">
+                <div class="profile-info">
+                  <ul>
+                    <li>
+                      <figure>
+                        <div class="right-cont" *ngIf="getData.sales_user_contact !='' && getData.sales_user_name !=''">
+                          <p>Sale Executive Name</p>
+                          <span>{{getData.sales_user_name | titlecase }} - {{getData.sales_user_contact}}</span>
+                      
+                        </div>
+                       
+
+                      </figure>
+                    </li>
+
+                    <li>
+                      <figure>
+                        <div class="right-cont" *ngIf="getData.architect_name !='' && getData.architect_contact !=''">
+                          <p >Architect Name</p>
+                          <span>{{getData.architect_name | titlecase }} - {{getData.architect_contact}}</span>
+                        </div>
+                      </figure>
+                    </li>
+                    <li>
+                      <figure>
+                        <div class="right-cont">
+                          <p>Product Name</p>
+                          <span>{{getData.product_name | titlecase }}</span>
+                        </div>
+                      </figure>
+                    </li>
+                   
+                  
+                  </ul>
+                  
+                  <ul>
+                    <li>
+                      <figure>
+                        <div class="right-cont">
+                          <p>Quantity</p>
+                          <span>{{getData.qty}}</span>
+                        </div>
+                      </figure>
+                      
+                    </li>
+                    
+                   
+                    
+                    <li>
+                      <figure>
+                        <div class="right-cont">
+                          <p>Architect Points</p>
+                          <span>{{getData.architect_points == ''? '0' :  getData.architect_points}}</span>
+                        </div>
+                      </figure>
+                    </li>
+
+                    <li >
+                      <figure>
+                        <div class="right-cont">
+                          <p>Status</p>
+                          <span class="{{getData.dealer_status == 'Reject' ? 'redtxt' : 'greentxt'}}">{{getData.dealer_status | titlecase}}</span>
+                        </div>
+                      </figure>
+                    </li>
+                    
+                  </ul>
+                  <ul>
+                   
+                    
+                    <li >
+                      <figure>
+                        <div class="right-cont">
+                          <p>Status Updated By</p>
+                          <ng-container *ngIf="!getData.dealer_status_updated_name">
+                            <span style="color: grey; font-weight: bold;font-size:12px">--N/A--</span>
+                          </ng-container>
+                          <ng-container  *ngIf="getData.dealer_status_updated_name">
+                            <span>{{getData.dealer_status_updated_name | titlecase}}</span>
+                          </ng-container>
+                        </div>
+                      </figure>
+                    </li>
+                    <li >
+                      <figure>
+                        <div class="right-cont">
+                          <p>Status Updated Date</p>
+                          <ng-container *ngIf="getData.dealer_status_updated_date == '0000-00-00 00:00:00'">
+                            <span style="color: grey; font-weight: bold;font-size:12px">--N/A--</span>
+                          </ng-container>
+                          <ng-container *ngIf="getData.dealer_status_updated_date">
+                            <span>{{getData.dealer_status_updated_date | date: 'dd MMM yyyy'}}</span>
+                          </ng-container>
+                        </div>
+                      </figure>
+                    </li>
+                  </ul>
+                  <ul>
+                    <li *ngIf="getData.dealer_status_reason">
+                      <figure>
+                        <div class="right-cont">
+                          <p>Rejected Reason</p>
+                          <ng-container  *ngIf="getData.dealer_status_reason">
+                            <span>{{getData.dealer_status_reason | titlecase}}</span>
+                          </ng-container>
+                        </div>
+                      </figure>
+                    </li>
+                   
+                  </ul>
+                  
+                </div>
+              </div>
+              
+              
+            </div>
+          </div> 
+        </div>
+      </div>
+    </div>
+    
+    <div class="row">
+      <div class="col s12">
+        <div class="sprate-box">
+          <div class="full-offer">
+            <div class="top-heading no-justify">
+              <h2>Site DETAIL</h2>
+            </div>
+            
+            <div class="detail-info pr0">
+              <div class="basic-details">
+                <div class="profile-info">
+                  <ul>
+                    <li>
+                      <figure>
+                        <div class="right-cont">
+                          <p>Site Owner Detail </p>
+                          <span>{{getData.site_owner_name | titlecase}}</span>
+                        </div>
+                      </figure>
+                      
+                    </li>
+                    <li>
+                      <figure>
+                        <div class="right-cont">
+                          <p>Site Owner Mobile No.</p>
+                          <span>{{getData.site_owner_contact}}</span>
+                        </div>
+                      </figure>
+                      
+                    </li>
+                    <li>
+                      <figure>
+                        <div class="right-cont">
+                          <p>Site Address</p>
+                          <span>{{getData.site_address | titlecase}}</span>
+                        </div>
+                      </figure>
+                      
+                    </li>
+                    <li>
+                      <figure>
+                        <div class="right-cont">
+                          <p>State</p>
+                          <span>{{getData.state | titlecase}}</span>
+                        </div>
+                      </figure>
+                      
+                    </li>
+                    <li>
+                      <figure>
+                        <div class="right-cont">
+                          <p>District</p>
+                          <span>{{getData.district | titlecase}}</span>
+                        </div>
+                      </figure>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div> 
+        </div>
+      </div>
+    </div>
+    
+    <div class="add-button">
+      <button mat-button (click)="edit()"><i class="material-icons">edit</i></button>
+    </div>
+    
+    
+    

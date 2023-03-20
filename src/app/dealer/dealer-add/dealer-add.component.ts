@@ -25,6 +25,8 @@ export class DealerAddComponent implements OnInit {
   date1:any;
   uploadUrl:any='';
   docId:any;
+  back_doc_id:any;
+  
   
   constructor(public db: DatabaseService, private route: ActivatedRoute, private router: Router, public ses: SessionStorage,public matDialog: MatDialog,  public dialog: DialogComponent) { this.date1 = new Date();}
   
@@ -35,13 +37,14 @@ export class DealerAddComponent implements OnInit {
           this.karigar_id = params['dealer_id'];
 
           this.docId = params['dealer_id'];
+          this.back_doc_id = params['dealer_id'];
+
           
           if (this.karigar_id)
           {
               this.getKarigarDetails();
           }
           this.getStateList();
-          this.AssignSaleUser();
           this.AssignDistributor();
           this.get_karigar_type();
           this.karigarform.country_id = 99;
@@ -64,9 +67,13 @@ export class DealerAddComponent implements OnInit {
           if(this.karigarform.doa == '0000-00-00'){
             this.karigarform.doa = '';
         }
+        if(this.karigarform.dob == '0000-00-00'){
+            this.karigarform.dob = '';
+        }
           console.log( this.karigarform);
           this.getDistrictList(1);
           this.getCityList(1);
+          this.AssignSaleUser()
       });
   }
   
@@ -86,7 +93,7 @@ export class DealerAddComponent implements OnInit {
       .subscribe(d => {  
           this.loading_list = false;  
           this.states = d.states;
-this.distributorList(this.states);
+// this.distributorList(this.states);
 
       });
   }
@@ -102,15 +109,13 @@ this.distributorList(this.states);
       .subscribe(d => {  
           this.loading_list = false;
           this.districts = d.districts;  
-          this.distributorList(st_name)
+        //   this.distributorList(st_name)
       });
   }
 
 
   distributorList(state){   
     console.log(state);
-    
-   
     this.db.post_rqst({'state':state} ,'app_karigar/distributorList')
     .subscribe(d => {  
         
@@ -158,19 +163,35 @@ this.distributorList(this.states);
   }
   savekarigarform(form:any)
   {
+
+    if(this.karigarform.document_type!='' && !this.karigarform.document_no && !this.karigarform.document_image){
+        this.dialog.warning(this.karigarform.document_type+' No. & Image Is Required')
+        return;
+
+    }
+    else if(this.karigarform.document_no!='' && !this.karigarform.document_image){
+        this.dialog.warning(this.karigarform.document_type+' Image Is Required')
+        return;
+
+    }
+    else if(this.karigarform.document_image!='' && !this.karigarform.document_no){
+        this.dialog.warning(this.karigarform.document_type+' No. Is Required')
+        return;
+    }
       this.savingData = true;
       this.loading_list = true;
       this.karigarform.dob = this.karigarform.dob  ? this.db.pickerFormat(this.karigarform.dob) : '';
       this.karigarform.doa = this.karigarform.doa  ? this.db.pickerFormat(this.karigarform.doa) : '';
 
       this.karigarform.created_by = this.db.datauser.id;
+
       if(this.karigar_id)
       {
           this.karigarform.karigar_edit_id = this.karigar_id;
       }
       else
       {
-          this.karigarform.karigar_type = 2;
+          this.karigarform.user_type = 4;
       }
       this.db.insert_rqst( { 'karigar' : this.karigarform }, 'karigar/addKarigar')
       .subscribe( d => {
@@ -182,19 +203,25 @@ this.distributorList(this.states);
               return;
           }
           this.router.navigate(['dealer-list/1']);
-          this.dialog.success('Retailer has been successfully added');
+          if(this.karigarform.karigar_edit_id){
+          this.dialog.success('Architect has been successfully Updated');
+          }
+          else{
+          this.dialog.success('Architect has been successfully Added');
+          }
+        
       });
   }
   sales_users:any=[];
   AssignSaleUser()
   {
-      this.loading_list = true;
-      this.db.get_rqst('','karigar/sales_users')
+      this.db.post_rqst({'filter':{'state':this.karigarform.state,'limit':0}},'karigar/Architect_sales_user')
       .subscribe(d => {
-          this.loading_list = false;
-          this.sales_users = d.sales_users;
+          this.sales_users = d.sales_user;
+          console.log(this.sales_users)
       });
   }
+ 
   
   dr_list:any=[];
   AssignDistributor()
@@ -258,6 +285,47 @@ handleReaderLoaded(e) {
   {
       this.karigarform.dis_mobile = this.dr_list.filter( x => x.id === this.karigarform.dis_id )[0].phone;
   }
+
+  onUploadBack(evt: any) {
+    const file = evt.target.files[0];
+    if (file) {
+        const reader = new FileReader();
+        this.back_doc_id=''
+        reader.onload = this.handleReaderBack.bind(this);
+        reader.readAsBinaryString(file);
+    }
+}
+handleReaderBack(e) {
+    this.karigarform.document_image_back = 'data:image/png;base64,' + btoa(e.target.result) ;
+}
+
+getaddress(pincode) {
+    if (this.karigarform.pincode.length == '6') {
+        this.db.post_rqst({ 'pincode': pincode }, 'app_karigar/getAddress')
+            .subscribe((result) => {
+                console.log(result);
+                var address = result.address;
+              
+                if (address != null) {
+                    this.karigarform.state = address.state_name;
+                    this.karigarform.district = address.district_name;
+                    this.karigarform.city = address.city;
+                    console.log(this.karigarform);
+                    this.getDistrictList(1);
+                      this.AssignSaleUser();
+
+                    console.log(this.karigarform.district)
+                    // this.getCityList(1);
+                }
+                else{
+                    this.dialog.error('Enter Valid Pincode');
+
+                   }
+          
+            });
+    }
+
+}
 }
 
 

@@ -110,8 +110,8 @@
                             <th class="w30">&nbsp;</th>
                          
                             <th class="w150">Date</th>
-                            <th class="w150">Company Name</th>
-                            <th class="w150">Contact Person</th>
+                            <th class="w100">First Name</th>
+                            <!-- <th class="w150">Contact Person</th> -->
                             <th class="w100">Mobile</th>
                             <th class="w135">State</th>
                             <th class="w135">District</th>
@@ -120,7 +120,7 @@
                             <!-- <th class="w135">City</th> -->
                             <!-- <th class="w135">Pincode</th> -->
                             <!-- <th class="w135">Address</th> -->
-                            <th class="w135">Status</th>
+                            <!-- <th class="w135">Status</th> -->
                         </tr>
                     </table>
                 </div>
@@ -133,22 +133,22 @@
                       
 
                             <th class="w150"></th> 
-                            <th class="w150">
+                             <th class="w100">
                                 <div class="search-form">
-                                    <input type="text" placeholder="Name" [(ngModel)]="filter.search_company_name"
+                                    <input type="text" placeholder="Name" [(ngModel)]="filter.first_name"
                                         (keyup.enter)="current_page = 1;getDistributorList('')">
                                     <i class="material-icons">search</i>
                                 </div>
-                            </th>
+                            </th> 
 
-                            <th class="w150">
+                            <!-- <th class="w150">
                                 <div class="search-form">
                                     <input type="text" placeholder="Contact Person"
                                         [(ngModel)]="filter.parent_counter_contact_person"
                                         (keyup.enter)="current_page = 1;getDistributorList('')">
                                     <i class="material-icons">search</i>
                                 </div>
-                            </th>
+                            </th> -->
 
                             <th class="w100">
                                 <div class="search-form">
@@ -205,7 +205,7 @@
                             </div> 
                             </th> -->
 
-                             <th class="w135"></th> 
+                             <!-- <th class="w135"></th>  -->
                         </tr>
                     </table>
                 </div>
@@ -225,10 +225,14 @@
                                 {{val.date_created | date: 'dd MMM yyyy'}}
                             </ng-container>
                         </td>
-                        <td class="w150"><a class="blue" routerLink="/distributor-detail/{{val.id}}/{{current_page}}"
-                                (click)="set_filter(filter)" routerLinkActive="active">{{val.company_name}}</a></td>
+                      <td class="w100">
+                        <a class="blue" routerLink="/distributor-detail/{{val.id}}/{{current_page}}"
+                                (click)="set_filter(filter)" routerLinkActive="active">{{val.first_name | titlecase }} {{val.last_name | titlecase }}</a></td>
 
-                        <td class="w150">{{val.parent_counter_contact_person | titlecase}}</td>
+                        <!-- <td class="w150"><a class="blue" routerLink="/distributor-detail/{{val.id}}/{{current_page}}"
+                                (click)="set_filter(filter)" routerLinkActive="active">{{val.company_name}}</a></td> -->
+
+                        <!-- <td class="w150">{{val.parent_counter_contact_person | titlecase}}</td> -->
                         <td class="w100">{{val.mobile_no}}</td>
                         <!-- <td class="w150"> {{val.email}}</td> -->
                         <td class="w135">{{val.state | titlecase }}</td>
@@ -236,7 +240,7 @@
                         <!-- <td class="w135">{{val.city | titlecase }}</td> -->
                         <!-- <td class="w135">{{val.pincode }}</td> -->
                         <!-- <td class="w135">{{val.address | titlecase }}</td> -->
-                        <td class="w135">
+                        <!-- <td class="w135">
                             <div class="center">
                                 <select class="{{val.status}}" [name]="'status'+i" placeholder="Status"
                                     [(ngModel)]="val.status" (change)="distributorStatus(i) ">
@@ -244,11 +248,11 @@
                                     <option value="Deactive" style="color: #f00000;">Deactive</option>
 
                                 </select>
-                                <!-- <div class="over-sec">
+                                <div class="over-sec">
                                 <i class="material-icons "  (click)="toggle = !toggle; editProduct(val.id,i)" >edit</i>
-                            </div>   -->
+                            </div>  
                             </div>
-                        </td>
+                        </td> -->
                     </tr>
                 </table>
             </div>

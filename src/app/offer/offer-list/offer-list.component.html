@@ -101,10 +101,10 @@
                                             <mat-label>All</mat-label>
                                             <mat-select  [(ngModel)]="filter.user_type" name="user_type" #user_type="ngModel" (selectionChange)="getOfferList('')">
                                                 <mat-option value="All" >All</mat-option>
-                                                <mat-option value="Plumber" >Plumber</mat-option>
-                                              <mat-option value="Retailer">Retailer</mat-option>
-                                             
-    
+                                                <mat-option value="Carpenter" >Carpenter</mat-option>
+                                                <mat-option value="Masons" >Masons</mat-option>
+                                                <mat-option value="Fabricator" >Fabricator</mat-option>
+                                              <mat-option value="Architect">Architect</mat-option>
                                             </mat-select>
                                         </mat-form-field>
                                     </div>
@@ -167,10 +167,8 @@
                     <tr *ngFor="let val of offer; let i = index">
                         <td class="w30">{{ ( (current_page - 1 ) * 20 ) + ( i+1 ) }}</td>
                         <td class="w140"><ng-container *ngIf="val.date_created  != '0000-00-00 00:00:00' "> {{val.date_created | date: 'dd MMM yyyy'}} / {{val.created_name}} </ng-container></td>
-                        <td class="w100">
-                            {{val.user_type == 'Retailer' ? 'Retailer':'Plumber' }}
-                        </td>
-                        <td><a    routerLink="/offer-detail/{{val.id}}" class="blue">{{val.title  | titlecase }}</a></td>
+                        <td class="w100">{{val.user_type}}</td>
+                        <td><a routerLink="/offer-detail/{{val.id}}" class="blue">{{val.title  | titlecase }}</a></td>
                         <td class="w100">#{{val.offer_code}}</td>
                         <td class="w110">{{val.start_date | date: 'dd MMM yyyy'}}</td>
                         <td class="w110">{{val.end_date | date: 'dd MMM yyyy'}}</td>

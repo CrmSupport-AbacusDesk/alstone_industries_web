@@ -31,13 +31,19 @@ export class DistributorListComponent implements OnInit {
   distributor_reject : any = 0;
   distributor_suspect : any = 0;
   distributor_active : any = 0;
+  userType = 5;
+
   
   constructor(public db: DatabaseService, public dialog: DialogComponent,public route:ActivatedRoute,public alrt:MatDialog) {
+   
+
       this.route.params.subscribe(resp=>{
           this.current_page = resp.page;
       });
       this.filter = this.db.get_filters();
       console.log(this.filter);
+      this.filter.status = 'All';
+      this.filter={};
       if(this.filter.status == undefined)
       {
           this.filter.status = 'All';
@@ -116,7 +122,7 @@ export class DistributorListComponent implements OnInit {
         }
         
         
-        this.db.post_rqst(  {'filter': this.filter , 'login':this.db.datauser,user_type:"3"}, 'karigar/karigarList?page=' + this.current_page)
+        this.db.post_rqst(  {'filter': this.filter , 'login':this.db.datauser,'user_type':this.userType}, 'karigar/karigarList?page=' + this.current_page)
         .subscribe( d => {
             this.loading_list = false;
             console.log(d);            
@@ -144,7 +150,7 @@ export class DistributorListComponent implements OnInit {
     exportDistributor()
     {
         this.filter.mode = 1;
-        this.db.post_rqst(  {'filter': this.filter , 'login':this.db.datauser,user_type:'3'}, 'karigar/exportKarigar')
+        this.db.post_rqst(  {'filter': this.filter , 'login':this.db.datauser,user_type:this.userType}, 'karigar/exportKarigar')
         .subscribe( d => {
             document.location.href = this.db.myurl+'/app/uploads/exports/Distributors.csv';
             console.log(d);

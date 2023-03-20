@@ -2,7 +2,7 @@ import {Component, OnInit, ViewChild} from '@angular/core';
 import {DatabaseService} from '../../_services/DatabaseService';
 import {DialogComponent} from '../../dialog/dialog.component';
 import { MatDialog, MatDatepicker } from '@angular/material';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute,Router } from '@angular/router';
 import { MastetDateFilterModelComponent } from 'src/app/mastet-date-filter-model/mastet-date-filter-model.component';
 import { SendmessageComponent } from 'src/app/master/karigar-data/sendmessage/sendmessage.component';
 import { SendNotificationComponent } from 'src/app/master/karigar-data/send-notification/send-notification.component';
@@ -21,7 +21,8 @@ export class KarigarListComponent implements OnInit {
     karigar_all:any =0;
     
     last_page: number ;
-    current_page = 1;
+    current_page=1;
+    navPass:any={}
     search: any = '';
     filter:any = {};
     filtering : any = false;
@@ -31,10 +32,40 @@ export class KarigarListComponent implements OnInit {
     karigar_reject : any = 0;
     karigar_suspect : any = 0;
     karigar_verified : any = 0;
+    userType:any;
     
-    constructor(public db: DatabaseService, public dialog: DialogComponent,public route:ActivatedRoute,public alrt:MatDialog) {
+    constructor(public db: DatabaseService, public dialog: DialogComponent,public route:ActivatedRoute,public alrt:MatDialog,private router:Router) {
         this.route.params.subscribe(resp=>{
-            this.current_page = resp.page;
+            console.log(resp)
+           this.filter={};
+            if(resp.Masons=='Masons'){
+                this.userType = 2;
+                this.navPass='Masons'
+                this.filter.status = 'All';
+
+
+
+            }
+            else if(resp.Masons=='Fabricator'){
+                this.userType = 3;
+                this.navPass='Fabricator';
+                this.filter.status = 'All';
+
+
+
+            }
+            else if(resp.Masons=='Carpenter'){
+                this.userType = 1;
+                this.navPass='Carpenter';
+                this.filter.status = 'All';
+
+
+            }
+
+
+            this.current_page = 1;
+            this.getKarigarList(''); 
+          
         });
         this.filter = this.db.get_filters();
         console.log(this.filter);
@@ -120,7 +151,7 @@ export class KarigarListComponent implements OnInit {
         }
         
         
-        this.db.post_rqst(  {'filter': this.filter , 'login':this.db.datauser,user_type:"1"}, 'karigar/karigarList?page=' + this.current_page)
+        this.db.post_rqst(  {'filter': this.filter , 'login':this.db.datauser,'user_type':this.userType}, 'karigar/karigarList?page=' + this.current_page)
         .subscribe( d => {
             this.loading_list = false;
             console.log(d);            
@@ -147,7 +178,7 @@ export class KarigarListComponent implements OnInit {
     exportKarigar()
     {
         this.filter.mode = 1;
-        this.db.post_rqst(  {'filter': this.filter , 'login':this.db.datauser,user_type:'1'}, 'karigar/exportKarigar')
+        this.db.post_rqst(  {'filter': this.filter , 'login':this.db.datauser,user_type:this.userType}, 'karigar/exportKarigar')
         .subscribe( d => {
             document.location.href = this.db.myurl+'/app/uploads/exports/Plumber.csv';
             console.log(d);
@@ -213,11 +244,30 @@ export class KarigarListComponent implements OnInit {
     
     karigarsSatus(i)
     {
-        this.db.post_rqst({ 'status' : this.karigars[i].status, 'id' : this.karigars[i].id }, 'karigar/karigarStatus')
-        .subscribe(d => {
-            console.log(d);
+        this.dialog.comanAlert("Are you sure ?")
+        .then(resp=>{
+          console.log(resp);
+          if(resp)
+          {
+            this.db.post_rqst({ 'status' : this.karigars[i].status, 'id' : this.karigars[i].id }, 'karigar/karigarStatus')
+            .subscribe(d => {
+                console.log(d);
+                if(d){
+                this.dialog.success("Status Change Successfully!");
+                this.getKarigarList('');
+    
+                }
+            });
+           
+          }
+          else{
             this.getKarigarList('');
-        });
+          }
+        })
+
+
+
+      
     }
     
     openDatepicker(): void {
@@ -314,6 +364,11 @@ export class KarigarListComponent implements OnInit {
             console.log(res);
             this.getKarigarList('');
         })
+    }
+
+    goto_add(){
+        console.log(this.current_page)
+        this.router.navigate(['/karigar-add',{'current_page':this.current_page}])
     }
 }
 

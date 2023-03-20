@@ -31,9 +31,12 @@ export class DistributorDetailComponent implements OnInit {
   current_page = 1;
   search: any = '';
   previousUrl:any='';
+  uploadUrl:any='';
   mindate :any = new Date();  
   constructor(public db: DatabaseService, private route: ActivatedRoute, private router: Router, public ses: SessionStorage,public dialog: DialogComponent, public alrt:MatDialog ) {
       console.log(router);
+      this.uploadUrl = db.uploadUrl;
+
   }
   
   mode:any=1;
