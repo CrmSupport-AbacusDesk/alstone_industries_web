@@ -23,6 +23,12 @@ export class KarigarAddComponent implements OnInit {
     date1:any;
     uploadUrl:any='';
     docId:any;
+    userType:any;
+    navPass:any ={};
+    back_doc_id: any;
+
+    
+
     
     constructor(public db: DatabaseService, private route: ActivatedRoute, private router: Router, public ses: SessionStorage,public matDialog: MatDialog,  public dialog: DialogComponent) { this.date1 = new Date();}
     
@@ -30,8 +36,31 @@ export class KarigarAddComponent implements OnInit {
 
         this.uploadUrl = this.db.uploadUrl;
         this.route.params.subscribe(params => {
+            console.log(params)
+
+            if(params['Masons']=='Masons'){
+                this.navPass='Masons'
+                this.userType=2;
+
+            }
+            else if(params['Masons']=='Fabricator'){
+                this.navPass='Fabricator';
+                this.userType=3;
+
+                
+
+            }
+            else if(params['Masons']=='Carpenter'){
+                this.navPass='Carpenter';
+                this.userType=1;
+
+
+            }
             this.karigar_id = params['karigar_id'];
             this.docId = params['karigar_id'];
+            this.back_doc_id = params['karigar_id'];
+          
+
             
             if (this.karigar_id)
             {
@@ -60,6 +89,9 @@ export class KarigarAddComponent implements OnInit {
             this.karigarform = d.karigar;
             if(this.karigarform.doa == '0000-00-00'){
                 this.karigarform.doa = '';
+            }
+            if(this.karigarform.dob == '0000-00-00'){
+                this.karigarform.dob = '';
             }
             console.log( this.karigarform);
             this.getDistrictList(1);
@@ -135,6 +167,22 @@ export class KarigarAddComponent implements OnInit {
     }
     savekarigarform(form:any)
     {
+        if(this.karigarform.document_type!='' && !this.karigarform.document_no && !this.karigarform.document_image){
+            this.dialog.warning(this.karigarform.document_type+' No. & Image Is Required')
+            return;
+
+        }
+        else if(this.karigarform.document_no!='' && !this.karigarform.document_image){
+            this.dialog.warning(this.karigarform.document_type+' Image Is Required')
+            return;
+
+        }
+        else if(this.karigarform.document_image!='' && !this.karigarform.document_no){
+            this.dialog.warning(this.karigarform.document_type+' No. Is Required')
+            return;
+        }
+
+        console.log(this.navPass)
         this.savingData = true;
         this.loading_list = true;
         this.karigarform.dob = this.karigarform.dob  ? this.db.pickerFormat(this.karigarform.dob) : '';
@@ -145,7 +193,8 @@ export class KarigarAddComponent implements OnInit {
         }
         else
         {
-            this.karigarform.karigar_type = 1;
+            console.log(this.userType)
+            this.karigarform.user_type = this.userType;
         }
         this.db.insert_rqst( { 'karigar' : this.karigarform }, 'karigar/addKarigar')
         .subscribe( d => {
@@ -156,8 +205,8 @@ export class KarigarAddComponent implements OnInit {
                 this.dialog.error( ' Mobile No. already exists');
                 return;
             }
-            this.router.navigate(['karigar-list/1']);
-            this.dialog.success('Plumber has been successfully added');
+            this.router.navigate(['karigar-list/'+this.navPass]);
+            this.dialog.success(this.navPass+' has been successfully added');
         });
     }
     sales_users:any=[];
@@ -213,4 +262,44 @@ export class KarigarAddComponent implements OnInit {
     {
         this.karigarform.dis_mobile = this.dr_list.filter( x => x.id === this.karigarform.dis_id )[0].phone;
     }
+
+    onUploadBack(evt: any) {
+        const file = evt.target.files[0];
+        if (file) {
+            const reader = new FileReader();
+            this.back_doc_id=''
+            reader.onload = this.handleReaderBack.bind(this);
+            reader.readAsBinaryString(file);
+        }
+    }
+    handleReaderBack(e) {
+        this.karigarform.document_image_back = 'data:image/png;base64,' + btoa(e.target.result) ;
+    }
+
+
+    getaddress(pincode) {
+        if (this.karigarform.pincode.length == '6') {
+            this.db.post_rqst({ 'pincode': pincode }, 'app_karigar/getAddress')
+                .subscribe((result) => {
+                    console.log(result);
+                    var address = result.address;
+                  
+                    if (address != null) {
+                        this.karigarform.state = address.state_name;
+                        this.karigarform.district = address.district_name;
+                        this.karigarform.city = address.city;
+                        console.log(this.karigarform);
+                        this.getDistrictList(1);
+                        // this.getCityList(1);
+                    }
+                    else{
+                     this.dialog.error('Enter Valid Pincode');
+
+                    }
+              
+                });
+        }
+    
+    }
+
 }

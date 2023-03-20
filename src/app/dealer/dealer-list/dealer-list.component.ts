@@ -31,6 +31,8 @@ export class DealerListComponent implements OnInit {
     dealer_reject : any = 0;
     dealer_suspect : any = 0;
     dealer_verified : any = 0;
+     userType = 4;
+
     
     constructor(public db: DatabaseService, public dialog: DialogComponent,public route:ActivatedRoute,public alrt:MatDialog) {
         this.route.params.subscribe(resp=>{
@@ -40,6 +42,9 @@ export class DealerListComponent implements OnInit {
         });
         this.filter = this.db.get_filters();
         console.log(this.filter);
+        this.filter.status = 'All';
+        this.filter={};
+
         if(this.filter.status == undefined)
         {
             this.filter.status = 'All';
@@ -103,7 +108,7 @@ export class DealerListComponent implements OnInit {
         }
         
         
-        this.db.post_rqst(  {'filter': this.filter , 'login':this.db.datauser,user_type:"2"}, 'karigar/karigarList?page=' + this.current_page)
+        this.db.post_rqst(  {'filter': this.filter , 'login':this.db.datauser,'user_type':this.userType}, 'karigar/karigarList?page=' + this.current_page)
         .subscribe( d => {
             this.loading_list = false;
             console.log(d);            
@@ -221,11 +226,27 @@ export class DealerListComponent implements OnInit {
     }
     dealerStatus(i)
     {
-        this.db.post_rqst({ 'status' : this.dealers[i].status, 'id' : this.dealers[i].id }, 'karigar/karigarStatus')
-        .subscribe(d => {
-            console.log(d);
+        this.dialog.comanAlert("Are you sure ?")
+        .then(resp=>{
+          console.log(resp);
+          if(resp)
+          {
+            this.db.post_rqst({ 'status' : this.dealers[i].status, 'id' : this.dealers[i].id }, 'karigar/karigarStatus')
+            .subscribe(d => {
+                console.log(d);
+                if(d){
+    
+                    this.dialog.success('Status Change Successfully')
+                    this.getDealerList('');
+    
+                }
+            });
+           
+          }
+          else{
             this.getDealerList('');
-        });
+          }
+        })
     }
     openDatepicker(): void {
         const dialogRef = this.alrt.open(MastetDateFilterModelComponent, {

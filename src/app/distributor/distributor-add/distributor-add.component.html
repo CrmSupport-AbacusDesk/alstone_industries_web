@@ -13,7 +13,7 @@
                         <div class="sprate-box ">
                             <div class="full-offer">
                                 <div class="top-heading">
-                                    <h2>FULL DISTRIBUTOR INFORMATION</h2>
+                                    <h2>FULL SALES EXECUTIVE INFORMATION</h2>
                                     <p>Indicates required fields ( * )</p>
                                 </div>
                             </div>
@@ -23,7 +23,7 @@
                                     <div class="option-field">
                                         <div class="row">
 
-                                            <div class="col s3 ">
+                                            <!-- <div class="col s3 ">
                                                 <div class="control-field">
                                                     <mat-form-field class="cs-input">
                                                         <input matInput placeholder="Company Name " name="company_name"
@@ -42,7 +42,27 @@
                                                             #dealer_contact_person="ngModel" required>
                                                     </mat-form-field>
                                                 </div>
+                                            </div> -->
+
+                                            <div class="col s3">
+                                                <div class="control-field">
+                                                    <mat-form-field class="cs-input">
+                                                        <input matInput placeholder="First Name" name="first_name"
+                                                        [(ngModel)]="karigarform.first_name" #first_name="ngModel"
+                                                        required>
+                                                    </mat-form-field>
+                                                </div>
                                             </div>
+                                            <div class="col s3">
+                                                <div class="control-field">
+                                                    <mat-form-field class="cs-input">
+                                                        <input matInput placeholder="Last Name" name="last_name"
+                                                        [(ngModel)]="karigarform.last_name" #last_name="ngModel">
+                                                    </mat-form-field>
+                                                </div>
+                                            </div>
+
+
 
                                             <div class="col s3">
                                                 <div class="control-field">
@@ -59,8 +79,9 @@
                                                 <div class="control-field">
                                                     <mat-form-field class="cs-input">
                                                         <input matInput placeholder="Email" name="email"
-                                                            [(ngModel)]="karigarform.email" #email="ngModel">
+                                                            [(ngModel)]="karigarform.email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" #email="ngModel">
                                                     </mat-form-field>
+                                                    <!-- <p *ngIf="email.errors?.pattern && f.form.valid" style="color:red">Invalid Email</p> -->
                                                 </div>
                                             </div>
 
@@ -87,6 +108,21 @@
                             <div class="col s8 ">
                                 <div class="option-field">
                                     <div class="row" style="margin-top: -10px !important;">
+                                        <div class="col s6">
+                                            <div class="control-field">
+                                                <div>
+                                                    <mat-form-field class=" cs-input ">
+                                                        <input matInput placeholder="Pincode"
+                                                             (input)="getaddress(karigarform.pincode)" maxlength="6"
+                                                            minlength="6" name="pincode"
+                                                            [(ngModel)]="karigarform.pincode" #pincode="ngModel"
+                                                            required>
+                                                    </mat-form-field>
+                                                </div>
+                                            </div>
+                                        </div>
+
+
 
                                         <div class="col s6" *ngIf="karigarform.country_id != 99">
                                             <div class="control-field">
@@ -168,21 +204,7 @@
                                         </div>
 
 
-                                        <div class="col s6">
-                                            <div class="control-field">
-                                                <div>
-                                                    <mat-form-field class=" cs-input ">
-                                                        <input matInput placeholder="Pincode"
-                                                            (keypress)="numeric_Number($event)" maxlength="6"
-                                                            minlength="6" name="pincode"
-                                                            [(ngModel)]="karigarform.pincode" #pincode="ngModel"
-                                                            required>
-                                                    </mat-form-field>
-                                                </div>
-                                            </div>
-                                        </div>
-
-
+                                      
                                         <div class="col s12 " [hidden]='true'>
                                             <div class="control-field">
                                                 <mat-form-field class="cs-input">

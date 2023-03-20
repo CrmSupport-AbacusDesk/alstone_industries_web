@@ -10,26 +10,26 @@
                     <div class="bottom-item">
                         <div class="cs-item">
                             <span>{{offer_karigar}}</span>
-                            <p>Plumber</p>
+                            <p>Carpenter</p>
                         </div>
                         <div class="cs-item">
-                            <span>{{offer_Retailer}}</span>
-                            <p>Retailer</p>
+                            <span>{{offer_Masons}}</span>
+                            <p>Masons</p>
+                        </div>
+                        <div class="cs-item">
+                            <span>{{offer_Fabricator}}</span>
+                            <p>Fabricator</p>
+                        </div>
+                        <div class="cs-item">
+                            <span>{{offer_Architect}}</span>
+                            <p>Architect</p>
                         </div>
                     </div>
-                    <!-- <div class="counter-value">
-                        <div class="counter-icon"><img src="assets/img/dashboard/pyment_due.svg"></div>
-                        <p>{{offer}}</p>
-                    </div>
-                    <div class="counter-name">Offers</div> -->
+                 
                 </li>
                 
                 <li matRipple style="background: #e65100;" (click)="goto_pending_redeem_rqs_page()">
-                    <!-- <div class="counter-value">
-                        <div class="counter-icon"><img src="assets/img/dashboard/pending.svg"></div>
-                        <p>{{pending_redeem_request}}</p>
-                    </div>
-                    <div class="counter-name">Pending Redeem Request</div> -->
+                 
                     <div class="top-item">
                         <h2>Redeem Request</h2>
                         <span class="cs-count">{{pending_redeem_request}}</span>
@@ -37,86 +37,46 @@
                     <div class="bottom-item">
                         <div class="cs-item">
                             <span>{{pending_redeem_request_karigar}}</span>
-                            <p>Plumber</p>
+                            <p>Carpenter</p>
                         </div>
                         <div class="cs-item">
-                            <span>{{pending_redeem_request_retailer}}</span>
-                            <p>Retailer</p>
+                            <span>{{pending_redeem_request_masons}}</span>
+                            <p>Masons</p>
+                        </div>
+                        <div class="cs-item">
+                            <span>{{pending_redeem_request_fabricator}}</span>
+                            <p>Fabricator</p>
+                        </div>
+                        <div class="cs-item">
+                            <span>{{pending_redeem_request_architects}}</span>
+                            <p>Architect</p>
                         </div>
                     </div>
                 </li>
-
-
-                <!-- <li matRipple style="background: #f50057;" (click)="goto_balance_coupon_page()">
-                    <div class="counter-value">
-                        <div class="counter-icon"><img src="assets/img/dashboard/marketing_exp.svg"></div>
-                        <p>{{balance_coupon_value}}</p>
-                    </div>
-                    <div class="counter-name">Balance Coupon Value</div> 
-                    
-                    <div class="top-item">
-                        <h2>Total Coupon</h2>
-                        <span class="cs-count">{{total_coupon_value}}</span>
-                    </div>
-                    <div class="bottom-item">
-                        <div class="cs-item">
-                            <span>{{coupon_value_scan_by_karigar}}</span>
-                            <p>Plumber</p>
-                        </div>
-                        <div class="cs-item">
-                            <span>{{coupon_value_scan_by_Retailer}}</span>
-                            <p>Retailer</p>
-                        </div>
-                    </div>
-                </li> -->
-
-
-                
-                <!-- <li matRipple style="background: #dbb408;" (click)="goto_balance_coupon_page()">
-                    <div class="top-item">
-                        <h2>Coupon Value</h2>
-                        <span class="flat">{{total_coupon_amount}}</span>
-                    </div>
-                    <div class="bottom-item">
-                        <div class="cs-item">
-                            <span>{{coupon_amount_scan_by_karigar}}</span>
-                            <p>Plumber Scan</p>
-                        </div>
-                        <div class="cs-item">
-                            <span>{{pending_couopn_amount}}</span>
-                            <p>Balance</p>
-                        </div>
-                    </div>
-                </li> -->
-
+              
 
                 <li matRipple style="background: #00b1ff;">
-                    <!-- <div class="counter-value">
-                        <div class="counter-icon"><img src="assets/img/dashboard/karigars.svg"></div>
-                        <p>{{karigars}}</p>
-                    </div>
-                    <div class="counter-name">Karigars</div> -->
                     <div class="top-item">
                         <h2>Network</h2>
                         <span class="cs-count">{{totalNetwork}}</span>
                     </div>
                     <div class="bottom-item">
-                        <div class="cs-item" (click)="goto_karigarsPage('Plumber')">
+                        <div class="cs-item" (click)="goto_karigarsPage(1)">
                             <span>{{user_karigar}}</span>
-                            <p>Plumber</p>
+                            <p>Carpenter</p>
                         </div>
-                        <div class="cs-item" (click)="goto_karigarsPage('Retailer')">
-                            <span>{{user_Retailer}}</span>
-                            <p>Retailer</p>
+                        <div class="cs-item" (click)="goto_karigarsPage(2)">
+                            <span>{{user_Masons}}</span>
+                            <p>Masons</p>
                         </div>
-                        <div class="cs-item" (click)="goto_karigarsPage('Distributor')">
-                            <span>{{user_Distributor}}</span>
-                            <p>Distributor</p>
+                        <div class="cs-item" (click)="goto_karigarsPage(3)">
+                            <span>{{user_Fabricator}}</span>
+                            <p>Fabricator</p>
                         </div>
-                        <!-- <div class="cs-item">
-                            <span>{{user_Distributor}}</span>
-                            <p>Distributor</p>
-                        </div> -->
+                        <div class="cs-item" (click)="goto_karigarsPage(4)">
+                            <span>{{user_Architect}}</span>
+                            <p>Architect</p>
+                        </div>
                     </div>
                 </li>
                 <li matRipple style="background: #3949ab;" (click)="goto_offergiftPage()">
@@ -147,7 +107,15 @@
             <div class="col s6">
                 <div class="pie-chart">
                     <div class="chart-header">
-                        <p>State Wise Plumber</p>
+                        <p>State Wise Karigar</p>
+                        <div class="sm-tab">
+                            <a class="" [ngClass]="{'active': showKarigarList == true}"  (click)="showKarigar(1)" mat-button>Carpenter</a>
+                            <a class="" [ngClass]="{'active': showMasonslist == true}"  (click)="showKarigar(2)" mat-button>Masons</a>
+                            <a class="" [ngClass]="{'active': showFabricatorList == true}" (click)="showKarigar(3)" mat-button>Fabricator</a>
+                            <a class="" [ngClass]="{'active': showArchitectList == true}" (click)="showKarigar(4)" mat-button>Architect</a>
+
+                            <!-- <a class="" mat-button>Distributor</a> -->
+                        </div>
                     </div>
                     <div class="graph">
                         <fusioncharts
@@ -247,9 +215,11 @@
                 <p>Super 30 </p>
                 
                 <div class="sm-tab">
-                    <a class="" [ngClass]="{'active': showKarigarList == true}"  (click)="showKarigar()" mat-button>Plumber</a>
-                    <a class="" [ngClass]="{'active': showDealersList == true}" (click)="showDealers()" mat-button>Retailer</a>
-                    <!-- <a class="" mat-button>Distributor</a> -->
+                    <a class="" [ngClass]="{'active': showKarigarList == true}"  (click)="showKarigar(1)" mat-button>Carpenter</a>
+                    <a class="" [ngClass]="{'active': showMasonslist == true}"  (click)="showKarigar(2)" mat-button>Masons</a>
+                    <a class="" [ngClass]="{'active': showFabricatorList == true}" (click)="showKarigar(3)" mat-button>Fabricator</a>
+                    <a class="" [ngClass]="{'active': showArchitectList == true}" (click)="showKarigar(4)" mat-button>Architect</a>
+
                 </div>
             </div>
             <div class="cs-table scroll-335">
@@ -329,7 +299,7 @@
 </div>
 
 <div class="row mb15">
-    <div class="col s6  ">
+    <!-- <div class="col s6  ">
         <div class="pie-chart">
             <div class="chart-header">
                 <p>{{karigar_anni_graph == true ? 'Plumber' :'Retailer'}} Anniversary Upcoming 7 Day's</p>
@@ -384,15 +354,18 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> -->
     
     <div class="col s6">
         <div class="pie-chart">
             <div class="chart-header">
-                <p> {{karigar_birth_graph == true ?  'Plumber' :'Retailer'}} Birthday Upcoming 7 Day's</p>
+                <p>Karigar Birthday Upcoming 7 Day's</p>
                 <div class="sm-tab">
-                    <a class="" [ngClass]="{'active': karigar_birth_graph == true}"  (click)="KarigarBirthGraph()" mat-button>Plumber</a>
-                    <a class="" [ngClass]="{'active': dealer_birth_graph == true}" (click)="DealerBirthGraph()" mat-button>Retailer</a>
+                    <a class="" [ngClass]="{'active': showKarigarList == true}"  (click)="showKarigar(1)" mat-button>Carpenter</a>
+                    <a class="" [ngClass]="{'active': showMasonslist == true}"  (click)="showKarigar(2)" mat-button>Masons</a>
+                    <a class="" [ngClass]="{'active': showFabricatorList == true}" (click)="showDealers(3)" mat-button>Fabricator</a>
+                    <a class="" [ngClass]="{'active': showArchitectList == true}" (click)="showDealers(4)" mat-button>Architect</a>
+
                 </div>
             </div>
             <div class="cs-table scroll-335">

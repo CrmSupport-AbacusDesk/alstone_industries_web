@@ -1,0 +1,119 @@
+<div class="main-container">
+  <div class="loader" *ngIf="loading_list">
+    <div class="loding-logo">
+      <mat-spinner></mat-spinner>
+    </div>
+  </div>
+  <div class="container form-padding">
+    <form name="siteform"  (ngSubmit)="f.form.valid && savesiteform(f)" #f="ngForm" novalidate autocomplete="off">
+      <div class="row">
+        <div class="col s12">
+          <div class="sprate-box ">
+            <div class="full-offer">
+              <div class="top-heading">
+                <h2>ADD PURCHASE ORDER INFORMATION</h2>
+                <p>Indicates required fields ( * )</p>
+              </div>
+            </div>
+            <div class="row mb0">
+              <div class="col s12">
+                <div class="option-field">
+                  <div class="row mb0">
+                    
+                    <div class="col s3">
+                      <div class="control-field">
+                        <mat-form-field class="cs-input">
+                          <mat-select placeholder="Select Address" [(ngModel)]="data.site_location_id" name="site_location_id"  #site_location_id="ngModel" required>
+                            <mat-option >
+                              <ngx-mat-select-search noEntriesFoundLabel="'no data found'" placeholderLabel="Search Address" (keyup)="getLocation($event.target.value)"></ngx-mat-select-search>
+                            </mat-option>
+                            <mat-option [value]="row.id" *ngFor="let row of locations" (click)="AssignSaleUser(row.state);getarchitect('',row.state)">{{row.address}}</mat-option>
+                          </mat-select>
+                        </mat-form-field>   
+                      </div>
+                    </div>
+
+                    <div class="col s3">
+                      <div class="control-field">
+                        <mat-form-field class="cs-input">
+                          <mat-select placeholder="Sales Executive" [(ngModel)]="data.sales_user_id" name="sales_user_id" #sales_user_id="ngModel" required >
+                            <mat-option class="check-list" [value]="row.id" *ngFor="let row of sales_users;">{{row.full_name | titlecase}}</mat-option>
+                          </mat-select>
+                        </mat-form-field>  
+                      </div>
+                    </div>
+                    <div class="col s3">
+                      <div class="control-field">
+                        <mat-form-field class="cs-input">
+                          <mat-select placeholder="Architect Name" [(ngModel)]="data.architect_id" name="architect_id" #architect_id="ngModel" required>
+                            <mat-option>
+                              <ngx-mat-select-search noEntriesFoundLabel="'no data found'" placeholderLabel="Search.." (keyup)="getarchitect($event.target.value,'')"></ngx-mat-select-search>
+                            </mat-option>
+                            <mat-option [value]="row.id" *ngFor="let row of architect_user">{{row.full_name | titlecase}}</mat-option>
+                          </mat-select>
+                        </mat-form-field>   
+                      </div>
+                    </div>
+
+                    <div class="col s3">
+                      <div class="control-field">
+                        <mat-form-field class="cs-input">
+                          <mat-select placeholder="Select Product" [(ngModel)]="data.product_id" name="product_id" #dealer_id="ngModel" required>
+                            <mat-option >
+                              <ngx-mat-select-search noEntriesFoundLabel="'no data found'" placeholderLabel="Search Product"></ngx-mat-select-search>
+                            </mat-option>
+                            <mat-option [value]="row.id" *ngFor="let row of products">{{row.product_point_group}}</mat-option>
+                          </mat-select>
+                        </mat-form-field>   
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="row mb0">
+                    <div class="col s3">
+                      <div class="control-field mb15">
+                        <mat-form-field class="cs-input">
+                          <input matInput type="number" placeholder="Quantity" name="qty" [(ngModel)] = "data.qty" #qty="ngModel" required>
+                        </mat-form-field>   
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- <div class="col s3" *ngIf="order_id">
+                    <div class="control-field">
+                      <mat-form-field class="cs-input">
+                        <mat-select placeholder="Company Status" [(ngModel)]="data.company_status"  name="company_status" #company_status="ngModel">
+                          <mat-option value="">Change Status</mat-option>
+                          <mat-option value="Pending">Pending</mat-option>
+                          <mat-option value="Pending">Pending</mat-option>
+                          <mat-option value="Pending">Pending</mat-option>
+                        </mat-select>
+                      </mat-form-field>  
+                    </div>
+                  </div>
+
+                  <div class="col s3" *ngIf="order_id">
+                    <div class="control-field">
+                      <mat-form-field class="cs-input">
+                        <mat-select placeholder="Dealer Status" [(ngModel)]="data.dealer_status"  name="dealer_status" #dealer_status="ngModel">
+                          <mat-option value="Pending">Pending</mat-option>
+                          <mat-option value="Pending">Pending</mat-option>
+                          <mat-option value="Pending">Pending</mat-option>
+                        </mat-select>
+                      </mat-form-field>  
+                    </div>
+                  </div> -->
+
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="save mt30" >
+        <button mat-button >SAVE</button>
+      </div>
+    </form>
+  </div>
+</div>

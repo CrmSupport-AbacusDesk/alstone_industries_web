@@ -68,10 +68,10 @@
                     <li><button mat-button  matTooltip="Last Page" class="last-btn" (click) = 'last1()'>Last</button></li>
                 </ul>
                 <div class="master-btn ml20" *ngIf="assign_arr.length > 0 || select_all">
-                    <button style="background: #38b1ec;;" mat-button (click)="opensendmessage(1)">Send Message</button>
+                    <button style="background: #38b1ec;;" mat-button (click)="opensendmessage(userType)">Send Message</button>
                 </div>
                 <div class="master-btn ml20" *ngIf="assign_arr.length > 0 || select_all">
-                    <button style="background: #6daf24;;" mat-button (click)="opensendnitification(1)">Send Notification</button>
+                    <button style="background: #6daf24;;" mat-button (click)="opensendnitification(userType)">Send Notification</button>
                 </div>
               <!-- <div class="master-btn ml20" *ngIf="assign_arr.length > 0 || select_all">
                 <button style="background: #898d86;;" mat-button (click)="convertType()">Convert Into Dealer</button>
@@ -79,7 +79,7 @@
             </div>
         </div>
         
-        <div class="css-table" >
+        <div class="css-table ">
             <div class="sticky-header">
                 <div class="header">
                     <table>
@@ -101,7 +101,7 @@
                                     </button>
                                 </div>
                             </th>
-                            <th class="w70 text-center">Requests</th>
+                            <!-- <th class="w70 text-center">Requests</th> -->
                             <!-- <th class="w65 text-center">User Type</th> -->
                             <th class="w100 text-center">Status</th>
                         </tr>
@@ -162,7 +162,7 @@
                                     <i class="material-icons">search</i>
                                 </div> -->
                             </th>
-                            <th class="w70"></th>
+                            <!-- <th class="w70"></th> -->
                             <!-- <th class="w65"></th> -->
                             <th class="w100">
                                 <div class="form-area">
@@ -184,83 +184,87 @@
                     </table>
                 </div>
             </div>
+
+            <div class="css-table" *ngIf="karigars.length">
+                <div class="table-container">
+                    <div class="table-body">
+                        <table>
+                            <tr *ngFor="let val of karigars; let i = index">
+                                <td class="w30 text-center" style="border-right: 0px !important;"><mat-checkbox name="checked" [(ngModel)]="val.checked" (change)="select_item($event,i)"></mat-checkbox></td>
+                                <td class="w30">{{ ( (current_page - 1 ) * 20 ) + ( i+1 ) }}</td>
+                                <td class="w150">
+                                    <ng-container *ngIf="val.date_created  != '0000-00-00 00:00:00' " > 
+                                        {{val.date_created | date: 'dd MMM yyyy'}} 
+                                    </ng-container> /
+                                    <ng-container *ngIf="val.created_by  == null " > 
+                                          Self
+                                    </ng-container>
+                                    <ng-container *ngIf="val.created_by !==''">
+                                        {{val.created_by}}
+                                    </ng-container> 
+                                </td>
+                                <!-- <td class="w150"> -->
+                                    <!-- <ng-container *ngIf="val.created_by  == '' " > 
+                                        {{val.date_created | date: 'dd MMM yyyy'}} / Self
+                                    </ng-container>  -->
+                                <!-- </td> -->
+                                <td><a class="blue" routerLink="/karigar-detail/{{navPass}}/{{val.id}}/{{current_page}}" (click)="set_filter(filter)" routerLinkActive="active">{{val.first_name | titlecase }} {{val.last_name | titlecase }}</a></td>
+                                <td class="w100">{{val.mobile_no}}</td>
+                                <td class="w135">{{val.state | titlecase }}</td>
+                                <td class="w135">{{val.district | titlecase }}</td>
+        
+                                <!-- <td class="w150">{{val.parent_counter_name | titlecase }}</td> -->
+                                <!-- <td class="w150">{{val.parent_counter_contact_person | titlecase }} - {{val.parent_counter_mobile}}</td> -->
+                                <td class="w150 text-center"> {{val.total_wallet_point}}</td>
+                                <!-- <td class="w70 text-center"><span class="back-bg">{{val.redeem_request}}</span></td> -->
+        
+                                <!-- <td class="w65 text-center"><a class="blue" style="cursor: pointer;" (click)="changeType(1,  val.id, val.user_type)">Change</a></td> -->
+        
+                                 <td class="w100"> 
+                                    <div class="center">
+                                        <select class="{{val.status}}"  [name]="'status'+i" placeholder="Status" [(ngModel)]="val.status" (change)="karigarsSatus(i) ">
+                                            <option class="Verified" value="Verified">Verified</option>
+                                            <option class="Reject" value="Reject">Reject</option>
+                                            <option class="Pending" value="Pending">Pending</option>
+                                            <option class="Suspect" value="Suspect">Suspect</option>
+                                        </select> 
+                                        <div class="over-sec" >
+                                            <i class="material-icons deactive" style="background: #ca9137 !important;"  (click)="deleteKarigar(val.id)" >delete_sweep</i>
+                                        </div> 
+                                    </div>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="container-outer">
+                <div class="date-not" *ngIf="!loading_list && !karigars.length && ( (filter.status == 'All' && karigar_all ) || (filter.status == 'Pending' && karigar_pending ) || (filter.status == 'Verified' && karigar_verified ) || (filter.status == 'Reject' && karigar_reject ) || (filter.status == 'Suspect' && karigar_suspect )   )">
+                    <div class="no-img">
+                        <img src="assets/result-not-found.png"> 
+                    </div>
+                </div>
+                <div class="date-not"  *ngIf="!loading_list && ( (filter.status == 'All' && !karigar_all ) || (filter.status == 'Pending' && !karigar_pending ) || (filter.status == 'Verified' && !karigar_verified ) || (filter.status == 'Reject' && !karigar_reject ) || (filter.status == 'Suspect' && !karigar_suspect )  ) ">
+                    <div class="no-img">
+                        <img src="assets/not-available.jpg"> 
+                    </div>
+                </div>
+            </div>
+        
+            <div class="fab-btns">
+                <button (click)="exportKarigar()" *ngIf="karigars.length" mat-fab class="excel">
+                    <img src="assets/excel.svg">
+                </button>
+                <button mat-fab color="primary"  routerLink="/user-add/{{navPass}}"  routerLinkActive="active" >
+                    <mat-icon>add</mat-icon>
+                </button>
+            </div>
         </div>
+
+       
     </div>   
     
     
-    <div class="css-table" *ngIf="karigars.length">
-        <div class="table-container">
-            <div class="table-body">
-                <table>
-                    <tr *ngFor="let val of karigars; let i = index">
-                        <td class="w30 text-center" style="border-right: 0px !important;"><mat-checkbox name="checked" [(ngModel)]="val.checked" (change)="select_item($event,i)"></mat-checkbox></td>
-                        <td class="w30">{{ ( (current_page - 1 ) * 20 ) + ( i+1 ) }}</td>
-                        <td class="w150">
-                            <ng-container *ngIf="val.date_created  != '0000-00-00 00:00:00' " > 
-                                {{val.date_created | date: 'dd MMM yyyy'}} 
-                            </ng-container> /
-                            <ng-container *ngIf="val.created_by  == null " > 
-                                  Self
-                            </ng-container>
-                            <ng-container *ngIf="val.created_by !==''">
-                                {{val.created_by}}
-                            </ng-container> 
-                        </td>
-                        <!-- <td class="w150"> -->
-                            <!-- <ng-container *ngIf="val.created_by  == '' " > 
-                                {{val.date_created | date: 'dd MMM yyyy'}} / Self
-                            </ng-container>  -->
-                        <!-- </td> -->
-                        <td><a class="blue" routerLink="/karigar-detail/{{val.id}}/{{current_page}}" (click)="set_filter(filter)" routerLinkActive="active">{{val.first_name | titlecase }} {{val.last_name | titlecase }}</a></td>
-                        <td class="w100">{{val.mobile_no}}</td>
-                        <td class="w135">{{val.state | titlecase }}</td>
-                        <td class="w135">{{val.district | titlecase }}</td>
-
-                        <!-- <td class="w150">{{val.parent_counter_name | titlecase }}</td> -->
-                        <!-- <td class="w150">{{val.parent_counter_contact_person | titlecase }} - {{val.parent_counter_mobile}}</td> -->
-                        <td class="w150 text-center"> {{val.total_wallet_point}}</td>
-                        <td class="w70 text-center"><span class="back-bg">{{val.redeem_request}}</span></td>
-
-                        <!-- <td class="w65 text-center"><a class="blue" style="cursor: pointer;" (click)="changeType(1,  val.id, val.user_type)">Change</a></td> -->
-
-                         <td class="w100"> 
-                            <div class="center">
-                                <select class="{{val.status}}"  [name]="'status'+i" placeholder="Status" [(ngModel)]="val.status" (change)="karigarsSatus(i) ">
-                                    <option class="Verified" value="Verified">Verified</option>
-                                    <option class="Reject" value="Reject">Reject</option>
-                                    <option class="Pending" value="Pending">Pending</option>
-                                    <option class="Suspect" value="Suspect">Suspect</option>
-                                </select> 
-                                <div class="over-sec" >
-                                    <i class="material-icons deactive" style="background: #ca9137 !important;"  (click)="deleteKarigar(val.id)" >delete_sweep</i>
-                                </div> 
-                            </div>
-                        </td>
-                    </tr>
-                </table>
-            </div>
-        </div>
-    </div>
-    
-    <div class="container-outer">
-        <div class="date-not" *ngIf="!loading_list && !karigars.length && ( (filter.status == 'All' && karigar_all ) || (filter.status == 'Pending' && karigar_pending ) || (filter.status == 'Verified' && karigar_verified ) || (filter.status == 'Reject' && karigar_reject ) || (filter.status == 'Suspect' && karigar_suspect )   )">
-            <div class="no-img">
-                <img src="assets/result-not-found.png"> 
-            </div>
-        </div>
-        <div class="date-not"  *ngIf="!loading_list && ( (filter.status == 'All' && !karigar_all ) || (filter.status == 'Pending' && !karigar_pending ) || (filter.status == 'Verified' && !karigar_verified ) || (filter.status == 'Reject' && !karigar_reject ) || (filter.status == 'Suspect' && !karigar_suspect )  ) ">
-            <div class="no-img">
-                <img src="assets/not-available.jpg"> 
-            </div>
-        </div>
-    </div>
-
-    <div class="fab-btns">
-        <button (click)="exportKarigar()" *ngIf="karigars.length" mat-fab class="excel">
-            <img src="assets/excel.svg">
-        </button>
-        <button mat-fab color="primary" routerLink="/karigar-add"  routerLinkActive="active" >
-            <mat-icon>add</mat-icon>
-        </button>
-    </div>
+   
 </div>

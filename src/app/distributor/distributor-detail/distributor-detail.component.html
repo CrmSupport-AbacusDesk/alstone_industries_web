@@ -12,7 +12,7 @@
                     <div class="full-offer">
                         <div class="top-heading no-justify">
                             <a class="back-btn" (click)="goBack()"><i class="material-icons">arrow_back</i></a>
-                            <h2>DISTRIBUTOR DETAIL</h2>
+                            <h2>SALES EXECUTIVE DETAIL</h2>
                         </div>
 
                         <div class="detail-info">
@@ -21,7 +21,7 @@
                                 <div class="profile-info">
                                     <ul>
 
-                                        <li>
+                                        <!-- <li>
                                             <figure>
                                                 <div class="right-cont">
                                                     <p>Company Name</p>
@@ -32,13 +32,27 @@
 
                                         <li>
                                             <figure>
-                                                <!-- <div class="left-img border">
+                                                <div class="left-img border">
                                                     <img [src]="getData.profile"
                                                         (click)="openDialog( getData.id,'test5')">
-                                                </div> -->
+                                                </div>
                                                 <div class="right-cont">
                                                     <p>Contact Person</p>
                                                     <span>{{getData.parent_counter_contact_person | titlecase }}</span>
+                                                </div>
+                                            </figure>
+                                        </li> -->
+
+                                        <li>
+                                            <figure>
+                                                <div class="left-img zoom-cursor">
+                                                    <img [src]="uploadUrl + getData.profile"
+                                                        (click)="openDialog(uploadUrl + getData.profile)">
+                                                </div>
+                                                <div class="right-cont">
+                                                    <p>Name</p>
+                                                    <span>{{getData.first_name | titlecase }} {{getData.last_name |
+                                                        titlecase }}</span>
                                                 </div>
                                             </figure>
                                         </li>
@@ -216,9 +230,7 @@
             </div> -->
 
 
-            <div class="add-button">
-                <button mat-button (click)="edit()"><i class="material-icons">edit</i></button>
-            </div>
+           
         </div>
 
 
@@ -358,6 +370,11 @@
                     </div>
                 </div>
             </div>
+        </div>
+
+
+        <div class="add-button">
+            <button mat-button (click)="edit()"><i class="material-icons">edit</i></button>
         </div>
 
 

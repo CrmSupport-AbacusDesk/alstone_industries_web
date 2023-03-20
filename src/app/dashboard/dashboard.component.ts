@@ -12,9 +12,10 @@ export class DashboardComponent implements OnInit {
     balance_coupon_value:any;
     karigars:any;
     totalNetwork:any;
-    user_karigar:any;
-    user_Retailer:any;
-    user_Distributor:any;
+    user_Sales_Executive:any;
+    user_Fabricator:any;
+    user_karigar:any
+    user_Architect:any;
     unread_counts:any;
     offer:any;
     total_coupon_value:any;
@@ -24,7 +25,7 @@ export class DashboardComponent implements OnInit {
     offer_Retailer:any;
     pending_redeem_request:any;
     pending_redeem_request_karigar:any;
-    pending_redeem_request_retailer:any;
+    pending_redeem_request_masons:any;
     offer_gift:any;
     products:any;
     super_karigars:any=[];
@@ -59,7 +60,7 @@ export class DashboardComponent implements OnInit {
     constructor(public db: DatabaseService, private router:Router) 
     {
         this.get_counts();
-        this.get_super_karigars();
+        this.get_super_karigars(1);
         this.get_super_dealers();
         this.get_offer_balance_days();
         this.state_wise_karigar();
@@ -78,6 +79,13 @@ export class DashboardComponent implements OnInit {
     {
         
     }
+
+    offer_Architect:any
+    offer_Fabricator:any
+    offer_Masons:any
+    pending_redeem_request_architects:any;
+    pending_redeem_request_fabricator:any;
+    user_Masons:any;
     
     get_counts() 
     {
@@ -92,6 +100,10 @@ export class DashboardComponent implements OnInit {
                 this.karigars = resp.karigars;
 
                 this.offer_karigar=resp.offer_karigar;
+                this.offer_Architect=resp.offer_Architect;
+                this.offer_Fabricator=resp.offer_Fabricator;
+                this.offer_Masons=resp.offer_Masons;
+
                 this.offer_Retailer=resp.offer_Retailer;
                 this.offer = resp.offer;
                 this.total_coupon_value=resp.total_coupon_value;
@@ -99,26 +111,29 @@ export class DashboardComponent implements OnInit {
                 this.pending_couopn_amount=resp.pending_couopn_amount;
                 this.coupon_amount_scan_by_karigar=resp.coupon_amount_scan_by_karigar;
 
-                this.coupon_value_scan_by_Retailer=resp.coupon_value_scan_by_Retailer;
-                this.coupon_value_scan_by_karigar=resp.coupon_value_scan_by_karigar;
+                this.pending_redeem_request_architects=resp.pending_redeem_request_architects;
+                this.pending_redeem_request_fabricator=resp.pending_redeem_request_fabricator;
                 this.pending_redeem_request_karigar=resp.pending_redeem_request_karigar;
-                this.pending_redeem_request_retailer=resp.pending_redeem_request_retailer;
+                this.pending_redeem_request_masons=resp.pending_redeem_request_masons;
                 this.offer_gift = resp.offer_gift;
                 this.pending_redeem_request = resp.pending_redeem_request;
                 this.products = resp.products;
                 this.totalNetwork=resp.user;
                 this.user_karigar=resp.user_karigar;
-                this.user_Retailer=resp.user_Retailer;
-                this.user_Distributor=resp.user_Distributor;
+                this.user_Sales_Executive=resp.user_Sales_Executive;
+                this.user_Fabricator=resp.user_Fabricator;
+                this.user_Architect=resp.user_Architect;
+                this.user_Masons=resp.user_Masons;
+
                 this.unread_counts=resp.unread;
             });
         }
         
-        get_super_karigars()
+        get_super_karigars(usertype)
         {
             this.loading_list = true;
             
-            this.db.post_rqst({ }, 'master/getSuperkarigars')
+            this.db.post_rqst({ 'user_type':usertype}, 'master/getSuperkarigars')
             .subscribe((resp) => 
             {
                 this.loading_list = false;
@@ -278,6 +293,7 @@ export class DashboardComponent implements OnInit {
 
         showDealersList=false;
         showKarigarList=true;
+        showArchitectList=false
         show_karigar_graph=true;
         show_dealer_graph=false;
         karigar_anni_graph=true;
@@ -285,6 +301,9 @@ export class DashboardComponent implements OnInit {
 
         karigar_birth_graph=true;
         dealer_birth_graph=false;
+
+        showFabricatorList=false;
+        showMasonslist=false;
 
 
         KarigarAnniGraph(){
@@ -307,10 +326,37 @@ export class DashboardComponent implements OnInit {
             this.showKarigarList=false;
             this.get_super_dealers();
         }
-        showKarigar(){
-            this.showDealersList=false;
-            this.showKarigarList=true;
-            this.get_super_karigars();
+        showKarigar(type){
+            if(type==1){
+                this.showKarigarList=true;
+                this.showArchitectList=false;
+                this.showMasonslist=false;
+                this.showFabricatorList=false;
+                this.get_super_karigars(1);
+            }
+            else if(type==2){
+                this.showMasonslist=true;
+                this.showKarigarList=false;
+                this.showArchitectList=false;
+                this.showFabricatorList=false;
+                this.get_super_karigars(2);
+            }
+            else if(type==3){
+                this.showFabricatorList=true;
+                this.showKarigarList=false;
+                this.showArchitectList=false;
+                this.showMasonslist=false;
+                this.get_super_karigars(3);
+            }
+            else if(type==4){
+                this.showArchitectList=true;
+                this.showKarigarList=false;
+                this.showMasonslist=false;
+                this.showFabricatorList=false;
+                this.get_super_karigars(4);
+            }
+
+          
         }
         showKarigarGraph(){
             this.show_karigar_graph=true;
@@ -458,13 +504,16 @@ export class DashboardComponent implements OnInit {
     {
         // this.router.navigate(['karigar-list']);
 
-        if(action === 'Plumber'){   
-            this.router.navigate(['karigar-list/1'],{queryParams:{mode:action}});
-        }else if(action === 'Retailer'){
-            this.router.navigate(['dealer-list/1'],{queryParams:{mode:action}});
+        if(action ==1){   
+            this.router.navigate(['karigar-list/Carpenter'],{queryParams:{mode:action}});
+        }else if(action == 2){
+            this.router.navigate(['karigar-list/Masons'],{queryParams:{mode:action}});
         }
-        else if(action === 'Distributor'){
-            this.router.navigate(['distributor-list/1'],{queryParams:{mode:action}});
+        else if(action == 3){
+            this.router.navigate(['karigar-list/Fabricator'],{queryParams:{mode:action}});
+        }
+        else if(action == 4){
+            this.router.navigate(['dealer-list/1'],{queryParams:{mode:action}});
         }
     }
     

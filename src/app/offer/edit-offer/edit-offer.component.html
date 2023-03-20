@@ -18,12 +18,14 @@
                       <div class="col s4 ">
                         <div class="control-field">
                           <mat-form-field class="cs-input">
-                          <mat-label>Select User Type</mat-label>
-                          <mat-select  [(ngModel)]="addOffer.user_type" name="user_type" #user_type="ngModel" required>
-                            <mat-option value=""></mat-option>
-                            <mat-option value="Plumber">Plumber</mat-option>
-                            <mat-option value="Retailer">Retailer</mat-option>
-                          </mat-select>
+                            <mat-label>Select User Type</mat-label>
+                            <mat-select  [(ngModel)]="addOffer.user_type" name="user_type" #user_type="ngModel" required>
+                              <mat-option value=""></mat-option>
+                              <mat-option value="Carpenter">Carpenter</mat-option>
+                              <mat-option value="Masons">Masons</mat-option>
+                              <mat-option value="Fabricator">Fabricator</mat-option>
+                              <mat-option value="Architect">Architect</mat-option>
+                            </mat-select>
                           </mat-form-field>  
                         </div>
                       </div>
@@ -79,7 +81,7 @@
                     
                   </div>
                 </div>
-
+                
                 <div class="col s4 mt15 ">
                   <div class="option-field">
                     <div class="territory-infos">

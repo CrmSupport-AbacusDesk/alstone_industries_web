@@ -47,54 +47,61 @@
                 <div class="col s12">
                     <div class="option-field">
                         <div class="row mb0">
-                            <div class="col s3">
+                            <div class="col s4">
                                 <div class="control-field">
                                     <mat-form-field class="cs-input">
-                                        <input matInput placeholder="Welcome Points" (keypress)="number($event)" name="wlcom_points" [(ngModel)]="refer.wlcom_points">
+                                    <label class="pp_lable">Welcome Point</label>
+                                        <input matInput  (keypress)="number($event)" name="wlcom_points" [(ngModel)]="refer.wlcom_points">
                                     </mat-form-field>  
                                 </div>
                             </div>
-                            <div class="col s3">
+                            <div class="col s4">
                                 <div class="control-field">
                                     <mat-form-field class="cs-input">
-                                        <input matInput placeholder="Referral User Points" (keypress)="number($event)" name="referal_point" [(ngModel)]="refer.referal_point" >
+                                    <label class="pp_lable">Referral User Points</label>
+
+                                        <input matInput  (keypress)="number($event)" name="referal_point" [(ngModel)]="refer.referal_point" >
                                     </mat-form-field>  
                                 </div>
                             </div>
-                            <div class="col s3">
+                            <div class="col s4">
                                 <div class="control-field">
                                     <mat-form-field class="cs-input">
-                                        <input matInput placeholder="Referral Owner Points" (keypress)="number($event)" name="owner_referal_point" [(ngModel)]="refer.owner_referal_point" >
+                                    <label class="pp_lable">Referral Owner Points</label>
+                                        <input matInput  (keypress)="number($event)" name="owner_referal_point" [(ngModel)]="refer.owner_referal_point" >
                                     </mat-form-field>  
                                 </div>
                             </div>
-                            <div class="col s3">
+                            <div class="col s4">
                                 <div class="control-field">
                                     <mat-form-field class="cs-input">
-                                        <input matInput placeholder="Min Gift Redeem (%)" name="min_gif_per" (keypress)="number($event)" [(ngModel)]="refer.min_gif_per" >
+                                    <label class="pp_lable">Min Gift Redeem (%)</label>
+                                        <input matInput  name="min_gif_per" (keypress)="number($event)" [(ngModel)]="refer.min_gif_per" >
                                     </mat-form-field>  
                                 </div>
                             </div>
                         </div>
                         <div class="row mb0">
-                            <div class="col s3">
+                            <div class="col s4">
                                 <div class="control-field">
                                     <mat-form-field class="cs-input">
-                                        <input matInput placeholder="Birthday Points" (keypress)="number($event)" name="birthday_points" [(ngModel)]="refer.birthday_points">
+                                    <label class="pp_lable">Birthday Points</label>
+                                        <input matInput  (keypress)="number($event)" name="birthday_points" [(ngModel)]="refer.birthday_points">
                                     </mat-form-field>  
                                 </div>
                             </div>
-                            <div class="col s3">
+                            <!-- <div class="col s4">
                                 <div class="control-field">
                                     <mat-form-field class="cs-input">
                                         <input matInput placeholder="Anniversary Points" (keypress)="number($event)" name="anniversary_points" [(ngModel)]="refer.anniversary_points">
                                     </mat-form-field>  
                                 </div>
-                            </div>
-                            <div class="col s3">
+                            </div> -->
+                            <div class="col s4">
                                 <div class="control-field">
                                     <mat-form-field class="cs-input">
-                                        <input matInput placeholder="Cash Redeem Points Limit" (keypress)="number($event)" name="cash_redemption_limit" [(ngModel)]="refer.cash_redemption_limit">
+                                    <label class="pp_lable">Cash Redeem Points Limit</label>
+                                        <input matInput  (keypress)="number($event)" name="cash_redemption_limit" [(ngModel)]="refer.cash_redemption_limit">
                                     </mat-form-field>  
                                 </div>
                             </div>

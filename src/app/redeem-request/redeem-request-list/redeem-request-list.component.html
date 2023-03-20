@@ -66,15 +66,14 @@
             </div>
         </div>
         
-        
-        <div class="css-table "  >
+        <div class="css-table hr-scroll-table">
             <div class="sticky-header">
                 <div class="header">
                     <table>
                         <tr>
                             <th class="w30">&nbsp;</th>
                             <th class="w100" >Date</th>
-                            <th class="w160">Name</th>
+                            <th class="w150">Name</th>
                             <th class="w85">Req. ID</th>
                             <th class="w90">Mobile No.</th>
                             <th class="w90">A/C Status</th>
@@ -82,7 +81,7 @@
 
                             <th class="w100">Gift</th>
                             
-                            <th>Offer-valid Upto</th>
+                            <th class="w120">Offer-valid Upto</th>
                             <th class="w80 text-right">Points Req.</th>
                             <th class="w100 text-right">Balance Point</th>
                             <th class="w80 text-center">Points Req. Type </th>
@@ -109,7 +108,7 @@
                                     </mat-form-field>
                                 </div>
                             </th>
-                            <th class="w160">
+                            <th class="w150">
                                 <div class="search-form">
                                     <input type="text" placeholder="Name" [(ngModel)]="filter.name"  (keyup.enter)="current_page = 1;getReedamList('')">
                                     <i class="material-icons">search</i>
@@ -180,7 +179,7 @@
                                     <i class="material-icons">search</i>
                                 </div>
                             </th>
-                            <th>
+                            <th class="w120">
                                 <div class="date-form">
                                     <i *ngIf="filter.end_date" class="material-icons" (click)="filter.end_date = '';getReedamList('') ">clear</i>
                                     
@@ -250,98 +249,103 @@
                     </table>
                 </div>
             </div>
+
+            <div class="css-table" *ngIf="reedam.length">
+                <div class="table-container">
+                    <div class="table-body">
+                        <table> 
+                            <tr *ngFor="let val of reedam; let i = index">
+                                <td class="w30">{{ ( (current_page - 1 ) * 20 ) + ( i+1 ) }}</td>
+                                <td class="w100">
+                                    <ng-container *ngIf="val.date_created  != '0000-00-00 00:00:00' "> 
+                                        {{val.date_created | date: 'dd MMM yyyy'}}
+                                    </ng-container>
+                            </td>
+                            <td class="w150">
+                                <ng-container *ngIf="val.user_type=='1' ">
+                                    <a class="blue" routerLink="/karigar-detail/{{val.user_id}}/{{current_page}}" routerLinkActive="active">
+                                        {{val.first_name | titlecase}} {{val.last_name | titlecase}} - (Plumber)
+                                    </a>
+                                </ng-container>
+                                <ng-container *ngIf="val.user_type=='2' ">
+                                    <a class="blue" routerLink="/dealer-detail/{{val.user_id}}/{{current_page}}" routerLinkActive="active">
+                                        {{val.company_name | titlecase}} - (Retailer)
+                                    </a>
+                                </ng-container>
+                            </td>
+                            <td class="w85"> <a class="blue pl5" routerLink="/redeem-request-detail/{{val.id}}">{{val.invoice_id}}</a></td>
+                            
+                            <td class="w90">{{val.mobile_no}}</td>
+                            <td class="w90 bg-change {{val.karigar_status}}">{{val.karigar_status}}</td>
+                            <td class="w90 ">{{val.redeem_type | titlecase}}</td>
+        
+                            <!-- <td class="w130 ">{{val.sales_name}}</td> -->
+                            <td class="w100 ">{{val.gift_title}}</td>
+                            <td class="w120"><a  routerLink="/offer-detail"  routerLink="/offer-detail/{{val.offer_id}}" class="blue">{{val.title}} #{{val.offer_code}}</a> -{{val.end_date | date: 'dd MMM yyyy'}}</td>
+                            <td class="w80 text-right">{{val.gift_points}}</td>
+                            <td class="w100 text-center">{{val.balance_point}}</td>
+                            <td class="w80 text-center">
+                                <img src="assets/paytm.png" *ngIf="val.payment_type == 'Paytm'" class="upi-img h18">
+                                <img src="assets/phonepe.png" *ngIf="val.payment_type == 'PhonePe'" class="upi-img">
+                                <img src="assets/googlepay.png" *ngIf="val.payment_type == 'Google Pay'" class="upi-img">
+                                <img src="assets/gift.svg" *ngIf="val.payment_type == 'Gift'" class="upi-img">
+                                
+                                <!-- {{val.payment_type}} -->
+                            </td>
+                            <td class="w130">{{val.payment_number}}</td>
+                            <td class="w85  {{val.gift_status}}" >{{val.gift_status}}</td>
+                            <td class="w110  {{val.receive_status}}">
+                                <div class="center"  *ngIf="val.receive_status != 'Received' && val.gift_status == 'Approved'   ">
+                                    <select class="{{val.receive_status}}"  [name]="'receive_status'+i" placeholder="Status" [(ngModel)]="val.receive_status" (change)="karigarsSatus(i, val.redeem_type) " >
+                                        <option  value="" [disabled]="val.receive_status == 'Transfer' || val.receive_status == 'Shipped' ">Under Process</option>
+                                        <option *ngIf="val.redeem_type == 'Cash'"  value="Transfer" class="Shipped">Transfer</option>
+                                        <option *ngIf="val.redeem_type == 'gift'" value="Shipped" class="Shipped">Shipped</option>
+        
+                                    </select> 
+                                </div>
+                                <div  *ngIf="val.receive_status != 'Received' && val.gift_status == 'Pending'   ">
+                                    <p class="center">---</p>
+                                </div>
+                                <ng-container *ngIf="val.receive_status == 'Received'  ">
+                                    {{val.receive_status}}
+                                </ng-container>
+                                
+                            </td>
+                            <td class="w60 blue">
+                                <a class="pointer" (click)="changeStatus(i, val.id, val.gift_status )" *ngIf="val.receive_status == '' && val.gift_status != 'Reject'  ">Status</a>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+        
+        
+         <div class="container-outer">
+            <div class="date-not" *ngIf="!loading_list && !reedam.length && ( (filter.gift_status == '' && reedam_all ) || (filter.gift_status == 'Pending' && reedam_pending ) || (filter.gift_status == 'Approved' && reedam_approved ) || (filter.gift_status == 'Reject' && reedam_reject )   )">
+                <div class="no-img">
+                    <img src="assets/result-not-found.png"> 
+                </div>
+            </div>
+            
+            <div class="date-not"  *ngIf="!loading_list && ( (filter.gift_status == '' && !reedam_all ) || (filter.gift_status == 'Pending' && !reedam_pending ) || (filter.gift_status == 'Approved' && !reedam_approved ) || (filter.gift_status == 'Reject' && !reedam_reject )  ) ">
+                <div class="no-img">
+                    <img src="assets/not-available.jpg"> 
+                </div>
+            </div>
+            
+            <div class="fab-btns">
+                <button (click)="exportRedeemList()" *ngIf="reedam.length" mat-fab class="excel">
+                    <img src="assets/excel.svg">
+                </button>
+            </div>
+         </div>
+        
+      
             
             
         </div>
+       
     </div>
-    <div class="css-table" *ngIf="reedam.length">
-        <div class="table-container">
-            <div class="table-body">
-                <table> 
-                    <tr *ngFor="let val of reedam; let i = index">
-                        <td class="w30">{{ ( (current_page - 1 ) * 20 ) + ( i+1 ) }}</td>
-                        <td class="w100">
-                            <ng-container *ngIf="val.date_created  != '0000-00-00 00:00:00' "> 
-                                {{val.date_created | date: 'dd MMM yyyy'}}
-                            </ng-container>
-                    </td>
-                    <td class="w160">
-                        <ng-container *ngIf="val.user_type=='1' ">
-                            <a class="blue" routerLink="/karigar-detail/{{val.user_id}}/{{current_page}}" routerLinkActive="active">
-                                {{val.first_name | titlecase}} {{val.last_name | titlecase}} - (Plumber)
-                            </a>
-                        </ng-container>
-                        <ng-container *ngIf="val.user_type=='2' ">
-                            <a class="blue" routerLink="/dealer-detail/{{val.user_id}}/{{current_page}}" routerLinkActive="active">
-                                {{val.company_name | titlecase}} - (Retailer)
-                            </a>
-                        </ng-container>
-                    </td>
-                    <td class="w85"> <a class="blue pl5" routerLink="/redeem-request-detail/{{val.id}}">{{val.invoice_id}}</a></td>
-                    
-                    <td class="w90">{{val.mobile_no}}</td>
-                    <td class="w90 bg-change {{val.karigar_status}}">{{val.karigar_status}}</td>
-                    <td class="w90 ">{{val.redeem_type | titlecase}}</td>
-
-                    <!-- <td class="w130 ">{{val.sales_name}}</td> -->
-                    <td class="w100 ">{{val.gift_title}}</td>
-                    <td ><a  routerLink="/offer-detail"  routerLink="/offer-detail/{{val.offer_id}}" class="blue">{{val.title}} #{{val.offer_code}}</a> -{{val.end_date | date: 'dd MMM yyyy'}}</td>
-                    <td class="w80 text-right">{{val.gift_points}}</td>
-                    <td class="w80 text-center">{{val.balance_point}}</td>
-                    <td class="w100 text-center">
-                        <img src="assets/paytm.png" *ngIf="val.payment_type == 'Paytm'" class="upi-img h18">
-                        <img src="assets/phonepe.png" *ngIf="val.payment_type == 'PhonePe'" class="upi-img">
-                        <img src="assets/googlepay.png" *ngIf="val.payment_type == 'Google Pay'" class="upi-img">
-                        <img src="assets/gift.svg" *ngIf="val.payment_type == 'Gift'" class="upi-img">
-                        
-                        <!-- {{val.payment_type}} -->
-                    </td>
-                    <td class="w130">{{val.payment_number}}</td>
-                    <td class="w85  {{val.gift_status}}" >{{val.gift_status}}</td>
-                    <td class="w110  {{val.receive_status}}">
-                        <div class="center"  *ngIf="val.receive_status != 'Received' && val.gift_status == 'Approved'   ">
-                            <select class="{{val.receive_status}}"  [name]="'receive_status'+i" placeholder="Status" [(ngModel)]="val.receive_status" (change)="karigarsSatus(i, val.redeem_type) " >
-                                <option  value="" [disabled]="val.receive_status == 'Transfer' || val.receive_status == 'Shipped' ">Under Process</option>
-                                <option *ngIf="val.redeem_type == 'Cash'"  value="Transfer" class="Shipped">Transfer</option>
-                                <option *ngIf="val.redeem_type == 'gift'" value="Shipped" class="Shipped">Shipped</option>
-
-                            </select> 
-                        </div>
-                        <div  *ngIf="val.receive_status != 'Received' && val.gift_status == 'Pending'   ">
-                            <p class="center">---</p>
-                        </div>
-                        <ng-container *ngIf="val.receive_status == 'Received'  ">
-                            {{val.receive_status}}
-                        </ng-container>
-                        
-                    </td>
-                    <td class="w60 blue">
-                        <a class="pointer" (click)="changeStatus(i, val.id, val.gift_status )" *ngIf="val.receive_status == '' && val.gift_status != 'Reject'  ">Status</a>
-                    </td>
-                </tr>
-            </table>
-        </div>
-    </div>
-</div>
-
-
-
-
-<div class="date-not" *ngIf="!loading_list && !reedam.length && ( (filter.gift_status == '' && reedam_all ) || (filter.gift_status == 'Pending' && reedam_pending ) || (filter.gift_status == 'Approved' && reedam_approved ) || (filter.gift_status == 'Reject' && reedam_reject )   )">
-    <div class="no-img">
-        <img src="assets/result-not-found.png"> 
-    </div>
-</div>
-
-<div class="date-not"  *ngIf="!loading_list && ( (filter.gift_status == '' && !reedam_all ) || (filter.gift_status == 'Pending' && !reedam_pending ) || (filter.gift_status == 'Approved' && !reedam_approved ) || (filter.gift_status == 'Reject' && !reedam_reject )  ) ">
-    <div class="no-img">
-        <img src="assets/not-available.jpg"> 
-    </div>
-</div>
-
-<div class="fab-btns">
-    <button (click)="exportRedeemList()" *ngIf="reedam.length" mat-fab class="excel">
-        <img src="assets/excel.svg">
-    </button>
-</div>
+  
 </div>

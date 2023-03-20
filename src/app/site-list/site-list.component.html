@@ -1,0 +1,266 @@
+
+<div class="main-container ">
+  <div class="loader" *ngIf = "loading_list">
+    <div class="loding-logo">
+      <mat-spinner></mat-spinner>
+    </div>
+  </div>
+  <div class="fixed">
+    <div class="tab-header">
+      <div class="tabs-list gift-tab-list">
+        <!-- <ul>
+          <li (click)="filter = {};filter.status = 'All'; getUserList('')" [ngClass]="{'active': filter.status == 'All'}" >
+            <a >
+              <p>All</p>
+              <span>{{ dealer_all }}</span>
+            </a>
+          </li>
+          <li (click)="filter = {};filter.status = 'Pending'; getUserList('')" [ngClass]="{'active': filter.status == 'Pending'}">
+            <a>
+              <p>PENDING</p>
+              <span class="request-bg">{{ dealer_pending }}</span>
+            </a>
+          </li>
+          <li (click)="filter = {};filter.status = 'Verified'; getUserList('')" [ngClass]="{'active': filter.status == 'Verified'}">
+            <a>
+              <p >VERIFIED</p>
+              <span class="approved-bg">{{ dealer_verified }}</span>
+            </a>
+          </li>
+          <li (click)="filter = {};filter.status = 'Reject'; getUserList('')" [ngClass]="{'active': filter.status == 'Reject'}">
+            <a>
+              <p >REJECT</p>
+              <span class="reject-bg">{{ dealer_reject }}</span>
+            </a>
+          </li>
+          
+          <li (click)="filter = {};filter.status = 'Suspect'; getUserList('')" [ngClass]="{'active': filter.status == 'Suspect'}">
+            <a>
+              <p >SUSPECT</p>
+              <span class="suspect-bg">{{ dealer_suspect }}</span>
+            </a>
+          </li>
+        </ul> -->
+        
+        <!-- <div class="input-field" *ngIf="(filter.status == '' && dealer_all ) || (filter.status == 'Pending' && dealer_pending ) || (filter.status == 'Verified' && dealer_verified ) || (filter.status == 'Reject' && dealer_reject ) || (filter.status == 'Suspect' && dealer_suspect )  ">
+          <input type="text" placeholder="Search" [(ngModel)]="filter.search"  (keyup.enter)="current_page = 1;getUserList()">
+          <i class="material-icons">
+            search
+          </i>
+        </div>
+        <div class="master-btn pl15">
+          <button  mat-raised-button color="primary" (click)="openDatepicker()">Date Filter</button>
+        </div> -->
+      </div>
+      
+      <div class="refresh-btn">
+        <a mat-button matTooltip="Refresh" matTooltipPosition="below" (click)="getUserList('refresh');set_filter({})"><i class="material-icons">sync</i></a>
+      </div>
+      
+      <div class="top-pagination">
+        
+        <ul>
+          <li><p>Pages {{ current_page }} of {{ last_page }}</p></li>
+          <li><button mat-button  matTooltip="First Page" class="fisrt-btn" (click) = 'current1()'>First</button></li>
+          <li><button mat-button class="left-btn" (click) = 'redirect_previous()'><i class="material-icons">keyboard_arrow_left</i></button></li>
+          <li><input type="text" placeholder="GO TO" [(ngModel)]="current_page"  (keyup.enter)="getUserList('')"></li>
+          <li><button mat-button class="right-btn" (click) = 'redirect_next()'><i class="material-icons">keyboard_arrow_right</i></button></li>
+          <li><button mat-button  matTooltip="Last Page" class="last-btn" (click) = 'last1()'>Last</button></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="css-table hr-scroll-table">
+      <div class="sticky-header">
+        <div class="header">
+          <table>
+            <tr>
+              <th class="w40">&nbsp;</th>
+              <th class="w100">Date Created</th>
+              <th class="w100">Created By</th>
+              <th class="w200">Site Address</th>
+              <th class="w180">Owner Detail</th>
+              <th class="w120">State</th>
+              <th class="w120">District</th>
+              <th class="w120">City</th>
+              <!-- <th class="w150">Project Size (Cons. Area) Sq. Ft.</th> -->
+              <!-- <th class="w150">Construction Type</th>
+                <th class="w150">Construction Stage</th> -->
+                <th class="w100 text-center">Site Potential(Bags)</th>
+                <th class="w150">Sales Executive Detail</th>
+                <th class="w150">Architect Detail</th>
+                
+                <th class="w80">Status</th>
+                <!-- <th class="w50 text-center">Action</th> -->
+              </tr>
+            </table>
+          </div>
+          
+          <div class="header border-bott">
+            <table>
+              <tr>
+                <th class="w40">&nbsp;</th>
+                <th class="w100"></th>
+                <th class="w100"></th>
+                
+                <th class="w200">
+                  <div class="search-form">
+                    <input type="text" placeholder="Search..." [(ngModel)]="filter.address"  (keyup.enter)="current_page = 1;getUserList('')">
+                    <i class="material-icons">search</i>
+                  </div>
+                </th>
+                <th class="w180">
+                  <div class="search-form">
+                    <input type="text" placeholder="Search..." [(ngModel)]="filter.site_owner_name"  (keyup.enter)="current_page = 1;getUserList('')">
+                    <i class="material-icons">search</i>
+                  </div>
+                </th>
+                <th class="w120">
+                  <div class="search-form">
+                    <input type="text" placeholder="Search..." [(ngModel)]="filter.state"  (keyup.enter)="current_page = 1;getUserList('')">
+                    <i class="material-icons">search</i>
+                  </div>
+                </th>
+                <th class="w120">
+                  <div class="search-form">
+                    <input type="text" placeholder="Search..." [(ngModel)]="filter.district"  (keyup.enter)="current_page = 1;getUserList('')">
+                    <i class="material-icons">search</i>
+                  </div>
+                </th>
+                <th class="w120">
+                  <div class="search-form">
+                    <input type="text" placeholder="Search..." [(ngModel)]="filter.city"  (keyup.enter)="current_page = 1;getUserList('')">
+                    <i class="material-icons">search</i>
+                  </div>
+                </th>
+             
+               
+                <th class="w100 text-center">
+                  <div class="search-form">
+                    <input type="text" placeholder="Search..." [(ngModel)]="filter.site_potential"  (keyup.enter)="current_page = 1;getUserList('')">
+                    <i class="material-icons">search</i>
+                  </div>
+                </th>
+                <th class="w150 text-center">
+                  <div class="search-form">
+                    <input type="text" placeholder="Search..." [(ngModel)]="filter.sales_user_name"  (keyup.enter)="current_page = 1;getUserList('')">
+                    <i class="material-icons">search</i>
+                  </div>
+                </th>
+                <th class="w150 text-center">
+                  <div class="search-form">
+                    <input type="text" placeholder="Search..." [(ngModel)]="filter.architect_name"  (keyup.enter)="current_page = 1;getUserList('')">
+                    <i class="material-icons">search</i>
+                  </div>
+                </th>
+                
+                <th class="w80 ">
+                  <div class="form-area">
+                    <div class="slect mr0">
+                      <mat-form-field>
+                        <mat-label>Search</mat-label>
+                        <mat-select [(ngModel)]="filter.site_status" name="site_status" #site_status="ngModel" (selectionChange)="current_page = 1;getUserList('')">
+                          <mat-option value="">All</mat-option>
+                          <mat-option value="Active">Active</mat-option>
+                          <mat-option value="Deactive">Deactive</mat-option>
+                          
+                        </mat-select>
+                      </mat-form-field>
+                    </div>
+                  </div>
+                </th>
+                
+                <!-- <th class="w50 text-center">Action</th> -->
+              </tr>
+            </table>
+          </div>
+        </div>
+        <div class="table-container"  *ngIf="site_locations.length">
+          <div class="table-body">
+            <table>
+              <tr *ngFor="let val of site_locations; let i = index">
+                <td [ngClass]="{'dots': val.flag == 1}" class="w40">{{ ( (current_page - 1 ) * 20 ) + ( i+1 ) }}</td>
+                <td class="w100">
+                  <ng-container *ngIf="val.date_created  != '0000-00-00 00:00:00' "> 
+                    {{val.date_created | date: 'dd MMM yyyy'}}
+                  </ng-container> 
+                  
+                </td>
+                <td class="w100">
+                  <ng-container *ngIf="val.created_by  == '1' " > 
+                    Admin
+                  </ng-container>
+                  <ng-container *ngIf="val.created_name !=''">
+                    {{val.created_name | titlecase}}
+                  </ng-container>  
+                </td>
+                <td class="w200">{{val.address | titlecase}}</td>
+                <td class="w180">
+                  <a class="blue" routerLink="/site-detail/{{val.id}}/{{current_page}}"  routerLinkActive="active">{{val.site_owner_name | titlecase}} - {{val.site_owner_contact}}</a>
+                </td>
+                <td class="w120">{{val.state}}</td>
+                <td class="w120">{{val.district}}</td>
+                <td class="w120">{{val.city}}</td>
+                <!-- <td class="w150">{{val.project_size}}</td> -->
+                <!-- <td class="w150">{{val.construction_type}}</td>
+                  <td class="w150">{{val.stage}}</td> -->
+                  <td class="w100 text-center">{{val.site_potential}}</td>
+                  <td class="w150">
+                    
+                    <a class="blue" routerLink="/distributor-detail/{{val.sales_user_id}}/{{current_page}}"  routerLinkActive="active">                  
+                      {{val.sales_user_name | titlecase}} 
+                    </a>
+                    - <strong>{{val.sales_user_mobile}}</strong>
+                  </td>
+                  <td class="w150">
+                    <a class="blue" routerLink="/dealer-detail/{{val.architect_id}}/{{current_page}}"  routerLinkActive="active">                  
+                      {{val.architect_name | titlecase}} 
+                    </a>
+                    - <strong>{{val.architect_contact}}</strong>
+                  </td>
+                  <td class="w80">{{val.site_status}}</td>
+                  
+                  <!-- <td class="w50 text-center">
+                    <div class="cs-action">
+                      <a class="ac-green" matTooltip="Edit" matTooltipPosition="below"
+                      (click)="edit(val.id)"><i class="material-icons">edit</i></a>
+                      <a class="ac-red" matTooltip="Delete" matTooltipPosition="below" (click)="deleteDealer(val.id)"><i
+                        class="material-icons">delete_sweep</i></a>
+                      </div>
+                    </td> -->
+                  </tr>
+                  
+                  
+                  
+                </table>
+              </div>
+            </div>
+
+            <div class="container-outer"  *ngIf="!loading_list && !site_locations.length && ( (filter.status == 'All' && dealer_all ) || (filter.status == 'Pending' && dealer_pending ) || (filter.status == 'Verified' && dealer_verified ) || (filter.status == 'Reject' && dealer_reject ) || (filter.status == 'Suspect' && dealer_suspect )   )">
+              <div class="date-not">
+                <div class="no-img">
+                  <img src="assets/result-not-found.png"> 
+                </div>
+              </div>
+            </div>
+            
+            <div class="fab-btns">
+              <button (click)="exportDealer()" *ngIf="site_locations.length" mat-fab class="excel">
+                <img src="assets/excel.svg">
+              </button>
+              <button mat-fab color="primary" routerLink="/site-add"  routerLinkActive="active" >
+                <mat-icon>add</mat-icon>
+              </button>
+            </div>
+          </div>
+          
+        
+    
+    
+  </div>   
+  
+  
+ 
+      </div>
+      
+      

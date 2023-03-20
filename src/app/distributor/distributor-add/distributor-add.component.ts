@@ -139,7 +139,7 @@ export class DistributorAddComponent implements OnInit {
         }
         else
         {
-            this.karigarform.karigar_type = 3;
+            this.karigarform.user_type = 5;
         }
         this.db.insert_rqst( { 'karigar' : this.karigarform }, 'karigar/addKarigar')
         .subscribe( d => {
@@ -151,7 +151,8 @@ export class DistributorAddComponent implements OnInit {
                 return;
             }
             this.router.navigate(['distributor-list/1']);
-            this.dialog.success('Distributor has been successfully added');
+            // if()
+            this.dialog.success('Sales Executive has been successfully added');
         });
     }
     sales_users:any=[];
@@ -202,6 +203,31 @@ export class DistributorAddComponent implements OnInit {
     selectDistributor()
     {
         this.karigarform.dis_mobile = this.dr_list.filter( x => x.id === this.karigarform.dis_id )[0].phone;
+    }
+
+    getaddress(pincode) {
+        if (this.karigarform.pincode.length == '6') {
+            this.db.post_rqst({ 'pincode': pincode }, 'app_karigar/getAddress')
+                .subscribe((result) => {
+                    console.log(result);
+                    var address = result.address;
+                  
+                    if (address != null) {
+                        this.karigarform.state = address.state_name;
+                        this.karigarform.district = address.district_name;
+                        this.karigarform.city = address.city;
+                        console.log(this.karigarform);
+                        this.getDistrictList(1);
+                        // this.getCityList(1);
+                    }
+                    else{
+                        this.dialog.error('Enter Valid Pincode');
+   
+                       }
+              
+                });
+        }
+    
     }
 }
 

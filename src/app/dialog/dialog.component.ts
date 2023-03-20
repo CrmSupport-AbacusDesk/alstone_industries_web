@@ -119,4 +119,32 @@ export class DialogComponent implements OnInit {
             verticalPosition: this.verticalPosition, 
         });
     }
+
+    comanAlert(msg:any=''){
+        
+        const swalWithBootstrapButtons = Swal.mixin({
+            customClass: {
+                confirmButton: 'btn btn-success',
+                cancelButton: 'btn btn-danger'
+            },
+            buttonsStyling: true
+        })
+        
+        return swalWithBootstrapButtons.fire({
+            title: 'Are you sure?',
+            text: msg,
+            type: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Yes',
+            cancelButtonText: 'No',
+            reverseButtons: true
+        }).then((result) => {
+            if (result.value) {
+                return true;
+            } else if (result.dismiss === Swal.DismissReason.cancel) {
+                return false;
+            }
+        })
+        
+    }
 }

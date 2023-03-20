@@ -41,6 +41,13 @@
               <th class="w50"></th>
               <th class="w100">Date Created</th>
               <th>Product Name</th>
+              <th class="w100">Carpenter Point</th>
+              <th class="w100">Masons Point</th>
+              <th class="w100">Fabricator Point</th>
+              <th class="w100">Architect Point</th>
+              <th class="w100">Status</th>
+
+
               <!-- <th class="w100 text-center" (click)="sortByPoints()">
                 <div class="view">
                   <i class="material-icons">swap_vert</i>
@@ -73,9 +80,29 @@
                   <i class="material-icons">search</i>
                 </div>
               </th>
-              <!-- <th class="w100 text-center">&nbsp;</th> -->
-              <!-- <th class="w100 text-center">&nbsp;</th>
-              <th class="w150">&nbsp;</th> -->
+              <th class="w100 text-center">&nbsp;</th>
+               <th class="w100 text-center">&nbsp;</th>
+               <th class="w100 text-center">&nbsp;</th>
+               <th class="w100 text-center">&nbsp;</th>
+               <th class="w100">
+                <div class="form-area">
+                    <div class="slect mr0">
+                        <mat-form-field>
+                            <mat-label>All</mat-label>
+                            <mat-select  [(ngModel)]="filter.status" name="status" #status="ngModel" (selectionChange)="getProductList('')">
+                              <mat-option value="Verified" >Verified</mat-option>
+                              <mat-option value="Pending">Pending</mat-option>
+                              <mat-option  value="Reject">Reject</mat-option>
+                              <mat-option  value="Suspect">Suspect</mat-option>
+
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                </div>
+            </th>
+
+
+              <!-- <th class="w150">&nbsp;</th> --> 
               <!-- <th class="w90">&nbsp;</th> -->
 
               <th class="w70">&nbsp;</th>
@@ -100,6 +127,25 @@
                 </ng-container>
               </td>
               <td>{{val.product_point_group}}</td>
+              <td class="w100 text-center">{{val.karigar_point}}</td>
+              <td class="w100 text-center">{{val.masons_point}}</td>
+              <td class="w100 text-center">{{val.fabricator_point}}</td>
+              <td class="w100 text-center">{{val.architect_point}}</td>
+
+              <td class="w100"> 
+                <div class="center">
+                    <select class="{{val.status}}"  [name]="'status'+i" placeholder="Status" [(ngModel)]="val.status">
+                        <option class="Verified" value="Verified">Verified</option>
+                        <option class="Reject" value="Reject">Reject</option>
+                        <option class="Pending" value="Pending">Pending</option>
+                        <option class="Suspect" value="Suspect">Suspect</option>
+                    </select> 
+                    
+                </div>
+            </td>
+
+
+
               <!-- <td class="w100 text-center">{{val.karigar_point}}</td>
               <td class="w90">{{val.retailer_point}}</td> -->
 
@@ -144,13 +190,34 @@
               </div>
             </div>
             
-            <!-- <div class="option-field">
+            <div class="option-field">
               <div class="control-field">
                 <mat-form-field class="cs-input">
-                  <input matInput placeholder="Plumber Point" name="karigar_point"  [(ngModel)]="productForm.karigar_point" #karigar_point="ngModel" required>
+                  <input matInput placeholder="Carpenter Point" name="karigar_point"  [(ngModel)]="productForm.karigar_point" #karigar_point="ngModel" required>
                 </mat-form-field>  
               </div>
-            </div> -->
+            </div>
+            <div class="option-field">
+              <div class="control-field">
+                <mat-form-field class="cs-input">
+                  <input matInput placeholder="Masons Point" name="masons_point"  [(ngModel)]="productForm.masons_point" #masons_point="ngModel" required>
+                </mat-form-field>  
+              </div>
+            </div>
+            <div class="option-field">
+              <div class="control-field">
+                <mat-form-field class="cs-input">
+                  <input matInput placeholder="Fabricator Point" name="fabricator_point"  [(ngModel)]="productForm.fabricator_point" #fabricator_point="ngModel" required>
+                </mat-form-field>  
+              </div>
+            </div>
+            <div class="option-field">
+              <div class="control-field">
+                <mat-form-field class="cs-input">
+                  <input matInput placeholder="Architect Point" name="architect_point"  [(ngModel)]="productForm.architect_point" #architect_point="ngModel" required>
+                </mat-form-field>  
+              </div>
+            </div>
             <!-- <div  class="mt10">
               <mat-checkbox labelPosition="before" (change)="copyDealerPoint($event)"
               [(ngModel)]="productForm.copydealer_point" name="copydealer_point" #copydealer_point="ngModel" style="font-size: 14px;">

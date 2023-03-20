@@ -1,0 +1,304 @@
+<div class="main-container">
+  <div class="loader" *ngIf="loading_list">
+    <div class="loding-logo">
+      <mat-spinner></mat-spinner>
+    </div>
+  </div>
+  <div class="container form-padding">
+    <form name="siteform"  (ngSubmit)="f.form.valid && savesiteform(f)" #f="ngForm" novalidate autocomplete="off">
+      <div class="row">
+        <div class="col s12">
+          <div class="sprate-box ">
+            <div class="full-offer">
+              <div class="top-heading">
+                <h2> {{karigar_id ? 'EDIT SITE' : 'SITE'}}  INFORMATION</h2>
+                <p>Indicates required fields ( * )</p>
+              </div>
+            </div>
+            <div class="row mb0">
+              <div class="col s12">
+                <div class="option-field">
+                  <div class="row mb0">
+
+                    <div class="col s3">
+                      <div class="control-field">
+                          <div>
+                              <mat-form-field class=" cs-input ">
+                                  <input matInput placeholder="Pincode"
+                                  (input)="getaddress(siteform.pincode)" maxlength="6" minlength="6"
+                                  name="pincode" [(ngModel)]="siteform.pincode"
+                                  #pincode="ngModel" required>
+                              </mat-form-field>
+                          </div>
+                      </div>
+                  </div>
+                    <div class="col s3">
+                      <div class="control-field">
+                        <mat-form-field class="cs-input">
+                          
+                          <mat-select placeholder="State" [(ngModel)]="siteform.state" name="state" #state="ngModel" (selectionChange)="getDistrictList(1);AssignSaleUser();getarchitect('')" required>
+                            <!-- <mat-option >
+                              <ngx-mat-select-search noEntriesFoundLabel="'no data found'" placeholderLabel="Search.." (keyup)="getStateList($event.target.value)"></ngx-mat-select-search>
+                            </mat-option> -->
+                            <mat-option [value]="row.state_name" *ngFor="let row of states">{{row.state_name}}</mat-option>
+                          </mat-select>
+                        </mat-form-field>  
+                      </div>
+                    </div>
+                    <div class="col s3">
+                      <div class="control-field">
+                        <mat-form-field class="cs-input">
+                          <mat-select placeholder="District" [(ngModel)]="siteform.district" name="district" #district="ngModel" (selectionChange)="getCityList(1);" required>
+                            <!-- <mat-option >
+                              <ngx-mat-select-search noEntriesFoundLabel="'no data found'" placeholderLabel="Search.." (keyup)="getDistrictList($event.target.value)"></ngx-mat-select-search>
+                            </mat-option> -->
+                            <mat-option [value]="row.district_name" *ngFor="let row of districts">{{row.district_name}}</mat-option>
+                          </mat-select>
+                        </mat-form-field>   
+                      </div>
+                    </div>
+                    
+                    <div class="col s3">
+                      <div class="control-field">
+                        <div>
+                            <mat-form-field class="cs-input ">
+                                <input matInput placeholder="City" name="city"
+                                [(ngModel)]="siteform.city" #city="ngModel" required>
+                            </mat-form-field>
+                        </div>
+                    </div>
+                    </div>
+                    
+                    <!-- <div class="col s3">
+                      <div class="control-field">
+                        <mat-form-field class="cs-input">
+                          <input matInput placeholder="Sales Zone" name="sales_zone" [(ngModel)] = "siteform.sales_zone" #sales_zone="ngModel"  readonly>
+                          
+                          <mat-select placeholder="Sales Zone" [(ngModel)]="siteform.sales_zone" name="sales_zone" #sales_zone="ngModel" required>
+                            <mat-option >
+                              <ngx-mat-select-search noEntriesFoundLabel="'no data found'" placeholderLabel="Search.." (keyup)="getZoneList($event.target.value)"></ngx-mat-select-search>
+                            </mat-option>
+                            <mat-option [value]="row.zone" *ngFor="let row of zoneData">{{row.zone}}</mat-option>
+                          </mat-select>
+                        </mat-form-field>  
+                      </div>
+                    </div> -->
+                  </div>
+                  <div class="row mb0">
+                    <!-- <div class="col s4">
+                      <div class="control-field">
+                        <mat-form-field class="cs-input">
+                          <input matInput placeholder="Sales Zone" name="sales_zone" [(ngModel)] = "siteform.sales_zone" #sales_zone="ngModel"  readonly>
+                        </mat-form-field>  
+                      </div>
+                    </div> -->
+                    
+                    
+                    
+                  </div>
+                  <div class="row mb0">
+                    <div class="col s3">
+                      <div class="control-field">
+                        <mat-form-field class="cs-input">
+                          <input matInput placeholder="Project Size (Cons. Area) Sq. Ft" name="project_size" [(ngModel)] = "siteform.project_size" (keypress)="numeric_Number($event)" #project_size="ngModel">
+                        </mat-form-field>   
+                      </div>
+                    </div>
+                    
+                    
+                    
+                    <div class="col s3">
+                      <div class="control-field">
+                        <mat-form-field class="cs-input">
+                          <mat-select placeholder="Construction Type" name="construction_type" [(ngModel)] = "siteform.construction_type" #construction_type="ngModel" >
+                            <mat-option value="G+1">G+1</mat-option>
+                            <mat-option value="G+2">G+2</mat-option>
+                            <mat-option value="G+3">G+3</mat-option>
+                            <mat-option value="G+4">G+4</mat-option>
+                            <mat-option value="G+5">G+5</mat-option>
+                            <mat-option value="Ground Floor">Ground Floor</mat-option>
+                          </mat-select>
+                        </mat-form-field>   
+                      </div>
+                    </div>
+                    
+                    <div class="col s3">
+                      <div class="control-field">
+                        <mat-form-field class="cs-input">
+                          <mat-select placeholder="Construction Stage" [(ngModel)]="siteform.stage" name="stage" #stage="ngModel">
+                            <mat-option value="In Progress">In Progress</mat-option>
+                            <mat-option value="Not started">Not started</mat-option>
+                          </mat-select>
+                        </mat-form-field>   
+                      </div>
+                    </div>
+                    <div class="col s3">
+                      <div class="control-field">
+                        <mat-form-field class="cs-input">
+                          <input matInput placeholder="Site Potential(Bags)" name="site_potential" [(ngModel)] = "siteform.site_potential"  (keypress)="numeric_Number($event)" #site_potential="ngModel">
+                        </mat-form-field>   
+                      </div>
+                    </div>
+                    <!-- <div class="col s3">
+                      <div class="control-field">
+                        <mat-form-field class="cs-input">
+                          <mat-select placeholder="Site Type" [(ngModel)]="siteform.site_type" name="site_type" #site_type="ngModel">
+                            <mat-option value="Open">Open</mat-option>
+                            <mat-option value="Non- Max Site">Non- Max Site</mat-option>
+                          </mat-select>
+                        </mat-form-field>   
+                      </div>
+                    </div> -->
+                    
+                  </div>
+                  
+                  <div class="row mb0">
+                    <!-- <div class="col s3">
+                      <div class="control-field">
+                        <mat-form-field class="cs-input">
+                          <mat-select placeholder="Brand Being Used" [(ngModel)]="siteform.brand" name="brand" #brand="ngModel">
+                            <mat-option >
+                              <ngx-mat-select-search noEntriesFoundLabel="'no data found'" placeholderLabel="search" (keyup)="getBrand($event.target.value)"></ngx-mat-select-search>
+                            </mat-option>
+                            <mat-option [value]="row.brand_name" *ngFor="let row of brandData">{{row.brand_name}}</mat-option>
+                          </mat-select>
+                        </mat-form-field> 
+                      </div>
+                    </div> -->
+                    
+                
+                    
+                    <!-- <div class="col s3">
+                      <div class="control-field">
+                        <mat-form-field class="cs-input">
+                          <mat-select placeholder="Select Channel Partner" [(ngModel)]="siteform.dealer_id" name="dealer_id" #dealer_id="ngModel">
+                            <mat-option >
+                              <ngx-mat-select-search noEntriesFoundLabel="'no data found'" (keyup)="getDelaer(siteform.sales_zone, $event.target.value)" placeholderLabel="Search Channel Partner"></ngx-mat-select-search>
+                            </mat-option>
+                            <mat-option [value]="row.id" *ngFor="let row of dealers">{{row.company_name}}</mat-option>
+                          </mat-select>
+                        </mat-form-field>   
+                      </div>
+                    </div> -->
+                    
+                    <div class="col s3">
+                      <div class="control-field">
+                        <mat-form-field class="cs-input">
+                          <mat-select placeholder="Architect Name" [(ngModel)]="siteform.architect_id" name="architect_id" #architect_id="ngModel">
+                            <mat-option>
+                              <ngx-mat-select-search noEntriesFoundLabel="'no data found'" placeholderLabel="Search.." (keyup)="getarchitect($event.target.value)"></ngx-mat-select-search>
+                            </mat-option>
+                            <mat-option [value]="row.id" *ngFor="let row of architect_user">{{row.full_name | titlecase}}</mat-option>
+                          </mat-select>
+                        </mat-form-field>   
+                      </div>
+                    </div>
+
+                    <div class="col s3">
+                      <div class="control-field">
+                        <mat-form-field class="cs-input">
+                          <mat-select placeholder="Sales Executive" [(ngModel)]="siteform.sales_user_id" name="sales_user_id" #sales_user_id="ngModel" (selectionChange)="AssignSaleUser()" required >
+                            <mat-option class="check-list" [value]="row.id" *ngFor="let row of sales_users;">{{row.full_name | titlecase}}</mat-option>
+                          </mat-select>
+                        </mat-form-field>  
+                      </div>
+                    </div>
+                    <div class="col s3">
+                      <div class="control-field">
+                        <mat-form-field class="cs-input">
+                          <input matInput placeholder="Site Owner Name" name="site_owner_name" [(ngModel)] = "siteform.site_owner_name" #site_owner_name="ngModel" required>
+                        </mat-form-field>   
+                      </div>
+                    </div>
+                    <div class="col s3">
+                      <div class="control-field">
+                        <mat-form-field class="cs-input">
+                          <input matInput placeholder="Site Owner Contact No." name="site_owner_contact" [(ngModel)] = "siteform.site_owner_contact" maxlength="10" minlength="10" (keypress)="numeric_Number($event)" #site_owner_contact="ngModel" required>
+                        </mat-form-field>   
+                      </div>
+                    </div> 
+                    
+                    
+                  </div>
+                  
+                  <div class="row mb0">
+                    <!-- <div class="col s3">
+                      <div class="control-field">
+                        <mat-form-field class="cs-input">
+                          <mat-select placeholder="Engineer" [(ngModel)]="siteform.engineer_id" name="engineer_id" #engineer_id="ngModel">
+                            <mat-option>
+                              <ngx-mat-select-search noEntriesFoundLabel="'no data found'" placeholderLabel="Search.." (keyup)="getEngineer($event.target.value)"></ngx-mat-select-search>
+                            </mat-option>
+                            <mat-option [value]="row.id" *ngFor="let row of engineer">{{row.first_name | titlecase}} <strong>{{row.mobile_no}}</strong></mat-option>
+                          </mat-select>
+                        </mat-form-field>   
+                      </div>
+                    </div> -->
+
+                   
+                    
+                  </div>
+                  
+                  <div class="row">
+                    <div class="col s4">
+                      <div class="control-field">
+                        <mat-form-field class="cs-input">
+                          <textarea matInput placeholder="Site Address" class="h100"  name="address" [(ngModel)] = "siteform.address" #address="ngModel" required ></textarea>
+                        </mat-form-field>  
+                      </div>
+                    </div>
+                    
+                    <div class="col s4">
+                      <div class="control-field">
+                        <mat-form-field class="cs-input">
+                          <textarea matInput placeholder="Site Landmark" class="h100" name="landmark" [(ngModel)] = "siteform.landmark" #landmark="ngModel"></textarea>
+                        </mat-form-field>  
+                      </div>
+                    </div>
+                    <div class="col s4">
+                      <div class="control-field">
+                        <mat-form-field class="cs-input">
+                          <textarea matInput placeholder="Remark" class="h100" name="remark" [(ngModel)] = "siteform.remark" #remark="ngModel"></textarea>
+                        </mat-form-field> 
+                      </div>
+                    </div>
+                  </div>
+                  
+                  <div class="row">
+                    <div class="col s6">
+                      <div class="uploade-image">
+                        <ul>
+                          <li style="height:150px;" *ngFor="let row of selected_image; let i=index" [ngClass]="{'active': siteform.profile_selected == row.id}">
+                            <img src="{{row.id ? uploadurl+row.image : row.image}}">
+                            
+                            <span class="cancel-icon">
+                              <i class="material-icons check-icon">done</i>
+                              <i class="material-icons crose-icon" (click)="deleteProductImage(i,row.id)">clear</i>
+                            </span>
+                          </li>
+                          <li class="add-bg-1" style="height:150px;"  *ngIf="selected_image.length < 10">
+                            <label>
+                              <input type="file" (change)="onUploadChange($event)" style="display:none;" accept=".png, .jpg, .jpeg," multiple required />
+                              <div class="other">
+                                <i class="material-icons">add</i>
+                              </div>
+                            </label>
+                          </li>
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="save mt30" >
+        <button mat-button >{{karigar_id ? 'Update' :'Save'}}</button>
+      </div>
+    </form>
+  </div>
+</div>

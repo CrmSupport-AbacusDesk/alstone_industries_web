@@ -37,7 +37,7 @@ export class CouponCodeListComponent implements OnInit {
     
     constructor(public db: DatabaseService, private route: ActivatedRoute, private router: Router, public ses: SessionStorage, public dialog:DialogComponent, public alrt:MatDialog ) {}
     
-    mode:any='2';
+    mode:any='10';
     ngOnInit() {
         this.mode='1';
         this.getAvailableCoupanList('');
@@ -60,12 +60,12 @@ export class CouponCodeListComponent implements OnInit {
     
     redirect_previous2() {
         this.current_page--;
-        this.getScannedList('');
+        this.getScannedList('','');
     }
     redirect_next2() {
         if (this.current_page < this.last_page) { this.current_page++; }
         else { this.current_page = 1; }
-        this.getScannedList('');
+        this.getScannedList('','');
     }
     
     redirect_previous3() {
@@ -108,12 +108,12 @@ export class CouponCodeListComponent implements OnInit {
     current2()
     {
         this.current_page = 1;
-        this.getScannedList('');
+        this.getScannedList('','');
     }
     last2()
     {
         this.current_page = this.last_page;
-        this.getScannedList('');
+        this.getScannedList('','');
     }
     current3()
     {
@@ -191,7 +191,7 @@ export class CouponCodeListComponent implements OnInit {
     scanValue:any;
     total_scanned_coupon:any={};
     total_scanned_coupon_value:any = 0;
-    getScannedList(action) 
+    getScannedList(action,type) 
     {
         this.loading_list = true;
         this.filter.date = this.filter.date  ? this.db.pickerFormat(this.filter.date) : '';
@@ -205,7 +205,7 @@ export class CouponCodeListComponent implements OnInit {
             this.filter ={};
         }
         
-        this.db.post_rqst(  {  'filter': this.filter , 'login':this.db.datauser}, 'offer/couponScannedListKarigar?page=' + this.current_page)
+        this.db.post_rqst(  {  'filter': this.filter ,'user_type':type, 'login':this.db.datauser}, 'offer/couponScannedListKarigar?page=' + this.current_page)
         .subscribe( d => {
             this.loading_list = false;
             console.log(d);
@@ -377,9 +377,11 @@ export class CouponCodeListComponent implements OnInit {
                 this.getAvailableCoupanList("");
             }
 
-            if(this.mode == "2")
+            
+
+            if(this.mode == "10"||this.mode == "11"||this.mode == "12")
             {
-                this.getScannedList("");
+                this.getScannedList("",'');
             }
 
             if(this.mode == "3")

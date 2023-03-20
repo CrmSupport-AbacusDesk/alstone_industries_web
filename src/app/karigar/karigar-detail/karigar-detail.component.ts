@@ -32,6 +32,8 @@ export class KarigarDetailComponent implements OnInit {
     uploadUrl:any =''
     mindate :any = new Date();  
     retailer_count: any={};
+    userType:any ={};
+    
     constructor(public db: DatabaseService, private route: ActivatedRoute, private router: Router, public ses: SessionStorage,public dialog: DialogComponent, public alrt:MatDialog ) {
         this.uploadUrl = db.uploadUrl;
     }
@@ -40,6 +42,8 @@ export class KarigarDetailComponent implements OnInit {
     ngOnInit() {
         this.route.params.subscribe(params => {
             this.karigar_id = params['karigar_id'];
+            this.userType = params['type'];
+            console.log(this.userType)
             this.page_number = params['page'];
             this.status = params['status'];
             if (this.karigar_id) {
@@ -58,7 +62,21 @@ export class KarigarDetailComponent implements OnInit {
         picker.open();
     }
     edit(){
-        this.router.navigate(['/karigar-add/' +this.karigar_id]);
+        if(this.userType=='Masons'){
+            this.router.navigate(['/user-edit/Masons/' +this.karigar_id]);
+        }
+        else if(this.userType=='Carpenter'){
+            this.router.navigate(['/user-edit/Carpenter/' +this.karigar_id]);
+        }
+        else if(this.userType=='Fabricator'){
+            this.router.navigate(['/user-edit/Fabricator/' +this.karigar_id]);
+        }
+        else{
+            this.router.navigate(['/karigar-add/' +this.karigar_id]);
+            
+            
+        }
+        
     }
     getData:any = {};
     total_wallet_points:any = 0;
@@ -164,7 +182,7 @@ export class KarigarDetailComponent implements OnInit {
     
     referral_data:any=[];
     point_transfer:any=[];
-
+    
     getReferral() 
     {
         this.loading_list = true;
@@ -178,23 +196,23 @@ export class KarigarDetailComponent implements OnInit {
             this.point_transfer = d.point_transfer;
         });
     }
-
+    
     assignplumber:any={};
     getAssignPlumber()
-{
-    this.karigar_id = this.karigar_id;
-    this.db.post_rqst(  {  'plumber_id': this.karigar_id }, 'app_karigar/retailer_assign_plumber')
-    .subscribe( d => {
-        this.loading_list = false;
-        console.log(d);
-        this.assignplumber = d.retailer_id;
-        this.retailer_count = d.retailer_count;
-    });
-}
-
-
-
-
+    {
+        this.karigar_id = this.karigar_id;
+        this.db.post_rqst(  {  'plumber_id': this.karigar_id }, 'app_karigar/retailer_assign_plumber')
+        .subscribe( d => {
+            this.loading_list = false;
+            console.log(d);
+            this.assignplumber = d.retailer_id;
+            this.retailer_count = d.retailer_count;
+        });
+    }
+    
+    
+    
+    
     points_summry:any=[];
     get_points_summry() 
     {

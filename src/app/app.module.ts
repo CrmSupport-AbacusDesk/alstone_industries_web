@@ -112,6 +112,14 @@ import { ContractorSatusModalComponent } from './contractor/contractor-satus-mod
 import { ChangeTypeModalComponent } from './change-type-modal/change-type-modal.component';
 import { MasterTabComponent } from './master-tab/master-tab.component';
 import { DigitallistComponent } from './digitallist/digitallist.component';
+import { SiteListComponent } from './site-list/site-list.component';
+import { SiteAddComponent } from './site-add/site-add.component';
+import { SiteDetailComponent } from './site-detail/site-detail.component';
+import { PurchaseListComponent } from './purchase-list/purchase-list.component';
+import { PurchaseAddComponent } from './purchase-add/purchase-add.component';
+import { PurchaseDetailComponent } from './purchase-detail/purchase-detail.component';
+import { SystemUserAddComponent } from './system-user-add/system-user-add.component';
+import { SystemUserListComponent } from './system-user-list/system-user-list.component';
 
 FusionChartsModule.fcRoot(FusionCharts, Charts, FusionTheme);
 
@@ -139,7 +147,10 @@ const routes: Routes = [
   {path: 'sales-executive-list', component:SalesExecutiveComponent , canActivate: [AuthGuard] },
   {path: 'redeem-request-list', component:RedeemRequestListComponent , canActivate: [AuthGuard] },
   {path: 'redeem-request-detail/:redeem_id', component:RedeemRequestDetailComponent , canActivate: [AuthGuard] },
-  {path: 'karigar-list/:page', component:KarigarListComponent , canActivate: [AuthGuard] },
+  {path: 'karigar-list/:Masons', component:KarigarListComponent , canActivate: [AuthGuard] },
+  {path: 'karigar-list/:Fabricator', component:KarigarListComponent , canActivate: [AuthGuard] },
+  {path: 'karigar-list/:Carpenter', component:KarigarListComponent , canActivate: [AuthGuard] },
+
   {path:'dealer-list/:page',component:DealerListComponent,canActivate:[AuthGuard]},
   {path:'dealer-detail/:dealer_id/:page',component:DealerDetailComponent,canActivate:[AuthGuard]},
   {path:'dealer-add/:dealer_id',component:DealerAddComponent,canActivate:[AuthGuard]},
@@ -148,10 +159,17 @@ const routes: Routes = [
   {path:'distributor-list/:page',component:DistributorListComponent,canActivate:[AuthGuard]},
   {path:'distributor-detail/:distributor_id/:page',component:DistributorDetailComponent,canActivate:[AuthGuard]},
   {path:'distributor-add/:distributor_id',component:DistributorAddComponent,canActivate:[AuthGuard]},
-  {path: 'karigar-add', component:KarigarAddComponent , canActivate: [AuthGuard] },
+  {path: 'user-add/:Masons', component:KarigarAddComponent , canActivate: [AuthGuard] },
+  {path: 'user-add/:Fabricator', component:KarigarAddComponent , canActivate: [AuthGuard] },
+  {path: 'user-add/:Carpenter', component:KarigarAddComponent , canActivate: [AuthGuard] },
+
   {path: 'karigar-add/:karigar_id', component:KarigarAddComponent , canActivate: [AuthGuard] },
+  {path: 'user-edit/:Masons/:karigar_id', component:KarigarAddComponent , canActivate: [AuthGuard] },
+  // {path: 'user-edit/:type/:karigar_id', component:KarigarAddComponent , canActivate: [AuthGuard] },
+  // {path: 'user-edit/:type/:karigar_id', component:KarigarAddComponent , canActivate: [AuthGuard] },
+
   {path: 'karigar-detail/:karigar_id',  component:KarigarDetailComponent , canActivate: [AuthGuard] },
-  {path: 'karigar-detail/:karigar_id/:page',  component:KarigarDetailComponent , canActivate: [AuthGuard] },
+  {path: 'karigar-detail/:type/:karigar_id/:page',  component:KarigarDetailComponent , canActivate: [AuthGuard] },
   {path: 'coupon-code-list',  component:CouponCodeListComponent , canActivate: [AuthGuard] },
   {path: 'feedback-list',  component:FeedbackComponent , canActivate: [AuthGuard] },
   {path: 'site-gallery',  component:SiteGalleryComponent , canActivate: [AuthGuard] },
@@ -171,6 +189,17 @@ const routes: Routes = [
   {path: 'contractor-list', component:ContractorListComponent , canActivate: [AuthGuard] },
   {path: 'coupon-code-master', component:CouponCodeMasterComponent , canActivate: [AuthGuard]},
   {path: 'digitallist', component:DigitallistComponent , canActivate: [AuthGuard]},
+  {path: 'site-list/:id', component:SiteListComponent , canActivate: [AuthGuard] },
+  {path: 'site-add/:id', component:SiteAddComponent , canActivate: [AuthGuard] },
+  {path: 'site-add', component:SiteAddComponent , canActivate: [AuthGuard] },
+  {path: 'site-detail/:id/:page', component:SiteDetailComponent , canActivate: [AuthGuard] },
+  {path: 'purchase-list', component:PurchaseListComponent, canActivate: [AuthGuard] },
+  {path: 'purchase-add/:id', component:PurchaseAddComponent , canActivate: [AuthGuard] },
+  {path: 'purchase-add', component:PurchaseAddComponent, canActivate: [AuthGuard] },
+  {path: 'purchase-detail/:id/:page', component:PurchaseDetailComponent , canActivate: [AuthGuard] },
+  {path: 'system-user-list', component:SystemUserListComponent , canActivate: [AuthGuard] },
+  {path: 'system-user-add', component:SystemUserAddComponent , canActivate: [AuthGuard] },
+
 
 
 
@@ -271,7 +300,15 @@ const routes: Routes = [
     CouponCodeMasterComponent,
     MasterTabComponent,
     UploaddigitalcatComponent,
-    DigitallistComponent
+    DigitallistComponent,
+    SiteListComponent,
+    SiteAddComponent,
+    SiteDetailComponent,
+    PurchaseListComponent,
+    PurchaseAddComponent,
+    PurchaseDetailComponent,
+    SystemUserAddComponent,
+    SystemUserListComponent
 
 
   ],
