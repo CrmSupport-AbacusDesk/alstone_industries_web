@@ -19,7 +19,6 @@
                                                     <mat-form-field class="cs-input">
                                                         <mat-label>Select User Type</mat-label>
                                                         <mat-select  [(ngModel)]="addOffer.user_type" name="user_type" #user_type="ngModel" required>
-                                                            <mat-option value=""></mat-option>
                                                             <mat-option value="Carpenter">Carpenter</mat-option>
                                                             <mat-option value="Masons">Masons</mat-option>
                                                             <mat-option value="Fabricator">Fabricator</mat-option>
@@ -196,17 +195,7 @@
                                                 </div>
                                             </div>
                                             
-                                            <!-- <div class="col s7 ">
-                                                <div class="control-field">
-                                                    <mat-form-field class="cs-input">
-                                                        <mat-label>Select Gift</mat-label>
-                                                        <mat-select  [(ngModel)]="gift" name="gifting" required>
-                                                            <mat-option *ngFor="let gifts of giftlisting" [value]="gifts">{{gifts.gift_title}}</mat-option>
-                                                            <mat-checkbox color="primary" class="fix-check" [(ngModel)]="gift" (change)="allState()"  name="allStates"  value="true"></mat-checkbox>
-                                                        </mat-select>
-                                                    </mat-form-field>  
-                                                </div>
-                                            </div> -->
+                                           
                                             
                                             <div class="row mb15 mt15"  >
                                                 <div class="col-12" *ngIf="btn_value">

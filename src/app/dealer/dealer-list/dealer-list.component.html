@@ -103,6 +103,8 @@
                           <!-- <th class="w70 text-center">Requests</th> -->
                           <!-- <th class="w65 text-center">User Type</th> -->
                           <th class="w100 text-center">Status</th>
+                          <th class="w60 text-center">Action</th>
+
                       </tr>
                   </table>
               </div>
@@ -187,6 +189,7 @@
                             </div>
               
                           </th>
+                          <th class="w60"></th>
                       </tr>
                   </table>
               </div>
@@ -238,10 +241,12 @@
                                         <option class="Pending" value="Pending">Pending</option>
                                         <option class="Suspect" value="Suspect">Suspect</option>
                                     </select> 
-                                    <div class="over-sec">
-                                        <i class="material-icons deactive"  (click)="deleteDealer(val.id)" style="background: #ca9137 !important;">delete_sweep</i>
-                                    </div> 
+                                  
                                 </div>
+                            </td>
+                            <td class="w60">
+                                <i class="material-icons deactive"  (click)="deleteDealer(val.id)" style="color:red">delete_sweep</i>
+
                             </td>
                         </tr>
                     </table>
@@ -263,7 +268,7 @@
         </div>
       
         <div class="fab-btns">
-          <button (click)="exportDealer()" *ngIf="dealers.length" mat-fab class="excel">
+          <button (click)="exportarchitect()" *ngIf="dealers.length" mat-fab class="excel">
               <img src="assets/excel.svg">
           </button>
           <button mat-fab color="primary" routerLink="/dealer-add"  routerLinkActive="active" >

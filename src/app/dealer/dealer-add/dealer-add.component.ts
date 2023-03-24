@@ -164,20 +164,25 @@ export class DealerAddComponent implements OnInit {
   savekarigarform(form:any)
   {
 
-    if(this.karigarform.document_type!='' && !this.karigarform.document_no && !this.karigarform.document_image){
-        this.dialog.warning(this.karigarform.document_type+' No. & Image Is Required')
-        return;
+    if(this.karigarform.document_type|| this.karigarform.document_image){
+        if(this.karigarform.document_type!='' && !this.karigarform.document_no && !this.karigarform.document_image){
+            this.dialog.warning(this.karigarform.document_type+' No. & Image Is Required')
+            return;
+    
+        }
+        else if(this.karigarform.document_no!='' && !this.karigarform.document_image){
+            this.dialog.warning(this.karigarform.document_type+' Image Is Required')
+            return;
+    
+        }
+        else if(this.karigarform.document_image!='' && !this.karigarform.document_no){
+            this.dialog.warning(this.karigarform.document_type+' No. Is Required')
+            return;
+        }
 
     }
-    else if(this.karigarform.document_no!='' && !this.karigarform.document_image){
-        this.dialog.warning(this.karigarform.document_type+' Image Is Required')
-        return;
 
-    }
-    else if(this.karigarform.document_image!='' && !this.karigarform.document_no){
-        this.dialog.warning(this.karigarform.document_type+' No. Is Required')
-        return;
-    }
+   
       this.savingData = true;
       this.loading_list = true;
       this.karigarform.dob = this.karigarform.dob  ? this.db.pickerFormat(this.karigarform.dob) : '';
@@ -326,6 +331,16 @@ getaddress(pincode) {
     }
 
 }
+
+
+removeImage(){
+    this.karigarform.document_image='';
 }
+
+removebackImage(){
+    this.karigarform.document_image_back='';
+}
+}
+
 
 

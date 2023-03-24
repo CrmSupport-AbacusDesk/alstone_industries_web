@@ -17,7 +17,8 @@
             <li><a routerLink="/offer-list"  routerLinkActive="active" (click)="refershCount()">Offer</a></li>
             <li><a routerLink="/gift-list"  routerLinkActive="active" (click)="refershCount()">Gift Gallery</a></li>
             <li><a routerLink="/redeem-request-list" routerLinkActive="active" (click)="refershCount()">Redeem Request
-                <span *ngIf="pending_redeem_request > 0 ">{{pending_redeem_request}} </span></a></li>
+                <!-- <span *ngIf="pending_redeem_request > 0 ">{{pending_redeem_request}} </span> -->
+              </a></li>
             <li><a routerLink="/karigar-list/Carpenter" routerLinkActive="active" (click)="refershCount()">Carpenter</a></li>
             <li><a routerLink="/karigar-list/Masons" routerLinkActive="active" (click)="refershCount()">Masons</a></li>
             <li><a routerLink="/karigar-list/Fabricator" routerLinkActive="active" (click)="refershCount()">Fabricator</a></li>
@@ -28,10 +29,10 @@
             <li><a routerLink="/purchase-list"  routerLinkActive="active">Purchase</a></li>
             <!-- <li><a routerLink="/contractor-list" routerLinkActive="active" (click)="refershCount()">Retailer Code 
                 <span *ngIf="pending_redeem_request_retailer > 0 ">{{pending_redeem_request_retailer}} </span>
-            </a></li> -->
+          </a></li> -->
             <li>
                 <a routerLink="/feedback-list" routerLinkActive="active" (click)="refershCount()">Feedback
-                   <span *ngIf="unreadFeedCount > 0 ">{{unreadFeedCount}} </span>
+                   <!-- <span *ngIf="unreadFeedCount > 0 ">{{unreadFeedCount}} </span> -->
                 </a>
             </li>
             <!-- <li><a routerLink="/site-gallery" routerLinkActive="active">Site Gallery</a></li> -->

@@ -111,7 +111,7 @@
                         <td class="w150">{{val.gift_title  | titlecase }} #{{val.id}}</td>
                         <td class="w60">
                             <div class="image-thum">
-                                <div class="image-thum" *ngIf="val.image!=''">
+                                <div class="image-thum"*ngIf="val.image">
                                     <img [src]="uploadUrl+val.image" (click)="openDialog(uploadUrl+val.image)">
                                 </div>
   

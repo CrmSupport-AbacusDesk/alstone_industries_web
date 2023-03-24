@@ -4,6 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { DialogComponent } from 'src/app/dialog/dialog.component';
 import { DatabaseService } from 'src/app/_services/DatabaseService';
 import { SessionStorage } from 'src/app/_services/SessionService';
+import { DeactiveStatusComponent } from '../deactive-status/deactive-status.component';
 
 @Component({
   selector: 'app-coupon-code-master',
@@ -90,6 +91,18 @@ export class CouponCodeMasterComponent implements OnInit {
             this.last_page = d.product_point.last_page;
             this.total_products =d.product_point.total;
             this.products = d.product_point.data;
+
+            for(let i=0;i<this.products.length;i++)
+            {
+                if(this.products[i].status=="Active")
+                {
+                    this.products[i].newsStatus=true;
+                }
+                else if(this.products[i].status=="Deactive")
+                {
+                    this.products[i].newsStatus=false;
+                }
+            }
             this.sr_no = this.current_page - 1;
             this.sr_no = this.sr_no * d.product_point.per_page;    
             // this.productForm =  this.products;
@@ -164,6 +177,55 @@ export class CouponCodeMasterComponent implements OnInit {
           }
         });
       }
+
+      updateStatus(i,event)
+    {
+        console.log(event);
+        console.log(event.checked);
+        if(event.checked == false)
+        {
+
+            this.db.post_rqst({'checked' : event.checked, 'id' : this.products[i].id,'login_id':this.db.datauser.id}, 'master/productStatus')
+            .subscribe(d => {
+                console.log(d);
+                this.dialog.success( 'Status Change successfully ');
+            });
+            this.getProductList('');
+            // const dialogRef = this.alrt.open(DeactiveStatusComponent,{
+            //     width: '500px',
+            //     // height:'500px',
+                
+            //     data: {
+            //         'id' :this.products[i].id,
+            //         'type':'product',
+            //         'checked' : event.checked,
+            //     }
+            // });
+            // dialogRef.afterClosed().subscribe(result => {
+            //     console.log(`Dialog result: ${result}`);
+            //     if( result ){
+
+                  
+            //     }
+            //     else{
+            //     this.getProductList('');
+
+            //     }
+            // });
+
+          
+          
+        }
+        else if(event.checked == true)
+        {
+            this.db.post_rqst({'checked' : event.checked, 'id' : this.products[i].id,'login_id':this.db.datauser.id}, 'master/productStatus')
+            .subscribe(d => {
+                console.log(d);
+                this.dialog.success( 'Status Change successfully ');
+                this.getProductList('');
+            });
+        }
+    }
 
 
     exportproductList()

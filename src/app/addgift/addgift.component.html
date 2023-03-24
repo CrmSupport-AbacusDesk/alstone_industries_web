@@ -59,7 +59,7 @@
                                     <div class="cs-file file-up">
                                       <label>
                                         <input type="file" (change)="onUploadChange2($event)" style="display:none;" accept=".png, .jpg, .jpeg " />
-                                        <img  [src]="img_id ? urlPath + gift.image : gift.image" alt="" id="img">
+                                        <img  [src]="img_id ? urlPath + gift.image : gift.image" alt="" id="img" *ngIf="gift.image">
                                         <i class="material-icons add-file-icon"  >add</i>
                                       </label>
                                     </div>

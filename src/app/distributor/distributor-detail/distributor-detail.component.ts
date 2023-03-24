@@ -76,6 +76,7 @@ export class DistributorDetailComponent implements OnInit {
           this.retailerData = d.retailer;
           this.getData.coupon_limit = d.karigar.manual_coupon_limit;
           this.total_wallet_points = parseInt(this.getData.balance_point) + parseInt(this.getData.referal_point_balance);
+          this.karigarlist()
       });
   }
   
@@ -350,6 +351,75 @@ export class DistributorDetailComponent implements OnInit {
           this.getKarigarDetails();
           this.getScannedList();
           this.get_points_summry();
+      });
+  }
+  architect_list:any=[];
+  karigarlist(){
+
+    this.filter.date = this.filter.date  ? this.db.pickerFormat(this.filter.date) : '';
+    this.filter.used_date = this.filter.used_date  ? this.db.pickerFormat(this.filter.used_date) : '';
+    this.filter.end_date = this.filter.end_date  ? this.db.pickerFormat(this.filter.end_date) : '';
+    if( this.filter.date  || this.filter.used_date || this.filter.end_date)this.filtering = true;
+    this.filter.karigar_id = this.karigar_id;
+
+    this.db.post_rqst(  {'filter':this.filter,'sales_user_id':this.getData.id}, 'master/getSalesUserArchitect')
+    .subscribe( d => {
+        this.loading_list = false;
+        console.log(d);            
+        this.architect_list = d.architect.data;    
+    }
+    );
+
+  }
+
+
+  total_site :any;
+  sites_list = [];
+  sr_no:any=0;
+  perPage:any=0;
+  getSalesUserSites = () => {
+      // this.filter = {};
+      this.loading_list = true;
+      this.filter.date = this.filter.date  ? this.db.pickerFormat(this.filter.date) : '';
+      if( this.filter.date ||  this.filter.start_date ||  this.filter.end_date)this.filtering = true;
+      this.db.post_rqst({'filter':this.filter, 'sales_user_id': this.karigar_id}, 'karigar/getKarigarSite')
+      .subscribe(d => {
+          console.log(d);
+          this.loading_list = false;
+          this.sites_list = d.site_locations.data;
+          this.total_site = d.site_locations.total;
+
+
+          
+         
+      });
+  }
+  purchaseOrder:any =[];
+  site_locations: any = [];
+  dealer_all:any =0;
+  total_count:any;
+  dealer_pending : any = 0;
+  dealer_reject : any = 0;
+  dealer_suspect : any = 0;
+  dealer_verified : any = 0;
+  
+  getPurchaseList = () => {
+      // this.filter = {};
+      this.loading_list = true;
+      this.filter.date = this.filter.date  ? this.db.pickerFormat(this.filter.date) : '';
+      this.filter.start_date = this.filter.start_date  ? this.db.pickerFormat(this.filter.start_date) : '';
+      this.filter.end_date = this.filter.end_date  ? this.db.pickerFormat(this.filter.end_date) : '';
+      if( this.filter.date ||  this.filter.start_date ||  this.filter.end_date)this.filtering = true;
+      
+      this.filter.pc_id = this.karigar_id;
+      this.db.post_rqst({'filter':this.filter, 'sales_user_id': this.karigar_id}, 'karigar/getKarigarPurchase')
+      .subscribe(d => {
+          this.loading_list = false;
+          console.log('Purchase List ->', d);    
+          this.site_locations = d.purchase_orders.data;    
+          this.total_count = d.purchase_orders.total;            
+
+         
       });
   }
 }

@@ -90,10 +90,8 @@
                         <mat-form-field>
                             <mat-label>All</mat-label>
                             <mat-select  [(ngModel)]="filter.status" name="status" #status="ngModel" (selectionChange)="getProductList('')">
-                              <mat-option value="Verified" >Verified</mat-option>
-                              <mat-option value="Pending">Pending</mat-option>
-                              <mat-option  value="Reject">Reject</mat-option>
-                              <mat-option  value="Suspect">Suspect</mat-option>
+                              <mat-option value="Active" >Active</mat-option>
+                              <mat-option value="deactive">Deactive</mat-option>
 
                             </mat-select>
                         </mat-form-field>
@@ -132,25 +130,10 @@
               <td class="w100 text-center">{{val.fabricator_point}}</td>
               <td class="w100 text-center">{{val.architect_point}}</td>
 
-              <td class="w100"> 
-                <div class="center">
-                    <select class="{{val.status}}"  [name]="'status'+i" placeholder="Status" [(ngModel)]="val.status">
-                        <option class="Verified" value="Verified">Verified</option>
-                        <option class="Reject" value="Reject">Reject</option>
-                        <option class="Pending" value="Pending">Pending</option>
-                        <option class="Suspect" value="Suspect">Suspect</option>
-                    </select> 
-                    
-                </div>
+                <td class="w100 text-center">
+                  <mat-slide-toggle [name]="'status'+i" [(ngModel)]="val.newsStatus" (change)="updateStatus(i,$event)" ></mat-slide-toggle>
             </td>
-
-
-
-              <!-- <td class="w100 text-center">{{val.karigar_point}}</td>
-              <td class="w90">{{val.retailer_point}}</td> -->
-
-              <!-- <td class="w100 text-center">{{val.painter_point}}</td>
-              <td class="w150">{{val.last_updated_by}} - {{val.last_updated | date: 'dd MMM yyyy'}}</td> -->
+            
               <td class="w70">
                 <div class=" w70 text-center td-flex ">
                   <button class="right" (click)="toggle = !toggle; editProduct(val.id,i)"><i class="material-icons">edit</i></button>

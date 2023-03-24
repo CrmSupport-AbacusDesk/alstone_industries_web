@@ -33,7 +33,7 @@ export class SiteDetailComponent implements OnInit {
     this.uploadurl = this.db.uploadUrl;
   }
   
-  mode:any=1;
+  mode:any=2;
   ngOnInit() {
     this.route.params.subscribe(params => {
       this.loc_id = params['id'];
@@ -41,11 +41,12 @@ export class SiteDetailComponent implements OnInit {
       this.status = params['status'];
       if (this.loc_id) {
         this.getKarigarDetails();
-        this.getSiteDetails();
+        this.getPurchaseList();
+        
+        
       }
     });
     
-    this.getPurchaseList();
   }
   
   site_visit_count:any =0;
@@ -80,7 +81,8 @@ export class SiteDetailComponent implements OnInit {
     if( this.filter.date ||  this.filter.start_date ||  this.filter.end_date)this.filtering = true;
     
     this.filter.site_location_id = this.loc_id;
-    this.db.post_rqst({'filter':this.filter, 'site_location_id': this.loc_id}, 'karigar/getSitePurchaseOrder')
+    this.filter.limit = 0;
+    this.db.post_rqst({'filter':this.filter, 'site_location_id': this.loc_id}, 'master/getSitePurchaseOrder')
     .subscribe(d => {
       this.loading_list = false;
       this.current_page = d.purchase_orders.current_page;
@@ -101,7 +103,7 @@ export class SiteDetailComponent implements OnInit {
   //   const dialogRef = this.alrt.open(ChangecompanystatusComponent,{
   //     width: '500px',
   //     // height:'500px',
-      
+  
   //     data: {
   //       'id' : id,
   //       'companyStaus' : status,
@@ -121,7 +123,7 @@ export class SiteDetailComponent implements OnInit {
   //   const dialogRef = this.alrt.open(ChangedealerstatusComponent,{
   //     width: '500px',
   //     // height:'500px',
-      
+  
   //     data: {
   //       'id' : id,
   //       'dealerStatus' : status,

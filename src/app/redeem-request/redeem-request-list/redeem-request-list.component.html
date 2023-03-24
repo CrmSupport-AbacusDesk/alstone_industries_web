@@ -81,7 +81,7 @@
 
                             <th class="w100">Gift</th>
                             
-                            <th class="w120">Offer-valid Upto</th>
+                            <th class="w150">Offer-valid Upto</th>
                             <th class="w80 text-right">Points Req.</th>
                             <th class="w100 text-right">Balance Point</th>
                             <th class="w80 text-center">Points Req. Type </th>
@@ -179,7 +179,7 @@
                                     <i class="material-icons">search</i>
                                 </div>
                             </th>
-                            <th class="w120">
+                            <th class="w150">
                                 <div class="date-form">
                                     <i *ngIf="filter.end_date" class="material-icons" (click)="filter.end_date = '';getReedamList('') ">clear</i>
                                     
@@ -262,16 +262,32 @@
                                     </ng-container>
                             </td>
                             <td class="w150">
-                                <ng-container *ngIf="val.user_type=='1' ">
-                                    <a class="blue" routerLink="/karigar-detail/{{val.user_id}}/{{current_page}}" routerLinkActive="active">
-                                        {{val.first_name | titlecase}} {{val.last_name | titlecase}} - (Plumber)
+                                <ng-container *ngIf="val.user_type=='1'">
+                                    <a class="blue" routerLink="/karigar-detail/Carpenter/{{val.user_id}}/{{current_page}}" routerLinkActive="active">
+                                        {{val.first_name | titlecase}} {{val.last_name | titlecase}} - (Carpenter)
                                     </a>
                                 </ng-container>
-                                <ng-container *ngIf="val.user_type=='2' ">
+                                <ng-container *ngIf="val.user_type=='2'">
+                                    <a class="blue" routerLink="/karigar-detail/Masons/{{val.user_id}}/{{current_page}}" routerLinkActive="active">
+                                        {{val.first_name | titlecase}} {{val.last_name | titlecase}} - (Masons)
+                                    </a>
+                                </ng-container>
+                                <ng-container *ngIf="val.user_type=='3'">
+                                    <a class="blue" routerLink="/karigar-detail/Fabricator/{{val.user_id}}/{{current_page}}" routerLinkActive="active">
+                                        {{val.first_name | titlecase}} {{val.last_name | titlecase}} - (Fabricator)
+                                    </a>
+                                </ng-container>
+                                <ng-container *ngIf="val.user_type=='4'">
                                     <a class="blue" routerLink="/dealer-detail/{{val.user_id}}/{{current_page}}" routerLinkActive="active">
-                                        {{val.company_name | titlecase}} - (Retailer)
+                                        {{val.first_name | titlecase}} {{val.last_name | titlecase}} - (Architect)
                                     </a>
                                 </ng-container>
+                                <ng-container *ngIf="val.user_type=='5'">
+                                    <a class="blue" routerLink="/distributor-detail/{{val.user_id}}/{{current_page}}" routerLinkActive="active">
+                                        {{val.first_name | titlecase}} {{val.last_name | titlecase}} - (Sales Executive)
+                                    </a>
+                                </ng-container>
+                               
                             </td>
                             <td class="w85"> <a class="blue pl5" routerLink="/redeem-request-detail/{{val.id}}">{{val.invoice_id}}</a></td>
                             
@@ -280,8 +296,8 @@
                             <td class="w90 ">{{val.redeem_type | titlecase}}</td>
         
                             <!-- <td class="w130 ">{{val.sales_name}}</td> -->
-                            <td class="w100 ">{{val.gift_title}}</td>
-                            <td class="w120"><a  routerLink="/offer-detail"  routerLink="/offer-detail/{{val.offer_id}}" class="blue">{{val.title}} #{{val.offer_code}}</a> -{{val.end_date | date: 'dd MMM yyyy'}}</td>
+                        <td class="w100 ">{{val.gift_title}}</td>
+                            <td class="w150"><a  routerLink="/offer-detail"  routerLink="/offer-detail/{{val.offer_id}}" class="blue">{{val.title}} #{{val.offer_code}}</a> -{{val.end_date | date: 'dd MMM yyyy'}}</td>
                             <td class="w80 text-right">{{val.gift_points}}</td>
                             <td class="w100 text-center">{{val.balance_point}}</td>
                             <td class="w80 text-center">
@@ -300,6 +316,8 @@
                                         <option  value="" [disabled]="val.receive_status == 'Transfer' || val.receive_status == 'Shipped' ">Under Process</option>
                                         <option *ngIf="val.redeem_type == 'Cash'"  value="Transfer" class="Shipped">Transfer</option>
                                         <option *ngIf="val.redeem_type == 'gift'" value="Shipped" class="Shipped">Shipped</option>
+                                        <option *ngIf="val.receive_status == 'Shipped' " value="Received" class="Shipped">Received</option>
+
         
                                     </select> 
                                 </div>

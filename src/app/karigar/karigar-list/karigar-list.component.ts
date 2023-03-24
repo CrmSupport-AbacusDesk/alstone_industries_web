@@ -42,24 +42,16 @@ export class KarigarListComponent implements OnInit {
                 this.userType = 2;
                 this.navPass='Masons'
                 this.filter.status = 'All';
-
-
-
             }
             else if(resp.Masons=='Fabricator'){
                 this.userType = 3;
                 this.navPass='Fabricator';
                 this.filter.status = 'All';
-
-
-
             }
             else if(resp.Masons=='Carpenter'){
                 this.userType = 1;
                 this.navPass='Carpenter';
                 this.filter.status = 'All';
-
-
             }
 
 
@@ -180,7 +172,7 @@ export class KarigarListComponent implements OnInit {
         this.filter.mode = 1;
         this.db.post_rqst(  {'filter': this.filter , 'login':this.db.datauser,user_type:this.userType}, 'karigar/exportKarigar')
         .subscribe( d => {
-            document.location.href = this.db.myurl+'/app/uploads/exports/Plumber.csv';
+            document.location.href = this.db.myurl+'/app/uploads/exports/'+d.file_name;
             console.log(d);
         });
     }

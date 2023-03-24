@@ -172,12 +172,12 @@ export class DealerListComponent implements OnInit {
     }
     
  
-    exportDealer()
+    exportarchitect()
     {
         this.filter.mode = 1;
         this.db.post_rqst(  {'filter': this.filter , 'login':this.db.datauser,user_type:'2'}, 'karigar/exportKarigar')
         .subscribe( d => {
-            document.location.href = this.db.myurl+'/app/uploads/exports/Retailer.csv';
+            document.location.href = this.db.myurl+'/app/uploads/exports/'+d.file_name;
             console.log(d);
         });
     }

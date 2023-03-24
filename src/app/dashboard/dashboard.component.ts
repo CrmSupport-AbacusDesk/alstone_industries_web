@@ -63,7 +63,7 @@ export class DashboardComponent implements OnInit {
         this.get_super_karigars(1);
         this.get_super_dealers();
         this.get_offer_balance_days();
-        this.state_wise_karigar();
+        this.state_wise_karigar(1);
         this.state_wise_dealer();
         this.state_wise_distributor();
         this.coupon_code_graph();
@@ -72,7 +72,7 @@ export class DashboardComponent implements OnInit {
         // this.get_anni_dealer();
         this.get_anni_karigars();
         this.showBirthdayDealer();
-        this.showBirthdayCarpenter();
+        this.showBirthdayCarpenter(1);
     }
     
     ngOnInit() 
@@ -128,12 +128,48 @@ export class DashboardComponent implements OnInit {
                 this.unread_counts=resp.unread;
             });
         }
+        showSuparkarigar=true;
+        showSuparArchitect=false;
+        showSuparFabricator=false;
+        showSuparMasons=false;
+
+        getsuparkarigar(type){
+            if(type==1){
+                this.showSuparkarigar=true;
+                this.showSuparArchitect=false;
+                this.showSuparMasons=false;
+                this.showSuparFabricator=false;
+                this.get_super_karigars(1);
+            }
+            else if(type==2){
+                this.showSuparMasons=true;
+                this.showSuparkarigar=false;
+                this.showSuparArchitect=false;
+                this.showSuparFabricator=false;
+                this.get_super_karigars(2);
+            }
+            else if(type==3){
+                this.showSuparFabricator=true;
+                this.showSuparkarigar=false;
+                this.showSuparArchitect=false;
+                this.showSuparMasons=false;
+                this.get_super_karigars(3);
+            }
+            else if(type==4){
+                this.showSuparArchitect=true;
+                this.showSuparkarigar=false;
+                this.showSuparMasons=false;
+                this.showSuparFabricator=false;
+                this.get_super_karigars(4);
+            }
+
+        }
         
-        get_super_karigars(usertype)
+        get_super_karigars(type)
         {
             this.loading_list = true;
             
-            this.db.post_rqst({ 'user_type':usertype}, 'master/getSuperkarigars')
+            this.db.post_rqst({'user_type':type}, 'master/getSuperkarigars')
             .subscribe((resp) => 
             {
                 this.loading_list = false;
@@ -213,9 +249,42 @@ export class DashboardComponent implements OnInit {
             });
         }
         
-        state_wise_karigar()
+
+        getstatewisekarigar(type){
+            if(type==1){
+                this.showKarigarList=true;
+                this.showArchitectList=false;
+                this.showMasonslist=false;
+                this.showFabricatorList=false;
+                this.state_wise_karigar(1);
+            }
+            else if(type==2){
+                this.showMasonslist=true;
+                this.showKarigarList=false;
+                this.showArchitectList=false;
+                this.showFabricatorList=false;
+                this.state_wise_karigar(2);
+            }
+            else if(type==3){
+                this.showFabricatorList=true;
+                this.showKarigarList=false;
+                this.showArchitectList=false;
+                this.showMasonslist=false;
+                this.state_wise_karigar(3);
+            }
+            else if(type==4){
+                this.showArchitectList=true;
+                this.showKarigarList=false;
+                this.showMasonslist=false;
+                this.showFabricatorList=false;
+                this.state_wise_karigar(4);
+            }
+
+        }
+        state_wise_karigar(type)
         {
-            this.db.post_rqst({},'master/stateWiseKarigar')
+            this.karigar_state_wise=[];
+            this.db.post_rqst({'user_type':type},'master/stateWiseKarigar')
             .subscribe((resp)=>
             {
                 console.log(resp);
@@ -230,7 +299,7 @@ export class DashboardComponent implements OnInit {
                 this.karigar_Source = {
                     "chart": {
                         "xAxisName": "States",
-                        "yAxisName": "Plumber",
+                        "yAxisName": "Karigar",
                         // "numberSuffix": "k",
                         "theme": "fusion",
                     },
@@ -327,34 +396,7 @@ export class DashboardComponent implements OnInit {
             this.get_super_dealers();
         }
         showKarigar(type){
-            if(type==1){
-                this.showKarigarList=true;
-                this.showArchitectList=false;
-                this.showMasonslist=false;
-                this.showFabricatorList=false;
-                this.get_super_karigars(1);
-            }
-            else if(type==2){
-                this.showMasonslist=true;
-                this.showKarigarList=false;
-                this.showArchitectList=false;
-                this.showFabricatorList=false;
-                this.get_super_karigars(2);
-            }
-            else if(type==3){
-                this.showFabricatorList=true;
-                this.showKarigarList=false;
-                this.showArchitectList=false;
-                this.showMasonslist=false;
-                this.get_super_karigars(3);
-            }
-            else if(type==4){
-                this.showArchitectList=true;
-                this.showKarigarList=false;
-                this.showMasonslist=false;
-                this.showFabricatorList=false;
-                this.get_super_karigars(4);
-            }
+          
 
           
         }
@@ -367,12 +409,7 @@ export class DashboardComponent implements OnInit {
             this.show_dealer_graph=true;
         }
         
-        KarigarBirthGraph(){
-            console.log("click");
-            this.karigar_birth_graph=true;
-            this.dealer_birth_graph=false;
-            this.showBirthdayCarpenter();
-        }
+     
 
         DealerBirthGraph(){
             console.log("click");
@@ -380,9 +417,45 @@ export class DashboardComponent implements OnInit {
             this.karigar_birth_graph=false;
             this.showBirthdayDealer();
         }
+        showbirthdayKarigar=true;
+        showbirthdayMasons=false;
+        showbirthdayFabricator=false;
+        showbirthdayArchitect=false;
 
-        showBirthdayCarpenter(){
-            this.db.post_rqst({},'master/nextweekbirthdaycarpenter')
+        getKarigarbirthday(type){
+            if(type==1){
+                this.showbirthdayKarigar=true;
+                this.showbirthdayArchitect=false;
+                this.showbirthdayMasons=false;
+                this.showbirthdayFabricator=false;
+                this.showBirthdayCarpenter(1);
+            }
+            else if(type==2){
+                this.showbirthdayMasons=true;
+                this.showbirthdayKarigar=false;
+                this.showbirthdayArchitect=false;
+                this.showbirthdayFabricator=false;
+                this.showBirthdayCarpenter(2);
+            }
+            else if(type==3){
+                this.showbirthdayFabricator=true;
+                this.showbirthdayKarigar=false;
+                this.showbirthdayArchitect=false;
+                this.showbirthdayMasons=false;
+                this.showBirthdayCarpenter(3);
+            }
+            else if(type==4){
+                this.showbirthdayArchitect=true;
+                this.showbirthdayKarigar=false;
+                this.showbirthdayMasons=false;
+                this.showbirthdayFabricator=false;
+                this.showBirthdayCarpenter(4);
+            }
+
+        }
+
+        showBirthdayCarpenter(type){
+            this.db.post_rqst({'user_type':type},'master/nextweekbirthdaycarpenter')
             .subscribe((resp)=>
             {
                 console.log(resp);
@@ -514,6 +587,9 @@ export class DashboardComponent implements OnInit {
         }
         else if(action == 4){
             this.router.navigate(['dealer-list/1'],{queryParams:{mode:action}});
+        }
+        else if(action == 5){
+            this.router.navigate(['distributor-list/1'],{queryParams:{mode:action}});
         }
     }
     

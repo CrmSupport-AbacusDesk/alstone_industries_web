@@ -64,7 +64,7 @@
                     <table>
                         
                         <tr>
-                            <th class="w30">&nbsp;</th>
+                            <th class="w40">S no.</th>
                             <th class="w140">Date / Created by</th>
                             <th class="w100">Type</th>
                             <th>Title</th>
@@ -83,7 +83,7 @@
                 <div class="header border-bott">
                     <table>
                         <tr>
-                            <th class="w30">&nbsp;</th>
+                            <th class="w40"></th>
                             <th class="w140">
                                 <div class="date-form">
                                     <i *ngIf="filter.date" class="material-icons" (click)="filter.date = '';getOfferList('') ">clear</i>
@@ -165,7 +165,7 @@
             <div class="table-body">
                 <table>
                     <tr *ngFor="let val of offer; let i = index">
-                        <td class="w30">{{ ( (current_page - 1 ) * 20 ) + ( i+1 ) }}</td>
+                        <td class="w40">{{ ( (current_page - 1 ) * 20 ) + ( i+1 ) }}</td>
                         <td class="w140"><ng-container *ngIf="val.date_created  != '0000-00-00 00:00:00' "> {{val.date_created | date: 'dd MMM yyyy'}} / {{val.created_name}} </ng-container></td>
                         <td class="w100">{{val.user_type}}</td>
                         <td><a routerLink="/offer-detail/{{val.id}}" class="blue">{{val.title  | titlecase }}</a></td>
@@ -180,7 +180,7 @@
                                 [disabled]="is_edit=='true'"></mat-slide-toggle>
                                 
                                 <div class="over-sec lar-h12">
-                                    <i class="material-icons deactive dlt_ico"  (click)="deleteOffer(val.id)" >delete_sweep</i>
+                                    <i class="material-icons deactive dlt_ico"  (click)="deleteOffer(val.id)"  style="color:red">delete_sweep</i>
                                 </div> 
                             </td>
                         </tr>
