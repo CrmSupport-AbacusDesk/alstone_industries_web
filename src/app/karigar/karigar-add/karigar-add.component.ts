@@ -167,20 +167,25 @@ export class KarigarAddComponent implements OnInit {
     }
     savekarigarform(form:any)
     {
-        if(this.karigarform.document_type!='' && !this.karigarform.document_no && !this.karigarform.document_image){
-            this.dialog.warning(this.karigarform.document_type+' No. & Image Is Required')
-            return;
+
+        if(this.karigarform.document_type|| this.karigarform.document_image){
+            if(this.karigarform.document_type!='' && !this.karigarform.document_no && !this.karigarform.document_image){
+                this.dialog.warning(this.karigarform.document_type+' No. & Image Is Required')
+                return;
+    
+            }
+            else if(this.karigarform.document_no!='' && !this.karigarform.document_image){
+                this.dialog.warning(this.karigarform.document_type+' Image Is Required')
+                return;
+    
+            }
+            else if(this.karigarform.document_image!='' && !this.karigarform.document_no){
+                this.dialog.warning(this.karigarform.document_type+' No. Is Required')
+                return;
+            }
 
         }
-        else if(this.karigarform.document_no!='' && !this.karigarform.document_image){
-            this.dialog.warning(this.karigarform.document_type+' Image Is Required')
-            return;
-
-        }
-        else if(this.karigarform.document_image!='' && !this.karigarform.document_no){
-            this.dialog.warning(this.karigarform.document_type+' No. Is Required')
-            return;
-        }
+       
 
         console.log(this.navPass)
         this.savingData = true;
@@ -300,6 +305,14 @@ export class KarigarAddComponent implements OnInit {
                 });
         }
     
+    }
+
+    removeImage(){
+        this.karigarform.document_image='';
+    }
+
+    removebackImage(){
+        this.karigarform.document_image_back='';
     }
 
 }

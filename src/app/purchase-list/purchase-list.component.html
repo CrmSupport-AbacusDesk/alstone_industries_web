@@ -1,15 +1,11 @@
 
 <div class="main-container pb0">
-  <div class="loader" *ngIf = "loading_list">
-    <div class="loding-logo">
-      <mat-spinner></mat-spinner>
-    </div>
-  </div>
+ 
   <div class="fixed">
     <div class="tab-header">
       <div class="tabs-list gift-tab-list">
         <ul>
-          <li (click)="filter = {};filter.status = 'All';getPurchaseList('')" [ngClass]="{'active': filter.status == 'All'}" >
+          <li (click)="filter = {};filter.status = '';getPurchaseList('')" [ngClass]="{'active': filter.status == ''}" >
             <a >
               <p>All</p>
               <span>{{ dealer_all }}</span>
@@ -60,179 +56,181 @@
         </ul>
       </div>
     </div>
+
+    <div class="loader" *ngIf= "loading_list">
+      <div class="loding-logo">
+        <mat-spinner></mat-spinner>
+      </div>
+    </div>
+
+    <div class="css-table hr-scroll-table " >
+      <div class="sticky-header">
+        <div class="header">
+          <table>
+            <tr>
+              <th class="w30">S no.</th>
+              <th class="w100">Date Created</th>
+              <th class="w150">Created By</th>
+              <th class="w100">Purchase ID</th>
+              <th class="w200">Site Address</th>
+              <th class="w200">Sales Executive Details</th>
+              <th class="w200">Architect Detail</th>
+              <th class="w150">Product Name</th>
+              <th class="w100  text-center">Quantity</th>
+              <th class="w100">Status</th>
+              <!-- <th class="w120">Company Status</th> -->
+             
+              <th class="w60 text-center">Architect Points</th>
+  
+              <th class="w70 text-center" *ngIf="filter.status != 'Delete'">Action</th>
+            </tr>
+          </table>
+        </div>
+        
+        <div class="header border-bott">
+          <table>
+            <tr>
+              <th class="w30">&nbsp;</th>
+              <th class="w100"></th>  
+              <th class="w150"></th>  
+              
+              <th class="w100">
+                <div class="search-form">
+                  <input type="text" placeholder="Search..." [(ngModel)]="filter.purchase_id"  (keyup.enter)="current_page = 1; getPurchaseList('')">
+                  <i class="material-icons">search</i>
+                </div>
+              </th>  
+              <th class="w200">
+                <div class="search-form">
+                  <input type="text" placeholder="Search..." [(ngModel)]="filter.site_address"  (keyup.enter)="current_page = 1;getPurchaseList('')">
+                  <i class="material-icons">search</i>
+                </div>
+              </th>                          
+              <th class="w200">
+                <div class="search-form">
+                  <input type="text" placeholder="Search..." [(ngModel)]="filter.first_name"  (keyup.enter)="current_page = 1; getPurchaseList('')">
+                  <i class="material-icons">search</i>
+                </div>
+              </th>
+              <th class="w200 text-center">
+                <div class="search-form">
+                  <input type="text" placeholder="Search..." [(ngModel)]="filter.engineer_name"  (keyup.enter)="current_page = 1;getPurchaseList('')">
+                  <i class="material-icons">search</i>
+                </div>
+              </th>
+              <th class="w150">
+                <div class="search-form">
+                  <input type="text" placeholder="Search..." [(ngModel)]="filter.product_name"  (keyup.enter)="current_page = 1; getPurchaseList('')">
+                  <i class="material-icons">search</i>
+                </div>
+              </th>
+              <th class="w100 "></th>
+              
+            
+              
+              <th class="w100 text-center">
+                <div class="form-area">
+                  <div class="slect mr0">
+                    <mat-form-field>
+                      <mat-select [(ngModel)]="filter.dealer_status" placeholder="Select" name="dealer_status" #dealer_status="ngModel" (selectionChange)="current_page = 1;getPurchaseList('')">
+                        <mat-option value="">All</mat-option>
+                        <mat-option value="Pending">Pending</mat-option>
+                        <mat-option value="Verified">Verified</mat-option>
+                        <mat-option value="Rejected">Rejected</mat-option>
+                      </mat-select>
+                    </mat-form-field>
+                  </div>
+                </div>
+              </th>
+             
+              <th class="w60"></th>
+  
+              <th class="w70 text-center" *ngIf="filter.status != 'Delete'"></th>            
+            </tr>
+          </table>
+        </div>
+      </div>
+      <div class="css-table">
+        <div class="table-container" *ngIf="site_locations.length">
+          <div class="table-body">
+            <table>
+              <tr *ngFor="let val of site_locations; let i = index">
+                <td class="w30">{{ ( (current_page - 1 ) * 20 ) + ( i+1 ) }}</td>
+                <td class="w100">
+                  <ng-container *ngIf="val.date_created  != '0000-00-00 00:00:00' " > 
+                    {{val.date_created | date: 'dd MMM yyyy'}}
+                  </ng-container>
+                </td>
+                <td class="w150">
+                  {{val.created_name}}
+                </td>
+                <td class="w100"><a class="blue" routerLink="/purchase-detail/{{val.id}}/{{current_page}}"  routerLinkActive="active">#Pur{{val.id}}</a></td>
+                <td class="w200"><a class="blue" routerLink="/site-detail/{{val.site_location_id}}/{{current_page}}"  routerLinkActive="active">{{val.site_address | titlecase}},{{val.state | titlecase}}, {{val.district | titlecase}}</a></td>
+                <td class="w200"><a class="blue" routerLink="/distributor-detail/{{val.sales_user_id}}/{{current_page}}" routerLinkActive="active">{{val.sales_user_name | titlecase }} {{val.sales_user_contact | titlecase }}</a></td>
+                <td class="w200">
+                  <a class="blue" routerLink="/dealer-detail/{{val.architect_id}}/{{current_page}}"  routerLinkActive="active">                  
+                    {{val.architect_name | titlecase}} 
+                  </a>
+                   <strong>{{val.architect_contact}}</strong>
+                </td>
+                <td class="w150">{{val.product_name}}</td>
+                <td class="w100  text-center">{{val.qty}}</td>
+                <td class="w100" *ngIf="val.status!='Verified'">
+                  <div class="center" >
+                    <select class="{{val.status}}"  [name]="'status'+i"  [(ngModel)]="val.status" (change)="purchaseStatus(val.id,val.status) ">
+                        <option class="Verified" value="Verified">Verified</option>
+                        <option class="Reject" value="Reject" >Reject</option>
+                        <option class="Pending" value="Pending">Pending</option>
+                    </select> 
+                    
+                </div>
+                  </td> 
+
+                  <td class="w100" *ngIf="val.status=='Verified'" style="color:green">
+                  {{val.status}}
+                    </td> 
+                
+                  <td class="w60 text-center"><strong>{{val.architect_points}}</strong></td>
+    
+                  
+                  <td class="w70 text-center" *ngIf="filter.status != 'Delete'">
+                    <i class="material-icons deactive" style="color: red"  (click)="deletepurchase(val.id)" >delete_sweep</i>
+                  
+                    </td>
+                  </tr>
+                  
+                  
+                  
+                </table>
+              </div>
+            </div>
+
+      </div>
+     
+
+
+          <div class="container-outer" *ngIf="!loading_list && !site_locations.length && ( (filter.status == 'All' && dealer_all ) || (filter.status == 'Pending' && dealer_pending ) || (filter.status == 'Verified' && dealer_verified ) || (filter.status == 'Reject' && dealer_reject ) || (filter.status == 'Suspect' && dealer_suspect )   )">
+            <div class="date-not" >
+              <div class="no-img">
+                <img src="assets/result-not-found.png"> 
+              </div>
+            </div>
+          </div>
+          
+          <div class="fab-btns">
+            <button (click)="exportDealer()" *ngIf="site_locations.length" mat-fab class="excel">
+              <img src="assets/excel.svg">
+            </button>
+            <button mat-fab color="primary" routerLink="/purchase-add"  routerLinkActive="active" >
+              <mat-icon>add</mat-icon>
+            </button>
+          </div>
+        </div>
+        
+      
   </div>   
   
   
-  <div class="css-table hr-scroll-table" >
-    <div class="sticky-header">
-      <div class="header">
-        <table>
-          <tr>
-            <th class="w30">&nbsp;</th>
-            <th class="w100">Date Created</th>
-            <th class="w150">Created By</th>
-            <th class="w60">Purchase ID</th>
-            <th class="w200">Site Address</th>
-            <th class="w150">Sales Executive Details</th>
-            <th class="w150">Architect Detail</th>
-            <th class="w150">Product Name</th>
-            <th class="w60  text-center">Quantity</th>
-            <th class="w100">Status</th>
-            <!-- <th class="w120">Company Status</th> -->
-           
-            <th class="w60 text-center">Architect Points</th>
-
-            <th class="w70 text-center" *ngIf="filter.status != 'Delete'">Action</th>
-          </tr>
-        </table>
-      </div>
-      
-      <div class="header border-bott">
-        <table>
-          <tr>
-            <th class="w30">&nbsp;</th>
-            <th class="w100"></th>  
-            <th class="w150"></th>  
-            
-            <th class="w60">
-              <div class="search-form">
-                <input type="text" placeholder="Search..." [(ngModel)]="filter.purchase_id"  (keyup.enter)="current_page = 1; getPurchaseList('')">
-                <i class="material-icons">search</i>
-              </div>
-            </th>  
-            <th class="w200">
-              <div class="search-form">
-                <input type="text" placeholder="Search..." [(ngModel)]="filter.site_address"  (keyup.enter)="current_page = 1;getPurchaseList('')">
-                <i class="material-icons">search</i>
-              </div>
-            </th>                          
-            <th class="w150">
-              <div class="search-form">
-                <input type="text" placeholder="Search..." [(ngModel)]="filter.first_name"  (keyup.enter)="current_page = 1; getPurchaseList('')">
-                <i class="material-icons">search</i>
-              </div>
-            </th>
-            <th class="w150 text-center">
-              <div class="search-form">
-                <input type="text" placeholder="Search..." [(ngModel)]="filter.engineer_name"  (keyup.enter)="current_page = 1;getPurchaseList('')">
-                <i class="material-icons">search</i>
-              </div>
-            </th>
-            <th class="w150">
-              <div class="search-form">
-                <input type="text" placeholder="Search..." [(ngModel)]="filter.product_name"  (keyup.enter)="current_page = 1; getPurchaseList('')">
-                <i class="material-icons">search</i>
-              </div>
-            </th>
-            <th class="w60 "></th>
-            
-          
-            
-            <th class="w100 text-center">
-              <div class="form-area">
-                <div class="slect mr0">
-                  <mat-form-field>
-                    <mat-select [(ngModel)]="filter.dealer_status" name="dealer_status" #dealer_status="ngModel" (selectionChange)="current_page = 1;getPurchaseList('')">
-                      <mat-option value="">All</mat-option>
-                      <mat-option value="Pending">Pending</mat-option>
-                      <mat-option value="Verified">Verified</mat-option>
-                      <mat-option value="Rejected">Rejected</mat-option>
-                    </mat-select>
-                  </mat-form-field>
-                </div>
-              </div>
-            </th>
-           
-            <th class="w60"></th>
-
-            <th class="w70 text-center" *ngIf="filter.status != 'Delete'"></th>               
-          </tr>
-        </table>
-      </div>
-    </div>
-    
-    <div class="table-container" *ngIf="site_locations.length">
-      <div class="table-body">
-        <table>
-          <tr *ngFor="let val of site_locations; let i = index">
-            <td class="w30">{{ ( (current_page - 1 ) * 20 ) + ( i+1 ) }}</td>
-            <td class="w100">
-              <ng-container *ngIf="val.date_created  != '0000-00-00 00:00:00' " > 
-                {{val.date_created | date: 'dd MMM yyyy'}}
-              </ng-container>
-            </td>
-            <td class="w150">
-              {{val.created_name}}
-            </td>
-            <td class="w60"><a class="blue" routerLink="/purchase-detail/{{val.id}}/{{current_page}}"  routerLinkActive="active">#Pur{{val.id}}</a></td>
-            <td class="w200"><a class="blue" routerLink="/site-detail/{{val.site_location_id}}/{{current_page}}"  routerLinkActive="active">{{val.site_address | titlecase}},{{val.state | titlecase}}, {{val.district | titlecase}}</a></td>
-            <td class="w150"><a class="blue" routerLink="/distributor-detail/{{val.sales_user_id}}/{{current_page}}" routerLinkActive="active">{{val.sales_user_name | titlecase }} {{val.sales_user_contact | titlecase }}</a></td>
-            <td class="w150">
-              <a class="blue" routerLink="/dealer-detail/{{val.architect_id}}/{{current_page}}"  routerLinkActive="active">                  
-                {{val.architect_name | titlecase}} 
-              </a>
-               <strong>{{val.architect_contact}}</strong>
-            </td>
-            <td class="w150">{{val.product_name}}</td>
-            <td class="w60  text-center">{{val.qty}}</td>
-            <td class="w100">
-              <!-- <ng-container *ngIf="val.verify_at == 'Dealer'"> -->
-                <strong class=" {{val.dealer_status}}" *ngIf="val.dealer_status != 'Pending'">{{val.dealer_status}}</strong>
-                <div class="center" *ngIf="val.dealer_status == 'Pending'">
-                  <select class="wp100 {{val.dealer_status != 'Pending' ? '' : val.dealer_status }}"  [name]="'status'+i" placeholder="Status" [(ngModel)]="val.dealer_status" (change)="checkStatus(val.id, val.dealer_status, val.verify_at)">
-                    <option class="Verified" value="Verified">Verified</option>
-                    <option class="Reject" value="Reject">Reject</option>
-                    <option class="Pending" value="Pending">Pending</option>
-                  </select> 
-                </div>
-                <!-- </ng-container> -->
-                <!-- <ng-container *ngIf="val.verify_at != 'Dealer'">
-                  <strong class="{{val.company_status}}" *ngIf="val.company_status != 'Pending'">{{val.company_status}}</strong>
-                  <div class="center" *ngIf="val.company_status == 'Pending'">
-                    <select class="wp100 {{val.dealer_status == 'Pending' || val.dealer_status == 'Reject' ? '' : val.company_status }}"  [name]="'status'+i" placeholder="Status" [(ngModel)]="val.company_status" (change)="checkStatus(val.id, val.company_status, val.verify_at)">
-                      <option class="{{val.dealer_status == 'Pending' || val.dealer_status == 'Reject' ? '' : 'Verified'}}" value="Verified">Verified</option>
-                      <option class="{{val.dealer_status == 'Reject' || val.dealer_status == 'Reject' ? '' : 'Reject'}}" value="Reject">Reject</option>
-                      <option class="{{val.dealer_status == 'Pending' || val.dealer_status == 'Pending' ? '' : 'Pending'}}" value="Pending">Pending</option>
-                    </select> 
-                  </div>
-                </ng-container> -->
-              </td> 
-            
-              <td class="w60 text-center"><strong>{{val.architect_points}}</strong></td>
-
-              
-              <td class="w70 text-center" *ngIf="filter.status != 'Delete'">
-                <div class="cs-action">
-                  <button   *ngIf="val.dealer_status == 'Pending' && val.company_status == 'Pending'" class="{{val.dealer_status != 'Verified' && val.company_status != 'Verified' ? 'ac-green' : 'ac-green' }}" matTooltip="Edit" matTooltipPosition="below" 
-                  (click)="edit(val.id)"><i class="material-icons">edit</i></button>
-                  <button *ngIf="val.dealer_status == 'Verified' || val.dealer_status == 'Pending'" class="{{val.dealer_status != 'Verified' && val.company_status != 'Verified' ? 'ac-red' : 'ac-red' }}" matTooltip="Delete" matTooltipPosition="below" (click)="deletePcs(val.id)"><i
-                    class="material-icons">delete_sweep</i></button>
-                  </div>
-                </td>
-              </tr>
-              
-              
-              
-            </table>
-          </div>
-        </div>
-      </div>
-      
-      <div class="container-outer" *ngIf="!loading_list && !site_locations.length && ( (filter.status == 'All' && dealer_all ) || (filter.status == 'Pending' && dealer_pending ) || (filter.status == 'Verified' && dealer_verified ) || (filter.status == 'Reject' && dealer_reject ) || (filter.status == 'Suspect' && dealer_suspect )   )">
-        <div class="date-not" >
-          <div class="no-img">
-            <img src="assets/result-not-found.png"> 
-          </div>
-        </div>
-      </div>
-      
-      <div class="fab-btns">
-        <button (click)="exportDealer()" *ngIf="site_locations.length" mat-fab class="excel">
-          <img src="assets/excel.svg">
-        </button>
-        <button mat-fab color="primary" routerLink="/purchase-add"  routerLinkActive="active" >
-          <mat-icon>add</mat-icon>
-        </button>
-      </div>
+  
     </div>
     

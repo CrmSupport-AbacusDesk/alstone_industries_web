@@ -104,6 +104,9 @@
                             <!-- <th class="w70 text-center">Requests</th> -->
                             <!-- <th class="w65 text-center">User Type</th> -->
                             <th class="w100 text-center">Status</th>
+                            <th class="w60 text-center">Action</th>
+
+                            
                         </tr>
                     </table>
                 </div>
@@ -180,6 +183,7 @@
                                     </div>
                                 </div>
                             </th>
+                            <th class="w60"></th>
                         </tr>
                     </table>
                 </div>
@@ -228,10 +232,11 @@
                                             <option class="Pending" value="Pending">Pending</option>
                                             <option class="Suspect" value="Suspect">Suspect</option>
                                         </select> 
-                                        <div class="over-sec" >
-                                            <i class="material-icons deactive" style="background: #ca9137 !important;"  (click)="deleteKarigar(val.id)" >delete_sweep</i>
-                                        </div> 
+                                        
                                     </div>
+                                </td>
+                                <td class="w60">
+                                        <i class="material-icons deactive" style="color: #be0101"  (click)="deleteKarigar(val.id)" >delete_sweep</i>
                                 </td>
                             </tr>
                         </table>

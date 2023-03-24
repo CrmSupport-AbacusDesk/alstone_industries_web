@@ -27,7 +27,7 @@
                             <mat-option >
                               <ngx-mat-select-search noEntriesFoundLabel="'no data found'" placeholderLabel="Search Address" (keyup)="getLocation($event.target.value)"></ngx-mat-select-search>
                             </mat-option>
-                            <mat-option [value]="row.id" *ngFor="let row of locations" (click)="AssignSaleUser(row.state);getarchitect('',row.state)">{{row.address}}</mat-option>
+                            <mat-option [value]="row.id" *ngFor="let row of locations" (click)="AssignSaleUser(row.state);getarchitect('',row.state)">{{row.address}},{{row.state}},{{row.district}},{{row.city}},{{row.pincode}}</mat-option>
                           </mat-select>
                         </mat-form-field>   
                       </div>
@@ -46,9 +46,9 @@
                       <div class="control-field">
                         <mat-form-field class="cs-input">
                           <mat-select placeholder="Architect Name" [(ngModel)]="data.architect_id" name="architect_id" #architect_id="ngModel" required>
-                            <mat-option>
+                            <!-- <mat-option>
                               <ngx-mat-select-search noEntriesFoundLabel="'no data found'" placeholderLabel="Search.." (keyup)="getarchitect($event.target.value,'')"></ngx-mat-select-search>
-                            </mat-option>
+                            </mat-option> -->
                             <mat-option [value]="row.id" *ngFor="let row of architect_user">{{row.full_name | titlecase}}</mat-option>
                           </mat-select>
                         </mat-form-field>   

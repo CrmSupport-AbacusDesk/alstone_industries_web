@@ -12,14 +12,18 @@
           <div class="full-offer">
             <div class="top-heading no-justify">
               <a class="back-btn" routerLink="/redeem-request-list" ><i class="material-icons">arrow_back</i></a>
-              <h2 *ngIf="getData.user_type == 1">PLUMBER DETAIL</h2>
-              <h2 *ngIf="getData.user_type == 2">RETAILER DETAIL</h2>
+              <h2 *ngIf="getData.user_type == 1">CARPENTER DETAIL</h2>
+              <h2 *ngIf="getData.user_type == 2">MASON DETAIL</h2>
+              <h2 *ngIf="getData.user_type == 3">FABRICATOR DETAIL</h2>
+              <h2 *ngIf="getData.user_type == 4">ARCHITECT DETAIL</h2>
+
+
               <!-- <a class="blue"  *ngIf="getData.receive_status == ''  &&  getData.gift_status != 'Reject'" (click)="changeStatus(getData.id)">Status</a> -->
             </div>
             
             <div class="detail-info">
               <div class="img-box">
-                <img [src]="uploadUrl + getData.profile" (click)="openDialog(uploadUrl + getData.profile)">
+                <img [src]="uploadUrl + getData.profile" (click)="openDialog(uploadUrl + getData.profile)" *ngIf="getData.profile">
               </div>
               
               <div class="basic-details">
@@ -186,7 +190,7 @@
             </div>
             <div class="detail-info pl0 pr0">
               <div class="img-box">
-                <img [src]="uploadUrl + getData.document_image" (click)="openDialog(uploadUrl + getData.document_image)">
+                <img [src]="uploadUrl + getData.document_image" (click)="openDialog(uploadUrl + getData.document_image)" *ngIf="getData.document_image">
               </div>
               <div class="basic-details">
                 <div class="profile-info">
@@ -215,7 +219,7 @@
         <div class="sprate-box gift-offer ">
           <div class="full-offer">
             <div class="top-heading">
-              <h2>OffER DETAIL</h2>
+              <h2>OFFER DETAIL</h2>
             </div>
             <div class="row mb0">
               <div class="off">
@@ -223,7 +227,7 @@
                   <div class="territory-infos ">
                     <div class="cs-checkboxs">
                       <div class="checkbox-outers">
-                        <img [src]="uploadUrl + getData.offer_banner" (click)="openDialog(uploadUrl + getData.offer_banner)">
+                        <img [src]="uploadUrl + getData.offer_banner" (click)="openDialog(uploadUrl + getData.offer_banner)" *ngIf="getData.offer_banner">
                       </div>
                     </div>  
                   </div>
@@ -297,7 +301,7 @@
                   <div class="territory-infos ">
                     <div class="cs-checkboxs">
                       <div class="checkbox-outers">
-                        <img [src]="uploadUrl + getData.gift_image" (click)="openDialog(uploadUrl + getData.gift_image)">
+                        <img [src]="uploadUrl + getData.gift_image" (click)="openDialog(uploadUrl + getData.gift_image)" *ngIf="getData.gift_image">
                       </div>
                     </div>  
                   </div>

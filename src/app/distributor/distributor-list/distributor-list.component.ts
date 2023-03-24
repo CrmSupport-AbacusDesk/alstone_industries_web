@@ -222,6 +222,23 @@ export class DistributorListComponent implements OnInit {
             this.getDistributorList('');
         });
     }
+
+
+    deleteKarigar(id)
+    {
+        this.dialog.delete('Karigar')
+        .then((result) => {
+            if(result)
+            {
+                this.db.post_rqst({'id': id}, 'karigar/remove')
+                .subscribe(d => {
+                    console.log(d);
+                    this.getDistributorList('');
+                    this.dialog.successfully();
+                });
+            }
+        });
+    }
     
     openDatepicker(): void {
         const dialogRef = this.alrt.open(MastetDateFilterModelComponent, {

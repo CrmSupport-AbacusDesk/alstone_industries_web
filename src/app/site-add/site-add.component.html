@@ -25,7 +25,7 @@
                           <div>
                               <mat-form-field class=" cs-input ">
                                   <input matInput placeholder="Pincode"
-                                  (input)="getaddress(siteform.pincode)" maxlength="6" minlength="6"
+                                  (input)="getaddress(siteform.pincode)"  (keypress)="numeric_Number($event)"maxlength="6" minlength="6"
                                   name="pincode" [(ngModel)]="siteform.pincode"
                                   #pincode="ngModel" required>
                               </mat-form-field>
@@ -100,7 +100,7 @@
                     <div class="col s3">
                       <div class="control-field">
                         <mat-form-field class="cs-input">
-                          <input matInput placeholder="Project Size (Cons. Area) Sq. Ft" name="project_size" [(ngModel)] = "siteform.project_size" (keypress)="numeric_Number($event)" #project_size="ngModel">
+                          <input matInput  placeholder="Project Size (Cons. Area) Sq. Ft" name="project_size" [(ngModel)] = "siteform.project_size" #project_size="ngModel">
                         </mat-form-field>   
                       </div>
                     </div>

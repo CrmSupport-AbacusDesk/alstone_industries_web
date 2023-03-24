@@ -43,8 +43,7 @@ export class SiteAddComponent implements OnInit {
   
   ngOnInit() {
     
-    // this.managerList('');
-    // this.getBrand('');
+  
     this.route.params.subscribe(params => {
       this.karigar_id = params['id'];
       if (this.karigar_id)
@@ -52,27 +51,11 @@ export class SiteAddComponent implements OnInit {
         this.getKarigarDetails();
       
       }
-      // this.managerList('');
       this.getStateList();
-      // this.get_karigar_type();
-      // this.getEngineer('')
       this.siteform.country_id = 99;
     });
   }
   
-  
-  // selectedExecutive = (event, i) => {
-  //   console.log(event.source.value, i);
-  //   if(event.source.selected) {
-  //     this.salesuser_id.push({'id':event.source.value});
-  //   }else {
-  //     console.log('unchecked called');
-  //     const index = this.salesuser_id.findIndex(row => row.id == event.source.value);
-  //     this.salesuser_id.splice(index, 1);
-  //   }
-  //   console.log(event);
-  //   console.log(this.salesuser_id);
-  // }
 
   checkId = (event) => {
     console.log('Checked Called =', event);
@@ -117,8 +100,6 @@ export class SiteAddComponent implements OnInit {
       this.citys = d.cities;
     });
   }
-  
-  
 
   sales_users:any=[];
   AssignSaleUser()
@@ -129,18 +110,6 @@ export class SiteAddComponent implements OnInit {
           console.log(this.sales_users)
       });
   }
-
-  // selectAll = () => {
-  //     const data = this.salesuser_id.filter(row => row.id == this.siteform.salesuser_id);
-  //     console.log('Selected Data ==>', this.siteform.salesuser_id);
-  //     for(let i = 0; i < this.siteform.salesuser_id.length; i++){
-  //           // this.salesuser_id[i].selected = true; 
-  //     }
-  //     console.log('Inside IF ELSE Condition ==>', this.siteform);
-  // }
-
-
- 
   architect_user:any=[]
   getarchitect(search){
     this.db.post_rqst({'filter':{'state':this.siteform.state,'limit':0,'search':search}}, 'karigar/Architect_list')
@@ -156,21 +125,6 @@ export class SiteAddComponent implements OnInit {
       this.engineer = d.engineer;
     });
   }
-  
- 
-
-  // getSalesUser(search){
-  //   this.filter.assigned_location = this.siteform.sales_zone;
-  //   this.db.post_rqst({'filter':this.filter, 'search':search}, 'karigar/getSalesExecutives')
-  //   .subscribe(d => { 
-  //     console.log(d);
-      
-  //     this.loading_list = false;  
-  //     this.salesUser = d.sales_executives;
-  //   });
-  // }
-  
-  
   
   openDatePicker(picker : MatDatepicker<Date>)
   {
@@ -191,8 +145,6 @@ export class SiteAddComponent implements OnInit {
       this.getCityList(1);
       this.getarchitect('');
       this.AssignSaleUser();
-
-
       
       for(let i=0; i<this.siteform.image.length ;i++)
       {
@@ -202,11 +154,6 @@ export class SiteAddComponent implements OnInit {
       
     });
   }
-  
-  
-  
-  
-  
   
   type_list = [];
   get_karigar_type()
@@ -245,6 +192,8 @@ export class SiteAddComponent implements OnInit {
       this.image.append(""+i,data.target.files[i],data.target.files[i].name);
     }
   }
+
+  
   
   
   deleteProductImage(index,data)

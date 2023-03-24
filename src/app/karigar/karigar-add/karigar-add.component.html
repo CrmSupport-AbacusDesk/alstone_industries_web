@@ -56,7 +56,7 @@
                                             <div class="control-field">
                                                 <div>
                                                     <mat-form-field class=" cs-input ">
-                                                        <input matInput placeholder = "Pincode" (input)="getaddress(karigarform.pincode)" maxlength="6" minlength="6" name = "pincode"  [(ngModel)] = "karigarform.pincode" #pincode = "ngModel" required>
+                                                        <input matInput placeholder = "Pincode" (input)="getaddress(karigarform.pincode)" (keypress)="numeric_Number($event)" maxlength="6" minlength="6" name = "pincode"  [(ngModel)] = "karigarform.pincode" #pincode = "ngModel" required>
                                                     </mat-form-field>
                                                 </div>
                                             </div>
@@ -149,7 +149,7 @@
                                 <div class="option-field">
                                     <div class="control-field">
                                         <mat-form-field class="cs-input">
-                                            <mat-select placeholder="Document Type" [(ngModel)] = "karigarform.document_type" #document_type="ngModel" name="document_type" >
+                                            <mat-select placeholder="Document Type" [(ngModel)]="karigarform.document_type" #document_type="ngModel" name="document_type" >
                                                 <mat-option value ="PanCard" >Pan Card</mat-option>
                                                 <mat-option value ="VoterCard">Voter Card</mat-option>
                                                 <mat-option value ="Aadharcard">Aadhar Card</mat-option>
@@ -211,7 +211,8 @@
                                                 </label> -->
                                                 <label style="border: 1px dashed #131313;">
                                                     <input type="file" (change)="onUploadChange($event)" style="display:none;" accept=".png, .jpg, .jpeg, .pdf"  />
-                                                    <img  [src]="docId ? uploadUrl+karigarform.document_image : karigarform.document_image" alt="" id="img" *ngIf="karigarform.document_image !=''">
+                                                    <img  [src]="docId ? uploadUrl+karigarform.document_image : karigarform.document_image" alt="" id="img" *ngIf="karigarform.document_image">
+                                                        <!-- <i class="material-icons" (click)="removeImage()">clear</i> -->
                                                     <i class="material-icons add-file-icon" >add</i>
                                                 </label>
 
@@ -219,6 +220,9 @@
                                                     <input type="file" (change)="onUploadBack($event)" style="display:none;" accept=".png, .jpg, .jpeg" multiple />
                                                     <!-- <img  [src]="karigarform.document_image" alt="" id="img"> -->
                                                     <img src="{{back_doc_id ? uploadUrl+karigarform.document_image_back : karigarform.document_image_back}}" *ngIf="karigarform.document_image_back">
+                                                    <span class="cancel-icon">
+                                                        <!-- <i class="material-icons " (click)="removebackImage()">clear</i> -->
+                                                      </span>
                                                     <i class="material-icons add-file-icon" >add</i>
                                                 </label>
                                                 
@@ -264,7 +268,7 @@
                                 <div class="option-field">
                                     <div class="control-field">
                                         <mat-form-field class="cs-input">
-                                            <input matInput placeholder="Account No." name="account_no" [(ngModel)]="karigarform.account_no" minlength="8" maxlength="16" #account_no="ngModel">
+                                            <input matInput placeholder="Account No." name="account_no" (keypress)="numeric_Number($event)" [(ngModel)]="karigarform.account_no" minlength="8" maxlength="16" #account_no="ngModel">
                                         </mat-form-field>  
                                     </div>
                                 </div>

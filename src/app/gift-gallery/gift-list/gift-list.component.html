@@ -157,10 +157,10 @@
                         <td class="w200"><ng-container *ngIf="val.date_created  != '0000-00-00 00:00:00' "> {{val.date_created | date: 'dd MMM yyyy'}}</ng-container> / {{val.as}}</td>
                         <td class="w200"><a class="blue" routerLink="/gift-detail/{{val.id}}" routerLinkActive="active">{{val.gift_title  | titlecase }} #{{val.id}}</a></td>
                         <td class="w60">
-                            <div class="image-thum">
+                            <div class="image-thum"*ngIf="val.image">
                                 <!-- <img [src]="val.image" (click)="openDialog( val.id,'test4')"> -->
                                 <div class="image-thum" >
-                                    <img [src]="uploadUrl+val.image" (click)="openDialog(uploadUrl + val.image)">
+                                    <img [src]="uploadUrl+val.image" (click)="openDialog(uploadUrl + val.image)" >
                                 </div>
                             </div>
                         </td>

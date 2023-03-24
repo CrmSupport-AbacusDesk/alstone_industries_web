@@ -121,7 +121,7 @@ export class SiteListComponent implements OnInit {
     this.filter.mode = 1;
     this.db.post_rqst(  {'filter': this.filter , 'login':this.db.datauser,user_type:'3'}, 'master/exportSiteLocation')
     .subscribe( d => {
-      document.location.href = this.db.myurl+'/app/uploads/exports/siteLocationList.csv';
+      document.location.href = this.db.myurl+'/app/uploads/exports/'+d.file_name;
       console.log(d);
     });
   }

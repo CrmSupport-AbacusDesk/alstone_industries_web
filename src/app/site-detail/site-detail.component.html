@@ -200,12 +200,12 @@
           <div class="tab-header no-sticky gift-tab-list ">
             <div class="tabs-list gift-tab-list ">
               <ul>
-                <li (click)="mode = 1; getSiteDetails();" [ngClass]="{'active': mode == 1}" >
+                <!-- <li (click)="mode = 1; getSiteDetails();" [ngClass]="{'active': mode == 1}" >
                   <a>
                     <p>Site Visit</p>
                     <span>{{site_visit_count}}</span>
                   </a>
-                </li>
+                </li> -->
                 <li  (click)="mode = 2; getPurchaseList()" [ngClass]="{'active': mode == 2 }" >
                   <a>
                     <p>Purchase Orders</p>
@@ -217,14 +217,14 @@
           </div>				
           <div class="dobale">
             
-            <div *ngIf="mode == 1" class="top-pagination">
+            <!-- <div *ngIf="mode == 1" class="top-pagination">
               <ul>
                 <li><p >Pages {{ current_page }} of {{ last_page }}</p></li>
                 <li><button mat-button class="left-btn" (click) = 'previousPage()'><i class="material-icons">keyboard_arrow_left</i></button></li>
                 <li><input type="text" placeholder="GO TO" [(ngModel)]="current_page"  (keyup.enter)="getSiteDetails()"></li>
                 <li><button mat-button class="right-btn" (click) = 'previousPage()'><i class="material-icons">keyboard_arrow_right</i></button></li>
               </ul>
-            </div>
+            </div> -->
             
             <div *ngIf="mode == 2" class="top-pagination">
               <ul>
@@ -244,80 +244,7 @@
       </div>
       
       <div class="sprate-box no-box">
-        <div class="css-table left-right-10" *ngIf="mode == 1">
-          <div class="sticky-header bo-non">
-            <div class="header">
-              <table>
-                <tr>
-                  <th class="w20">&nbsp;</th>
-                  <th class="w150">Visited Dated</th>
-                  <th class="w200">Site Visit User</th>
-                  <th class="w300">Remarks</th>
-                  <th class="w300">Site Images</th>
-
-                </tr>
-              </table>
-            </div>
-            <div class="header">
-              <table>
-                <tr>
-                  <th class="w20">&nbsp;</th>
-                  <th class="w150"></th>  
-                  <th class="w200"></th>  
-                  <th class="w300"></th>  
-                  <th class="w300">
-                  </th>
-                </tr>
-              </table>
-            </div>
-          </div>
-          <div class="table-container">
-            <div class="table-body">
-              <table>
-                <tr *ngFor="let val of site_visit; let i = index">
-                  <td class="w20">{{ ( (current_page - 1 ) * 20 ) + ( i+1 ) }}</td>
-                  
-                  <td class="w150">
-                    <ng-container *ngIf="val.date_created  != '0000-00-00 00:00:00' " > 
-                      {{val.date_created | date: 'dd MMM yyyy'}}
-                    </ng-container>
-                  </td>
-                  <td class="w200">
-                    {{val.site_created_name}}
-                  </td>
-                  <td class="w300">
-                    {{val.remark}}
-                  </td>
-                  
-                  <td class="w300">
-
-                    <ng-container *ngFor="let row of val.visit_images">
-                      <img src="{{uploadurl + row.image_name}}" class="mr10" (click)="openDialog(row,  row.image_name,'image')">
-                    </ng-container>
-
-                    <!-- <img src="{{val.visit_images.length > 0 ? uploadurl+val.visit_images[0].image_name : 'assets/not-available.jpg' }}"  style="cursor: zoom-in;"
-                    (click)="openDialog(val.visit_images[0].id, val.visit_images[0].image_name,'image')"> -->
-
-
-                    
-                  </td>
-                  
-                </tr>
-                
-                
-                
-              </table>
-            </div>
-          </div>
-          <div class="date-not" *ngIf="site_visit.length == 0">
-            <div class="no-img">
-              <img src="assets/not-available.jpg"> 
-            </div>
-          </div>
-          <!-- <div class="table-container">
-            
-          </div> -->
-        </div>  
+    
         <div class="css-table left-right-10" *ngIf="mode == 2">
           
           
@@ -330,11 +257,10 @@
                     <th class="w150">Date / Created By</th>
                     <th class="w100">Purchase ID</th>
                     <!-- <th class="w250">Site Address</th> -->
-                    <th class="w150">Max Bahubali Details</th>
-                    <th class="w150">Engineer Detail</th>
+                    <th class="w150">Sales Executive Details</th>
+                    <th class="w150">Architect Detail</th>
                     <th>Product Name</th>
                     <th class="w100 text-center">Quantity</th>
-                    <th class="w200">Channel Partner Info</th>
                     <th class="w100">Status</th>
                     <!-- <th class="w100">Company Status</th> -->
                     <!-- <th class="w50 text-center">Action</th> -->
@@ -367,12 +293,7 @@
                     </th>
                     <th class="w100"></th>
                     
-                    <th class="w200">
-                      <div class="search-form">
-                        <input type="text" placeholder="Search..." [(ngModel)]="filter.dealer_mobile_no"  (keyup.enter)="checkIsNumber($event)">
-                        <i class="material-icons">search</i>
-                      </div>
-                    </th>
+                 
                     
                     
                     <th class="w100 text-center">
@@ -421,33 +342,13 @@
                     </td>
                     <td class="w100"><a class="blue" routerLink="/purchase-detail/{{val.id}}/{{current_page}}"  routerLinkActive="active">#Pur {{val.id}}</a></td>
                     <!-- <td class="w250"><a class="blue" routerLink="/site-detail/{{val.site_location_id}}/{{current_page}}"  routerLinkActive="active">{{val.site_address | titlecase}},{{val.state | titlecase}}, {{val.district | titlecase}}</a></td> -->
-                    <td class="w150"><a class="blue" routerLink="/user-detail/pc/{{val.pc_id}}/{{current_page}}" routerLinkActive="active">{{val.first_name | titlecase }} {{val.mobile_no | titlecase }}</a></td>
-                    <td class="w150"><a class="blue" routerLink="/user-detail/engineer/{{val.engineer_id}}/{{current_page}}" routerLinkActive="active">{{val.engineer_name | titlecase }} {{val.engineer_mobile | titlecase }}</a></td>
+                    <td class="w150"><a class="blue" routerLink="/distributor-detail/{{val.sales_user_id}}/{{current_page}}" routerLinkActive="active">{{val.sales_user_name | titlecase }} {{val.sales_user_contact | titlecase }}</a></td>
+                    <td class="w150"><a class="blue" routerLink="/dealer-detail/{{val.architect_id}}/{{current_page}}" routerLinkActive="active">{{val.architect_name | titlecase }} {{val.architect_contact | titlecase }}</a></td>
 
                     <td>{{val.product_name}}</td>
                     <td class="w100 text-center">{{val.qty}}</td>
-                    <td class="w200"><a class="blue" routerLink="/dealer-detail/{{val.dealer_id}}/{{current_page}}" routerLinkActive="active">{{val.dealer_name | titlecase}} - {{val.dealer_mobile_no}}</a></td>
                     <td class="w100">
-                      <ng-container *ngIf="val.verify_at == 'Dealer'">
-                        <strong class="{{val.dealer_status}}" *ngIf="val.dealer_status != 'Pending'">{{val.dealer_status}}</strong>
-                        <div class="center" *ngIf="val.dealer_status == 'Pending'">
-                          <select class="{{val.dealer_status != 'Pending' ? '' : val.dealer_status }}"  [name]="'status'+i" placeholder="Status" [(ngModel)]="val.dealer_status" (change)="checkStatus(val.id, val.dealer_status, val.verify_at)">
-                            <option class="Verified" value="Verified">Verified</option>
-                            <option class="Reject" value="Reject">Reject</option>
-                            <option class="Pending" value="Pending">Pending</option>
-                          </select> 
-                        </div>
-                      </ng-container>
-                      <ng-container *ngIf="val.verify_at != 'Dealer'">
-                        <strong class="{{val.company_status}}" *ngIf="val.company_status != 'Pending'">{{val.company_status}}</strong>
-                        <div class="center" *ngIf="val.company_status == 'Pending'">
-                          <select class="{{val.dealer_status == 'Pending' || val.dealer_status == 'Reject' ? '' : val.company_status }}"  [name]="'status'+i" placeholder="Status" [(ngModel)]="val.company_status" (change)="checkStatus(val.id, val.company_status, val.verify_at)">
-                            <option class="{{val.dealer_status == 'Pending' || val.dealer_status == 'Reject' ? '' : 'Verified'}}" value="Verified">Verified</option>
-                            <option class="{{val.dealer_status == 'Reject' || val.dealer_status == 'Reject' ? '' : 'Reject'}}" value="Reject">Reject</option>
-                            <option class="{{val.dealer_status == 'Pending' || val.dealer_status == 'Pending' ? '' : 'Pending'}}" value="Pending">Pending</option>
-                          </select> 
-                        </div>
-                      </ng-container>
+                      {{val.status}}
                     </td> 
                     <!-- <td class="w100 text-center">
                       <div class="center">

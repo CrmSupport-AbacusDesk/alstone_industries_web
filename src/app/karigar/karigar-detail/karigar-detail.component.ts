@@ -49,7 +49,6 @@ export class KarigarDetailComponent implements OnInit {
             if (this.karigar_id) {
                 this.getKarigarDetails();
                 this.getReedamList();
-                this.getScannedList();
                 this.getReferral();
                 this.get_points_summry();
                 this. getAssignPlumber();
@@ -89,6 +88,8 @@ export class KarigarDetailComponent implements OnInit {
             this.getData = d.karigar;
             this.getData.coupon_limit = d.karigar.manual_coupon_limit;
             this.total_wallet_points = parseInt(this.getData.balance_point) + parseInt(this.getData.referal_point_balance);
+            this.getScannedList();
+
         });
     }
     
@@ -169,13 +170,14 @@ export class KarigarDetailComponent implements OnInit {
         this.filter.end_date = this.filter.end_date  ? this.db.pickerFormat(this.filter.end_date) : '';
         if( this.filter.date  || this.filter.used_date || this.filter.end_date)this.filtering = true;
         this.filter.karigar_id = this.karigar_id;
-        this.db.post_rqst(  {  'filter': this.filter }, 'offer/couponScannedListKarigar?page=' + this.current_page)
+        this.db.post_rqst(  {  'filter': this.filter ,'user_type':this.getData.user_type}, 'offer/couponScannedListKarigar?page=' + this.current_page)
         .subscribe( d => {
             this.loading_list = false;
             console.log(d);
             this.current_page = d.scanned_coupon.current_page;
             this.last_page = d.scanned_coupon.last_page;
             this.scanned_coupon = d.scanned_coupon.data;
+            console.log(this.scanned_coupon)
             this.coupon_scanned_count = d.scanned_coupon.total;
         });
     }
@@ -192,7 +194,7 @@ export class KarigarDetailComponent implements OnInit {
         .subscribe( d => {
             this.loading_list = false;
             console.log(d);
-            this.referral_data = d.referal;
+            this.referral_data = d.ref_kar;
             this.point_transfer = d.point_transfer;
         });
     }

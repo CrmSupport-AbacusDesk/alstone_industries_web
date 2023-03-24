@@ -63,19 +63,23 @@
                     <div class="bottom-item">
                         <div class="cs-item" (click)="goto_karigarsPage(1)">
                             <span>{{user_karigar}}</span>
-                            <p>Carpenter</p>
+                            <p style="font-size:10px">Carpenter</p>
                         </div>
                         <div class="cs-item" (click)="goto_karigarsPage(2)">
                             <span>{{user_Masons}}</span>
-                            <p>Masons</p>
+                            <p style="font-size:10px">Masons</p>
                         </div>
                         <div class="cs-item" (click)="goto_karigarsPage(3)">
                             <span>{{user_Fabricator}}</span>
-                            <p>Fabricator</p>
+                            <p style="font-size:10px">Fabricator</p>
                         </div>
                         <div class="cs-item" (click)="goto_karigarsPage(4)">
                             <span>{{user_Architect}}</span>
-                            <p>Architect</p>
+                            <p style="font-size:10px">Architect</p>
+                        </div>
+                        <div class="cs-item" (click)="goto_karigarsPage(5)">
+                            <span>{{user_Sales_Executive}}</span>
+                            <p style="font-size:8px;line-height: 10px;">Sales Executive</p>
                         </div>
                     </div>
                 </li>
@@ -109,10 +113,10 @@
                     <div class="chart-header">
                         <p>State Wise Karigar</p>
                         <div class="sm-tab">
-                            <a class="" [ngClass]="{'active': showKarigarList == true}"  (click)="showKarigar(1)" mat-button>Carpenter</a>
-                            <a class="" [ngClass]="{'active': showMasonslist == true}"  (click)="showKarigar(2)" mat-button>Masons</a>
-                            <a class="" [ngClass]="{'active': showFabricatorList == true}" (click)="showKarigar(3)" mat-button>Fabricator</a>
-                            <a class="" [ngClass]="{'active': showArchitectList == true}" (click)="showKarigar(4)" mat-button>Architect</a>
+                            <a class="" [ngClass]="{'active': showKarigarList == true}"  (click)="getstatewisekarigar(1)" mat-button>Carpenter</a>
+                            <a class="" [ngClass]="{'active': showMasonslist == true}"  (click)="getstatewisekarigar(2)" mat-button>Masons</a>
+                            <a class="" [ngClass]="{'active': showFabricatorList == true}" (click)="getstatewisekarigar(3)" mat-button>Fabricator</a>
+                            <a class="" [ngClass]="{'active': showArchitectList == true}" (click)="getstatewisekarigar(4)" mat-button>Architect</a>
 
                             <!-- <a class="" mat-button>Distributor</a> -->
                         </div>
@@ -127,7 +131,43 @@
                 </div>
             </div>
         </div>
-        <div class="col s6 ">
+        <div class="col s6">
+            <div class="pie-chart">
+                <div class="chart-header">
+                    <p>Offer Balance Day's</p>
+                </div>
+                <div class="cs-table scroll-335">
+                    <table>
+                        <tr>
+                            <th class="first-head">
+                                <div class="table-head">
+                                    <table>
+                                        <tr>
+                                            <th>Offer</th>
+                                            <th class="w80 text-center">Day's</th>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </th>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="table-body">
+                                    <table>
+                                        <tr *ngFor="let data of offer_balance_days">
+                                            <td>{{data.title | titlecase}}  #{{data.id}}</td>
+                                            <td class="w80 day">{{data.balance_days}}</td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+        
+        <!-- <div class="col s6 ">
             <div class="pie-chart">
                 <div class="chart-header">
                     <p>State Wise Retailer</p>
@@ -141,7 +181,7 @@
                 </fusioncharts>
             </div>
         </div>
-    </div>
+    </div> -->
     <!-- <div class="col s4  $theme">
         <div class="pie-chart">
             <div class="chart-header">
@@ -176,17 +216,26 @@
     <div class="col s6">
         <div class="pie-chart">
             <div class="chart-header">
-                <p>Offer Balance Day's</p>
+                <p>Karigar Birthday Upcoming 7 Day's</p>
+                <div class="sm-tab">
+                    <a class="" [ngClass]="{'active': showbirthdayKarigar == true}"  (click)="getKarigarbirthday(1)" mat-button>Carpenter</a>
+                    <a class="" [ngClass]="{'active': showbirthdayMasons == true}"  (click)="getKarigarbirthday(2)" mat-button>Masons</a>
+                    <a class="" [ngClass]="{'active': showbirthdayFabricator == true}" (click)="getKarigarbirthday(3)" mat-button>Fabricator</a>
+                    <a class="" [ngClass]="{'active': showbirthdayArchitect == true}" (click)="getKarigarbirthday(4)" mat-button>Architect</a>
+
+                </div>
             </div>
             <div class="cs-table scroll-335">
-                <table>
+                <table *ngIf="birthday.length">
                     <tr>
                         <th class="first-head">
                             <div class="table-head">
                                 <table>
                                     <tr>
-                                        <th>Offer</th>
-                                        <th class="w80 text-center">Day's</th>
+                                        <th class="w50">S.No.</th>
+                                        <th>Name</th>
+                                        <th class="w110  text-center">Mobile Number</th>
+                                        <th class="w90 text-center">D.O.B</th>
                                     </tr>
                                 </table>
                             </div>
@@ -195,30 +244,47 @@
                     <tr>
                         <td>
                             <div class="table-body">
-                                <table>
-                                    <tr *ngFor="let data of offer_balance_days">
-                                        <td>{{data.title | titlecase}}  #{{data.id}}</td>
-                                        <td class="w80 day">{{data.balance_days}}</td>
+                                <table *ngIf="karigar_birth_graph">
+                                    <tr *ngFor="let data of birthday; let i= index;">
+                                        <td class="w50">{{i+1}}</td>
+                                        <td>{{data.full_name}}</td>
+                                        <td class="w110 ">{{data.mobile_no}}</td>
+                                        <td class="w90">
+                                            <strong>{{data.dob | date: 'dd MMM yyyy'}}</strong>
+                                        </td>
+                                    </tr>
+                                </table>
+                                <table *ngIf="dealer_birth_graph">
+                                    <tr *ngFor="let data of birthday; let i= index;">
+                                        <td class="w50">{{i+1}}</td>
+                                        <td>{{data.full_name}}</td>
+                                        <td class="w110 ">{{data.mobile_no}}</td>
+                                        <td class="w90">
+                                            <strong>{{data.dob | date: 'dd MMM yyyy'}}</strong>
+                                        </td>
                                     </tr>
                                 </table>
                             </div>
                         </td>
                     </tr>
                 </table>
+                <div class="no-data"  *ngIf="birthday.length == [];">
+                    <h2>Data Not Available</h2>
+                </div>
             </div>
         </div>
     </div>
-    
+   
     <div class="col s6">
         <div class="pie-chart">
             <div class="chart-header">
                 <p>Super 30 </p>
                 
                 <div class="sm-tab">
-                    <a class="" [ngClass]="{'active': showKarigarList == true}"  (click)="showKarigar(1)" mat-button>Carpenter</a>
-                    <a class="" [ngClass]="{'active': showMasonslist == true}"  (click)="showKarigar(2)" mat-button>Masons</a>
-                    <a class="" [ngClass]="{'active': showFabricatorList == true}" (click)="showKarigar(3)" mat-button>Fabricator</a>
-                    <a class="" [ngClass]="{'active': showArchitectList == true}" (click)="showKarigar(4)" mat-button>Architect</a>
+                    <a class="" [ngClass]="{'active': showSuparkarigar == true}"  (click)="getsuparkarigar(1)" mat-button>Carpenter</a>
+                    <a class="" [ngClass]="{'active': showSuparMasons == true}"  (click)="getsuparkarigar(2)" mat-button>Masons</a>
+                    <a class="" [ngClass]="{'active': showSuparFabricator == true}" (click)="getsuparkarigar(3)" mat-button>Fabricator</a>
+                    <a class="" [ngClass]="{'active': showSuparArchitect == true}" (click)="getsuparkarigar(4)" mat-button>Architect</a>
 
                 </div>
             </div>
@@ -241,7 +307,7 @@
                     <tr>
                         <td>
                             <div class="table-body">
-                                <table *ngIf="showKarigarList">
+                                <table>
                                     
                                     <tr *ngFor="let data of super_karigars">
                                         <td>{{data.first_name | titlecase}}</td>
@@ -250,15 +316,10 @@
                                         <td class="w90 eligible">{{data.gift_eligible}}</td>
                                     </tr>
                                 </table>
-                                <table *ngIf="showDealersList">
-                                    <tr *ngFor="let data of super_dealers">
-                                        <td>{{data.first_name | titlecase}}</td>
-                                        <td class="w200">{{data.state}}</td>
-                                        <td class="w90 point">{{data.total_wallet_point}}</td>
-                                        <td class="w90 eligible">{{data.gift_eligible}}</td>
-                                    </tr>
-                                    
-                                </table>
+                              
+                                <div class="no-data"  *ngIf="super_karigars.length == [];">
+                                    <h2>Data Not Available</h2>
+                                </div>
                             </div>
                         </td>
                     </tr>
@@ -356,67 +417,7 @@
         </div>
     </div> -->
     
-    <div class="col s6">
-        <div class="pie-chart">
-            <div class="chart-header">
-                <p>Karigar Birthday Upcoming 7 Day's</p>
-                <div class="sm-tab">
-                    <a class="" [ngClass]="{'active': showKarigarList == true}"  (click)="showKarigar(1)" mat-button>Carpenter</a>
-                    <a class="" [ngClass]="{'active': showMasonslist == true}"  (click)="showKarigar(2)" mat-button>Masons</a>
-                    <a class="" [ngClass]="{'active': showFabricatorList == true}" (click)="showDealers(3)" mat-button>Fabricator</a>
-                    <a class="" [ngClass]="{'active': showArchitectList == true}" (click)="showDealers(4)" mat-button>Architect</a>
-
-                </div>
-            </div>
-            <div class="cs-table scroll-335">
-                <table *ngIf="birthday.length">
-                    <tr>
-                        <th class="first-head">
-                            <div class="table-head">
-                                <table>
-                                    <tr>
-                                        <th class="w50">S.No.</th>
-                                        <th>Name</th>
-                                        <th class="w110  text-center">Mobile Number</th>
-                                        <th class="w90 text-center">D.O.B</th>
-                                    </tr>
-                                </table>
-                            </div>
-                        </th>
-                    </tr>
-                    <tr>
-                        <td>
-                            <div class="table-body">
-                                <table *ngIf="karigar_birth_graph">
-                                    <tr *ngFor="let data of birthday; let i= index;">
-                                        <td class="w50">{{i+1}}</td>
-                                        <td>{{data.full_name}}</td>
-                                        <td class="w110 ">{{data.mobile_no}}</td>
-                                        <td class="w90">
-                                            <strong>{{data.dob | date: 'dd MMM yyyy'}}</strong>
-                                        </td>
-                                    </tr>
-                                </table>
-                                <table *ngIf="dealer_birth_graph">
-                                    <tr *ngFor="let data of birthday; let i= index;">
-                                        <td class="w50">{{i+1}}</td>
-                                        <td>{{data.full_name}}</td>
-                                        <td class="w110 ">{{data.mobile_no}}</td>
-                                        <td class="w90">
-                                            <strong>{{data.dob | date: 'dd MMM yyyy'}}</strong>
-                                        </td>
-                                    </tr>
-                                </table>
-                            </div>
-                        </td>
-                    </tr>
-                </table>
-                <div class="no-data"  *ngIf="birthday.length == [];">
-                    <h2>Data Not Available</h2>
-                </div>
-            </div>
-        </div>
-    </div>
+  
 </div>
 </div>
 </div>

@@ -218,13 +218,13 @@ export class SalesExecutiveComponent implements OnInit {
                     }
                 }
                 
-                exportproductCategory()
+                exportsalesuser()
                 {
                     this.filter.mode = 1;
                     this.db.post_rqst(  {'filter': this.filter , 'login':this.db.datauser}, 'master/exportSalesExecutive')
                     .subscribe( d => {
                         this.loading_list = false;
-                        document.location.href = this.db.myurl+'app/uploads/exports/salesExecutiveList.csv';
+                        document.location.href = this.db.myurl+'app/uploads/exports/'+d.file_name;
                         console.log(d);
                     });
                 }

@@ -10,26 +10,26 @@
                 <ul>
                     <li (click)="mode='1';filter = {}; current_page=1; getAvailableCoupanList(''); " [ngClass]="{'active': mode == '1'}">
                         <a>
-                            <p>ALL</p>
+                            <p>All</p>
                             <span>{{avialable_coupon_count}}</span>
                         </a>
                     </li>
                     <li (click)="mode='10';filter = {}; current_page=1; getScannedList('',1); " [ngClass]="{'active': mode == '10'}">
                         <a>
-                            <p>SCANNED BY CARPENTER</p>
-                            <span>{{ sccaned_coupon_count}}</span>
+                            <p>Scanned By Carpenter</p>
+                            <span>{{ scanned_coupon_count_carpenter}}</span>
                         </a>
                     </li>
                     <li (click)="mode='11';filter = {}; current_page=1; getScannedList('',2); " [ngClass]="{'active': mode == '11'}">
                         <a>
-                            <p>SCANNED BY MASONS</p>
-                            <span>{{ sccaned_coupon_count}}</span>
+                            <p>Scanned By Masons</p>
+                            <span>{{ scanned_coupon_count_masons}}</span>
                         </a>
                     </li>
                     <li (click)="mode='12';filter = {}; current_page=1; getScannedList('',3); " [ngClass]="{'active': mode == '12'}">
                         <a>
-                            <p>SCANNED BY FABRICATOR</p>
-                            <span>{{ sccaned_coupon_count}}</span>
+                            <p>Scanned By Fabricator</p>
+                            <span>{{ scanned_coupon_count_fabricator}}</span>
                         </a>
                     </li>
                   
@@ -689,7 +689,7 @@
 
 
                         <!-- <td><a class="blue" routerLink="/offer-detail/{{val.offer_id}}" routerLinkActive="active">{{val.title}} #{{val.offer_code}} </a> / {{val.end_date | date : 'dd MMM yyyy'}}</td> -->
-                        <td><p>{{val.scan_by_karigar_date | date : 'dd MMM yyyy'}} / <a class="blue" routerLink="/karigar-detail/{{val.scan_by_karigar_id}}/1" routerLinkActive="active">{{val.first_name  | titlecase }} {{val.last_name  | titlecase }}</a></p></td>
+                        <td><p>{{val.scan_by_karigar_date | date : 'dd MMM yyyy'}} / <a class="blue" routerLink="/karigar-detail/Carpenter/{{val.scan_by_karigar_id}}/1" routerLinkActive="active">{{val.first_name  | titlecase }} {{val.last_name  | titlecase }}</a></p></td>
                         <td class="w110">{{val.mobile_no}}</td>
                         <td class="w80 text-center"><span class="back-bg">{{val.karigar_coupon_value}}</span></td> 
 
@@ -716,7 +716,7 @@
 
 
                         <!-- <td><a class="blue" routerLink="/offer-detail/{{val.offer_id}}" routerLinkActive="active">{{val.title}} #{{val.offer_code}} </a> / {{val.end_date | date : 'dd MMM yyyy'}}</td> -->
-                        <td><p>{{val.scan_by_karigar_date | date : 'dd MMM yyyy'}} / <a class="blue" routerLink="/karigar-detail/{{val.scan_by_karigar_id}}/1" routerLinkActive="active">{{val.first_name  | titlecase }} {{val.last_name  | titlecase }}</a></p></td>
+                        <td><p>{{val.scan_by_karigar_date | date : 'dd MMM yyyy'}} / <a class="blue" routerLink="/karigar-detail/Masons/{{val.scan_by_karigar_id}}/1" routerLinkActive="active">{{val.first_name  | titlecase }} {{val.last_name  | titlecase }}</a></p></td>
                         <td class="w110">{{val.mobile_no}}</td>
                         <td class="w80 text-center"><span class="back-bg">{{val.karigar_coupon_value}}</span></td> 
 
@@ -743,7 +743,7 @@
 
 
                         <!-- <td><a class="blue" routerLink="/offer-detail/{{val.offer_id}}" routerLinkActive="active">{{val.title}} #{{val.offer_code}} </a> / {{val.end_date | date : 'dd MMM yyyy'}}</td> -->
-                        <td><p>{{val.scan_by_karigar_date | date : 'dd MMM yyyy'}} / <a class="blue" routerLink="/karigar-detail/{{val.scan_by_karigar_id}}/1" routerLinkActive="active">{{val.first_name  | titlecase }} {{val.last_name  | titlecase }}</a></p></td>
+                        <td><p>{{val.scan_by_karigar_date | date : 'dd MMM yyyy'}} / <a class="blue" routerLink="/karigar-detail/Architect/{{val.scan_by_karigar_id}}/1" routerLinkActive="active">{{val.first_name  | titlecase }} {{val.last_name  | titlecase }}</a></p></td>
                         <td class="w110">{{val.mobile_no}}</td>
                         <td class="w80 text-center"><span class="back-bg">{{val.karigar_coupon_value}}</span></td> 
 

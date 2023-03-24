@@ -217,6 +217,9 @@ export class CouponCodeListComponent implements OnInit {
             this.sccaned_coupon_count = d.scanned_coupon.total;
             this.redeem_coupon_count = d.coupon_redeem_count;
             this.avialable_coupon_count = d.coupon_available_count;
+            this.scanned_coupon_count_carpenter = d.scanned_coupon_count_carpenter;
+            this.scanned_coupon_count_fabricator = d.scanned_coupon_count_fabricator;
+            this.scanned_coupon_count_masons = d.scanned_coupon_count_masons;
 
 
             
@@ -265,6 +268,10 @@ export class CouponCodeListComponent implements OnInit {
     
     total_reddem_coupon:any={};
     total_reedem_coupon_value:any = 0;
+    scanned_coupon_count_carpenter:any;
+    scanned_coupon_count_fabricator:any;
+    scanned_coupon_count_masons:any;
+
     getRedeemList(action) 
     {
         this.loading_list = true;
@@ -289,7 +296,8 @@ export class CouponCodeListComponent implements OnInit {
             this.redeem_coupon = d.redeem_coupon.data;
             this.redeem_coupon_count = d.redeem_coupon.total;
             this.avialable_coupon_count = d.coupon_available_count;
-            this.sccaned_coupon_count = d.coupon_scanned_count;
+           
+
             this.total_reedem_coupon_value = d.total_reedem_coupon_value.total_coupon_value;
         });
     }

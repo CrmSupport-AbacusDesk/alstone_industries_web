@@ -15,7 +15,7 @@ import { DatabaseService } from 'src/app/_services/DatabaseService';
 })
 export class PurchaseListComponent implements OnInit {
 
-  loading_list = true;
+  loading_list = false;
   site_locations: any = [];
   total_dealers = 0;
   dealer_all:any =0;
@@ -40,18 +40,19 @@ export class PurchaseListComponent implements OnInit {
       console.log("helo");
       
     });
-    this.filter.status = 'All';
+    this.filter ={};
+    this.filter.status = '';
+
     console.log(this.filter);
     if(this.filter.status == undefined)
     {
-        this.filter.status = 'All';
+        this.filter.status = '';
     }
   
    }
 
   ngOnInit() {
 
-    this.filter ={};
     this.getPurchaseList(''); 
     this.AssignSaleUser();
   }
@@ -143,7 +144,7 @@ export class PurchaseListComponent implements OnInit {
     this.filter.mode = 1;
     this.db.post_rqst(  {'filter': this.filter , 'login':this.db.datauser,user_type:'3'}, 'master/exportPurchaseOrder')
     .subscribe( d => {
-      document.location.href = this.db.myurl+'/app/uploads/exports/purchaseList.csv';
+      document.location.href = this.db.myurl+'/app/uploads/exports/'+d.file_name;
       console.log(d);
     });
   }
@@ -159,7 +160,7 @@ export class PurchaseListComponent implements OnInit {
     });
   }
 
-  deletePcs(id)
+  deletepurchase(id)
   {
     this.dialog.delete('Dealer')
     .then((result) => {
@@ -193,53 +194,10 @@ export class PurchaseListComponent implements OnInit {
   }
 
 
-  // changeCompanyStatus(id,status)
-  // {
-  //     const dialogRef = this.alrt.open(ChangecompanystatusComponent,{
-  //         width: '500px',
-  //         // height:'500px',
-          
-  //         data: {
-  //             'id' : id,
-  //             'companyStaus' : status,
-  //             'target' : 1,
-  //         }
-  //     });
-  //     dialogRef.afterClosed().subscribe(result => {
-  //         if( result ){
-  //             this.getPurchaseList('');
-  //         }
-  //     });
-  // }
+  
 
 
-  // checkStatus = (id, status, verified_at) =>{
-  //   if(verified_at == 'Dealer'){
-  //     this.changeDealerStatus(id, status);
-  //   }
-  //   else {
-  //     this.changeCompanyStatus(id, status);
-  //   }
-  // }
-
-  // changeDealerStatus(id,status)
-  // {
-  //     const dialogRef = this.alrt.open(ChangedealerstatusComponent,{
-  //         width: '500px',
-  //         // height:'500px',
-          
-  //         data: {
-  //             'id' : id,
-  //             'dealerStatus' : status,
-  //             'target' : 1,
-  //         }
-  //     });
-  //     dialogRef.afterClosed().subscribe(result => {
-  //         if( result ){
-  //             this.getPurchaseList('');
-  //         }
-  //     });
-  // }
+ 
 
 
   edit = (id) => {
@@ -261,6 +219,43 @@ export class PurchaseListComponent implements OnInit {
       this.getPurchaseList('')
     }
   }
+
+
+  purchaseStatus(id,status){
+    this.dialog.comanAlert("Are you sure ?")
+    .then(resp=>{
+      console.log(resp);
+      if(resp)
+      {
+        this.db.post_rqst({'purchase_order_id':id,'status':status }, 'master/purchaseOrderStatus')
+        .subscribe(d => {
+            console.log(d);
+            if(d['status']=='product_not_exist'){
+            this.dialog.error("Product Not Exist!");
+            this.getPurchaseList('');
+
+            }
+
+           else if(d['status']=='architect_not_exist'){
+              this.dialog.error("Architect Not Exist!");
+              this.getPurchaseList('');
+  
+              }
+
+            else if(d['status']=='UPDATED'){
+              this.dialog.success("Status Change Successfully!");
+              this.getPurchaseList('');
+  
+              }
+        });
+       
+      }
+      else{
+        this.getPurchaseList('');
+      }
+    })
+  }
+
 
   
 }
