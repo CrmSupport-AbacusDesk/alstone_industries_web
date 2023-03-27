@@ -77,11 +77,11 @@
         <div class="header">
           <table>
             <tr>
-              <th class="w40">S no.</th>
+              <th class="w50">S no.</th>
               <th class="w100">Date Created</th>
-              <th class="w100">Created By</th>
-              <th class="w200">Site Address</th>
-              <th class="w200">Owner Detail</th>
+              <th class="w150">Created By</th>
+              <th class="w250">Site Address</th>
+              <th class="w250">Owner Detail</th>
               <th class="w120">State</th>
               <th class="w120">District</th>
               <th class="w120">City</th>
@@ -89,8 +89,8 @@
               <!-- <th class="w150">Construction Type</th>
                 <th class="w150">Construction Stage</th> -->
                 <th class="w100 text-center">Site Potential(Bags)</th>
-                <th class="w200">Sales Executive Detail</th>
-                <th class="w200">Architect Detail</th>
+                <th class="w250">Sales Executive Detail</th>
+                <th class="w250">Architect Detail</th>
                 
                 <!-- <th class="w80">Status</th> -->
                 <!-- <th class="w50 text-center">Action</th> -->
@@ -101,17 +101,17 @@
           <div class="header border-bott">
             <table>
               <tr>
-                <th class="w40"></th>
+                <th class="w50"></th>
                 <th class="w100"></th>
-                <th class="w100"></th>
+                <th class="w150"></th>
                 
-                <th class="w200">
+                <th class="w250">
                   <div class="search-form">
                     <input type="text" placeholder="Search..." [(ngModel)]="filter.address"  (keyup.enter)="current_page = 1;getUserList('')">
                     <i class="material-icons">search</i>
                   </div>
                 </th>
-                <th class="w200">
+                <th class="w250">
                   <div class="search-form">
                     <input type="text" placeholder="Search..." [(ngModel)]="filter.site_owner_name"  (keyup.enter)="current_page = 1;getUserList('')">
                     <i class="material-icons">search</i>
@@ -143,13 +143,13 @@
                     <i class="material-icons">search</i>
                   </div>
                 </th>
-                <th class="w200 text-center">
+                <th class="w250 text-center">
                   <div class="search-form">
                     <input type="text" placeholder="Search..." [(ngModel)]="filter.sales_user_name"  (keyup.enter)="current_page = 1;getUserList('')">
                     <i class="material-icons">search</i>
                   </div>
                 </th>
-                <th class="w200 text-center">
+                <th class="w250 text-center">
                   <div class="search-form">
                     <input type="text" placeholder="Search..." [(ngModel)]="filter.architect_name"  (keyup.enter)="current_page = 1;getUserList('')">
                     <i class="material-icons">search</i>
@@ -163,19 +163,19 @@
           </div>
         </div>
 
-        <div class="css-table">
+        <!-- <div class="css-table"> -->
             <div class="table-container"  *ngIf="site_locations.length">
           <div class="table-body">
             <table>
               <tr *ngFor="let val of site_locations; let i = index">
-                <td [ngClass]="{'dots': val.flag == 1}" class="w40">{{ ( (current_page - 1 ) * 20 ) + ( i+1 ) }}</td>
+                <td [ngClass]="{'dots': val.flag == 1}" class="w50">{{ ( (current_page - 1 ) * 20 ) + ( i+1 ) }}</td>
                 <td class="w100">
                   <ng-container *ngIf="val.date_created  != '0000-00-00 00:00:00' "> 
                     {{val.date_created | date: 'dd MMM yyyy'}}
                   </ng-container> 
                   
                 </td>
-                <td class="w100">
+                <td class="w150">
                   <ng-container *ngIf="val.created_by  == '1' " > 
                     Admin
                   </ng-container>
@@ -183,8 +183,8 @@
                     {{val.created_name | titlecase}}
                   </ng-container>  
                 </td>
-                <td class="w200">{{val.address | titlecase}}</td>
-                <td class="w200">
+                <td class="w250">{{val.address | titlecase}}</td>
+                <td class="w250">
                   <a class="blue" routerLink="/site-detail/{{val.id}}/{{current_page}}"  routerLinkActive="active">{{val.site_owner_name | titlecase}} - {{val.site_owner_contact}}</a>
                 </td>
                 <td class="w120">{{val.state}}</td>
@@ -194,14 +194,14 @@
                 <!-- <td class="w150">{{val.construction_type}}</td>
                   <td class="w150">{{val.stage}}</td> -->
                   <td class="w100 text-center">{{val.site_potential}}</td>
-                  <td class="w200">
+                  <td class="w250">
                     
                     <a class="blue" routerLink="/distributor-detail/{{val.sales_user_id}}/{{current_page}}"  routerLinkActive="active">                  
                       {{val.sales_user_name | titlecase}} 
                     </a>
                     - <strong>{{val.sales_user_mobile}}</strong>
                   </td>
-                  <td class="w200">
+                  <td class="w250">
                     <a class="blue" routerLink="/dealer-detail/{{val.architect_id}}/{{current_page}}"  routerLinkActive="active">                  
                       {{val.architect_name | titlecase}} 
                     </a>
@@ -224,7 +224,7 @@
               </div>
             </div>
 
-        </div>
+        <!-- </div> -->
       
 
 

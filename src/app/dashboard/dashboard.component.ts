@@ -55,8 +55,10 @@ export class DashboardComponent implements OnInit {
     birthday_dealer: any =[];
     aniversary_karigar:any =[];
     aniversary_dealer: any =[];
-
-    
+    show_carpenter_graph=true;
+    show_architect_graph=false;
+    show_fabricator_graph=false;
+    show_masons_graph=false;
     constructor(public db: DatabaseService, private router:Router) 
     {
         this.get_counts();
@@ -77,6 +79,35 @@ export class DashboardComponent implements OnInit {
     
     ngOnInit() 
     {
+
+        if(this.show_carpenter_graph == true){
+            this.show_masons_graph == false;
+            this.show_fabricator_graph == false;
+            this.show_architect_graph == false;
+            this.getmonthwisedetail('1');
+
+        }
+        if(this.show_masons_graph == true){
+            this.show_fabricator_graph == false;
+            this.show_architect_graph == false;
+            this.show_carpenter_graph == false;
+            this.getmonthwisedetail('2');
+
+        }
+        if(this.show_fabricator_graph == true){
+            this.show_architect_graph == false;
+            this.show_carpenter_graph == false;
+            this.show_masons_graph == false;
+            this.getmonthwisedetail('3');
+
+        }
+        if(this.show_architect_graph == true){
+            this.show_carpenter_graph == false;
+            this.show_masons_graph == false;
+            this.show_fabricator_graph == false;
+            this.getmonthwisedetail('4');
+
+        }
         
     }
 
@@ -177,6 +208,38 @@ export class DashboardComponent implements OnInit {
                 this.super_karigars = resp.super_karigars;
             });
         }
+
+        month_trend: any;
+        karigar_month_source: any = [];
+        karigar_month_wise: any = [];
+
+        getmonthwisedetail(filter) {
+
+
+            this.db.post_rqst({ 'filter': {"user_type": filter}, }, 'master/monthWiseKarigarData')
+                .subscribe((resp) => {
+                    console.log(resp);
+                    this.month_trend = resp['karigars'];
+                    // this.karigars_trends = resp['karigars'];
+                    this.karigar_month_wise = [];
+    
+                    for (let i = 0; i < this.month_trend.length; i++) {
+                        this.karigar_month_wise.push({ "label": this.month_trend[i].state, "value": this.month_trend[i].karigar_count });
+                    }
+                    console.log(this.karigar_month_wise);
+    
+                    this.karigar_month_source = {
+                        "chart": {
+                            "xAxisName": "States",
+                            "yAxisName": "Karigar",
+                            // "numberSuffix": "k",
+                            "theme": "fusion",
+                        },
+                        "data": this.karigar_month_wise
+                    };
+                })
+        }
+    
 
 
         get_super_dealers()
