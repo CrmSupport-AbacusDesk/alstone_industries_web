@@ -67,9 +67,9 @@
                     <li><button mat-button class="right-btn" (click) = 'redirect_next()'><i class="material-icons">keyboard_arrow_right</i></button></li>
                     <li><button mat-button  matTooltip="Last Page" class="last-btn" (click) = 'last1()'>Last</button></li>
                 </ul>
-                <div class="master-btn ml20" *ngIf="assign_arr.length > 0 || select_all">
+                <!-- <div class="master-btn ml20" *ngIf="assign_arr.length > 0 || select_all">
                     <button style="background: #38b1ec;;" mat-button (click)="opensendmessage(userType)">Send Message</button>
-                </div>
+                </div> -->
                 <div class="master-btn ml20" *ngIf="assign_arr.length > 0 || select_all">
                     <button style="background: #6daf24;;" mat-button (click)="opensendnitification(userType)">Send Notification</button>
                 </div>

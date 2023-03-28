@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { DatabaseService } from '../_services/DatabaseService';
 import { Router } from '@angular/router';
+import { SessionStorage } from '../_services/SessionService';
 
 @Component({
     selector: 'app-dashboard',
@@ -55,17 +56,22 @@ export class DashboardComponent implements OnInit {
     birthday_dealer: any =[];
     aniversary_karigar:any =[];
     aniversary_dealer: any =[];
-    show_carpenter_graph=true;
-    show_architect_graph=false;
-    show_fabricator_graph=false;
-    show_masons_graph=false;
-    constructor(public db: DatabaseService, private router:Router) 
+
+  access_level: any;
+  users: any = {};
+
+    constructor(public db: DatabaseService, private router:Router,public ses:SessionStorage) 
     {
+        this.users = this.ses.users;
+        this.access_level = this.users.access_level;
+        console.log(this.access_level);
+        
         this.get_counts();
         this.get_super_karigars(1);
         this.get_super_dealers();
         this.get_offer_balance_days();
         this.state_wise_karigar(1);
+        this.getmonthwisedetail(1);
         this.state_wise_dealer();
         this.state_wise_distributor();
         this.coupon_code_graph();
@@ -78,38 +84,56 @@ export class DashboardComponent implements OnInit {
     }
     
     ngOnInit() 
-    {
-
-        if(this.show_carpenter_graph == true){
-            this.show_masons_graph == false;
-            this.show_fabricator_graph == false;
-            this.show_architect_graph == false;
-            this.getmonthwisedetail('1');
-
-        }
-        if(this.show_masons_graph == true){
-            this.show_fabricator_graph == false;
-            this.show_architect_graph == false;
-            this.show_carpenter_graph == false;
-            this.getmonthwisedetail('2');
-
-        }
-        if(this.show_fabricator_graph == true){
-            this.show_architect_graph == false;
-            this.show_carpenter_graph == false;
-            this.show_masons_graph == false;
-            this.getmonthwisedetail('3');
-
-        }
-        if(this.show_architect_graph == true){
-            this.show_carpenter_graph == false;
-            this.show_masons_graph == false;
-            this.show_fabricator_graph == false;
-            this.getmonthwisedetail('4');
-
-        }
-        
+    {     
     }
+
+
+    show_carpenter_graph=true;
+    show_architect_graph=false;
+    show_fabricator_graph=false;
+    show_masons_graph=false;
+    getRegistratonkarigar(type){
+        console.log(type);
+        
+        if(type==1){
+            console.log(this.show_carpenter_graph);
+            console.log(this.show_masons_graph);
+            console.log(this.show_fabricator_graph);
+            console.log(this.show_architect_graph);            
+            this.show_carpenter_graph=true;
+            this.show_masons_graph = false;
+            this.show_fabricator_graph = false;
+            this.show_architect_graph = false;
+            this.getmonthwisedetail('1');
+        }
+        else if(type==2){
+            console.log(this.show_carpenter_graph);
+            console.log(this.show_masons_graph);
+            console.log(this.show_fabricator_graph);
+            console.log(this.show_architect_graph);  
+            this.show_masons_graph=true;
+            this.show_fabricator_graph = false;
+            this.show_architect_graph = false;
+            this.show_carpenter_graph = false;
+            this.getmonthwisedetail('2');
+        }
+        else if(type==3){
+            this.show_fabricator_graph=true;
+            this.show_architect_graph = false;
+            this.show_carpenter_graph = false;
+            this.show_masons_graph = false;
+            this.getmonthwisedetail('3');
+        }
+        else if(type==4){
+            this.show_architect_graph=true;
+            this.show_carpenter_graph = false;
+            this.show_masons_graph = false;
+            this.show_fabricator_graph = false;
+            this.getmonthwisedetail('4');
+        }
+
+    }
+
 
     offer_Architect:any
     offer_Fabricator:any
@@ -618,17 +642,25 @@ export class DashboardComponent implements OnInit {
     
     goto_offerPage()
     {
+        if(this.access_level ==1){
         this.router.navigate(["offer-list/active"]);
+        }
     }
     
     goto_offergiftPage()
     {
-        this.router.navigate(['gift-list']);
+        if(this.access_level ==1){
+
+            this.router.navigate(['gift-list']);
+        }
     }
     
     goto_pending_redeem_rqs_page()
     {
-        this.router.navigate(['redeem-request-list/pending']);
+        if(this.access_level ==1){
+
+            this.router.navigate(['redeem-request-list/pending']);
+        }
     } 
     
     goto_balance_coupon_page()
@@ -639,20 +671,22 @@ export class DashboardComponent implements OnInit {
     goto_karigarsPage(action)
     {
         // this.router.navigate(['karigar-list']);
+        if(this.access_level ==1){
 
-        if(action ==1){   
-            this.router.navigate(['karigar-list/Carpenter'],{queryParams:{mode:action}});
-        }else if(action == 2){
-            this.router.navigate(['karigar-list/Masons'],{queryParams:{mode:action}});
-        }
-        else if(action == 3){
-            this.router.navigate(['karigar-list/Fabricator'],{queryParams:{mode:action}});
-        }
-        else if(action == 4){
-            this.router.navigate(['dealer-list/1'],{queryParams:{mode:action}});
-        }
-        else if(action == 5){
-            this.router.navigate(['distributor-list/1'],{queryParams:{mode:action}});
+            if(action ==1){   
+                this.router.navigate(['karigar-list/Carpenter'],{queryParams:{mode:action}});
+            }else if(action == 2){
+                this.router.navigate(['karigar-list/Masons'],{queryParams:{mode:action}});
+            }
+            else if(action == 3){
+                this.router.navigate(['karigar-list/Fabricator'],{queryParams:{mode:action}});
+            }
+            else if(action == 4){
+                this.router.navigate(['dealer-list/1'],{queryParams:{mode:action}});
+            }
+            else if(action == 5){
+                this.router.navigate(['distributor-list/1'],{queryParams:{mode:action}});
+            }
         }
     }
     
