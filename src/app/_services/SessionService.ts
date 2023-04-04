@@ -44,17 +44,122 @@ export class SessionStorage implements OnInit {
             .subscribe((data: any) => {
                 if (data.token) {
                     this.users = data.user;
+                    console.log(this.users);
+                    
                     this.users.token = data.token;
                     this.users.logged = true;
                     localStorage.setItem('users', JSON.stringify(this.users) );
 
                     this.loading = false;
                     
-                    var home_page = '';
-                    if(   this.users.access_level == 1  ){
-                    home_page = '/dashboard';
+                    // var home_page = '';
+                    // if(   this.users.access_level == 1  ){
+                    // home_page = '/dashboard';
                     
-                    }else{
+                    // }
+
+
+
+
+                    if (this.users.logged) {
+
+                        var home_page = '';
+                        if(   this.users.access_level == 1  ){
+                        // home_page = '/dashboard';
+                            if(this.users.id==1)
+                            {
+                                home_page = '/dashboard';
+                                // home_page = '/offer-list';
+    
+                            }
+                            // else
+                            // {
+                            //     home_page='/coupon-code-list';
+                            // }
+                    
+                        } else if( this.users.access_level == 8)  
+                        {
+                           
+                            if(this.users.dashboard==1)
+                            {
+                                home_page = '/dashboard';
+                            }
+                            else if(this.users.offer==1)
+                            {
+                                home_page = '/offer-list'; 
+                            }
+                            else if(this.users.redeem_request==1)
+                            {
+                                home_page = '/redeem-request-list'; 
+                            }
+                           
+                            else if(this.users.karigar==1)
+                            {
+                                home_page = '/karigar-list'; 
+                            }
+                            // else if(this.users.karigar==1)
+                            // {
+                            //     home_page = '/karigar-list'; 
+                            // }
+                            else if(this.users.coupon_code==1)
+                            {
+                                home_page = '/coupon-code-list'; 
+                            }
+                            else if(this.users.feedback==1)
+                            {
+                                home_page = '/feedback-list'; 
+                            }
+                            else if(this.users.faq==1)
+                            {
+                                home_page = '/faq-questionnaire'; 
+                            }
+                           
+                            else if(this.users.master==1)
+                            {
+                                home_page = '/digitallist'; 
+                            } 
+                            // else if(this.users.services==1)
+                            // {
+                            //     home_page = '/complaints-list/service'; 
+                            // }      
+                           
+                            // else if(this.users.display==1)
+                            // {
+                            //     home_page = '/complaints-list/installation'; 
+                            // }    
+    
+                            // else if(this.users.customer==1)
+                            // {
+                            //     home_page = '/customer-list'; 
+                            // }  
+                            // else if(this.users.plumber_meet==1)
+                            // {
+                            //     home_page = '/meet'; 
+                            // }  
+                            // else if(this.users.enquiry==1)
+                            // {
+                            //     home_page = '/enquiry-list'; 
+                            // } 
+                            // else if(this.users.survey==1)
+                            // {
+                            //     home_page = '/survey-list'; 
+                            // } 
+                          
+                            // else if(this.users.master==1)
+                            // {
+                            //     home_page = '/main-category-list'; 
+                            // } 
+                            else{
+                                this.dialog.alert("info","Not Allowed ","  You'r not allowed for Login!");
+                                home_page = '';
+                            }
+                        }
+    
+    
+    
+                    }
+                    
+                    else{
                     this.dialog.alert("info","Not Allowed ","  You'r not allowed for Login!");
                     home_page = '';
 

@@ -71,21 +71,21 @@
                 <div class="header">
                     <table>
                         <tr>
-                            <th class="w30">&nbsp;</th>
+                            <th class="w50">&nbsp;</th>
                             <th class="w100" >Date</th>
-                            <th class="w150">Name</th>
+                            <th class="w200">Name</th>
                             <th class="w85">Req. ID</th>
                             <th class="w90">Mobile No.</th>
                             <th class="w90">A/C Status</th>
-                            <th class="w90">Type</th>
+                            <th class="w90">Redeem Type</th>
 
                             <th class="w100">Gift</th>
                             
-                            <th class="w150">Offer-valid Upto</th>
+                            <th class="w200">Offer-valid Upto</th>
                             <th class="w80 text-right">Points Req.</th>
                             <th class="w100 text-right">Balance Point</th>
-                            <th class="w80 text-center">Points Req. Type </th>
-                            <th class="w130">Points Transfer Mobile No.</th>
+                            <th class="w120 text-center">Payment Type</th>
+                            <!-- <th class="w130">Points Transfer Mobile No.</th> -->
                             <th class="w85">Redeem Status</th>
                             <th class="w110 ">Gift Points Status</th>
                             <th class="w60">Action</th>
@@ -96,7 +96,7 @@
                 <div class="header border-bott">
                     <table>
                         <tr>
-                            <th class="w30">&nbsp;</th>
+                            <th class="w50">&nbsp;</th>
                             <th class="w100">
                                 <div class="date-form">
                                     <mat-form-field >
@@ -108,7 +108,7 @@
                                     </mat-form-field>
                                 </div>
                             </th>
-                            <th class="w150">
+                            <th class="w200">
                                 <div class="search-form">
                                     <input type="text" placeholder="Name" [(ngModel)]="filter.name"  (keyup.enter)="current_page = 1;getReedamList('')">
                                     <i class="material-icons">search</i>
@@ -179,7 +179,7 @@
                                     <i class="material-icons">search</i>
                                 </div>
                             </th>
-                            <th class="w150">
+                            <th class="w200">
                                 <div class="date-form">
                                     <i *ngIf="filter.end_date" class="material-icons" (click)="filter.end_date = '';getReedamList('') ">clear</i>
                                     
@@ -193,23 +193,22 @@
                             </th>
                             <th class="w80">&nbsp;</th>
                             <th class="w100">&nbsp;</th>
-                            <th class="w80">
+                            <th class="w120">
                                 <div class="form-area">
                                     <div class="slect mr0">
                                         <mat-form-field>
                                             <mat-label>Select</mat-label>
                                             <mat-select [(ngModel)]="filter.payment_type" name="payment_type" #payment_type="ngModel" (selectionChange)="getReedamList('')" >
                                                 <mat-option value="" >All</mat-option>
-                                                <mat-option value="Paytm">Paytm</mat-option>
-                                                <mat-option value="PhonePe">PhonePe</mat-option>
-                                                <mat-option value="Google Pay">Google Pay</mat-option>
+                                                <mat-option value="Bank Transfer">Bank Transfer</mat-option>
+                                                <mat-option value="UPI ID">UPI ID</mat-option>
                                                 <mat-option value="Gift">Gift</mat-option>
                                             </mat-select>
                                         </mat-form-field>
                                     </div>
                                 </div>
                             </th>
-                            <th class="w130">&nbsp;</th>
+                            <!-- <th class="w130">&nbsp;</th> -->
                             <th class="w85">
                                 <div class="form-area">
                                     <div class="slect mr0">
@@ -250,18 +249,18 @@
                 </div>
             </div>
 
-            <div class="css-table" *ngIf="reedam.length">
+            <div  *ngIf="reedam.length">
                 <div class="table-container">
                     <div class="table-body">
                         <table> 
                             <tr *ngFor="let val of reedam; let i = index">
-                                <td class="w30">{{ ( (current_page - 1 ) * 20 ) + ( i+1 ) }}</td>
+                                <td class="w50">{{ ( (current_page - 1 ) * 20 ) + ( i+1 ) }}</td>
                                 <td class="w100">
                                     <ng-container *ngIf="val.date_created  != '0000-00-00 00:00:00' "> 
                                         {{val.date_created | date: 'dd MMM yyyy'}}
                                     </ng-container>
                             </td>
-                            <td class="w150">
+                            <td class="w200">
                                 <ng-container *ngIf="val.user_type=='1'">
                                     <a class="blue" routerLink="/karigar-detail/Carpenter/{{val.user_id}}/{{current_page}}" routerLinkActive="active">
                                         {{val.first_name | titlecase}} {{val.last_name | titlecase}} - (Carpenter)
@@ -269,7 +268,7 @@
                                 </ng-container>
                                 <ng-container *ngIf="val.user_type=='2'">
                                     <a class="blue" routerLink="/karigar-detail/Masons/{{val.user_id}}/{{current_page}}" routerLinkActive="active">
-                                        {{val.first_name | titlecase}} {{val.last_name | titlecase}} - (Masons)
+                                        {{val.first_name | titlecase}} {{val.last_name | titlecase}} - (Mason)
                                     </a>
                                 </ng-container>
                                 <ng-container *ngIf="val.user_type=='3'">
@@ -297,18 +296,18 @@
         
                             <!-- <td class="w130 ">{{val.sales_name}}</td> -->
                         <td class="w100 ">{{val.gift_title}}</td>
-                            <td class="w150"><a  routerLink="/offer-detail"  routerLink="/offer-detail/{{val.offer_id}}" class="blue">{{val.title}} #{{val.offer_code}}</a> -{{val.end_date | date: 'dd MMM yyyy'}}</td>
+                            <td class="w200"><a  routerLink="/offer-detail"  routerLink="/offer-detail/{{val.offer_id}}" class="blue">{{val.title}} #{{val.offer_code}}</a> -{{val.end_date | date: 'dd MMM yyyy'}}</td>
                             <td class="w80 text-right">{{val.gift_points}}</td>
                             <td class="w100 text-center">{{val.balance_point}}</td>
-                            <td class="w80 text-center">
-                                <img src="assets/paytm.png" *ngIf="val.payment_type == 'Paytm'" class="upi-img h18">
+                            <td class="w120 text-center">
+                                <!-- <img src="assets/paytm.png" *ngIf="val.payment_type == 'Paytm'" class="upi-img h18">
                                 <img src="assets/phonepe.png" *ngIf="val.payment_type == 'PhonePe'" class="upi-img">
                                 <img src="assets/googlepay.png" *ngIf="val.payment_type == 'Google Pay'" class="upi-img">
-                                <img src="assets/gift.svg" *ngIf="val.payment_type == 'Gift'" class="upi-img">
+                                <img src="assets/gift.svg" *ngIf="val.payment_type == 'Gift'" class="upi-img"> -->
                                 
-                                <!-- {{val.payment_type}} -->
+                                {{val.payment_type}}
                             </td>
-                            <td class="w130">{{val.payment_number}}</td>
+                            <!-- <td class="w130">{{val.payment_number}}</td> -->
                             <td class="w85  {{val.gift_status}}" >{{val.gift_status}}</td>
                             <td class="w110  {{val.receive_status}}">
                                 <div class="center"  *ngIf="val.receive_status != 'Received' && val.gift_status == 'Approved'   ">

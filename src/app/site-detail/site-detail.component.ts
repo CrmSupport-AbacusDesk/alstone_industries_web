@@ -182,7 +182,7 @@ export class SiteDetailComponent implements OnInit {
     const dialogRef = this.alrt.open(ProductImageModuleComponent,{
       data: {
         'data' : data,
-        'name' : name,
+        'img' : this.uploadurl + name,
         'mode' : string,
       }
     });

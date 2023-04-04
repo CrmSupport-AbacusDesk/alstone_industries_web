@@ -280,7 +280,7 @@ export class DealerDetailComponent implements OnInit {
       .subscribe( d => {
           this.loading_list = false;
           console.log(d);
-          this.referral_data = d.referal;
+          this.referral_data = d.ref_kar;
           this.point_transfer = d.point_transfer;
           this.company_point_transfer = d.company_point_transfer;
 

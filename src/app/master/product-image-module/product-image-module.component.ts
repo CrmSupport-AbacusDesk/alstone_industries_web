@@ -24,6 +24,8 @@ export class ProductImageModuleComponent implements OnInit {
         // this.part_data.id = lead_data.id; 
         // this.part_data.reedem_id = lead_data.reedem_id; 
         this.part_data = lead_data.img; 
+        console.log(this.part_data);
+        
 
         // this.part_data.offer_gift_id = lead_data.offer_gift_id; 
         // this.part_data.mode = lead_data.mode; 

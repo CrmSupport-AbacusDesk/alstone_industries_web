@@ -12,10 +12,10 @@
           <div class="full-offer">
             <div class="top-heading no-justify">
               <a class="back-btn" routerLink="/redeem-request-list" ><i class="material-icons">arrow_back</i></a>
-              <h2 *ngIf="getData.user_type == 1">CARPENTER DETAIL</h2>
-              <h2 *ngIf="getData.user_type == 2">MASON DETAIL</h2>
-              <h2 *ngIf="getData.user_type == 3">FABRICATOR DETAIL</h2>
-              <h2 *ngIf="getData.user_type == 4">ARCHITECT DETAIL</h2>
+              <h2 *ngIf="getData.user_type == 1">CARPENTER REDEEM DETAIL</h2>
+              <h2 *ngIf="getData.user_type == 2">MASON REDEEM DETAIL</h2>
+              <h2 *ngIf="getData.user_type == 3">FABRICATOR REDEEM DETAIL</h2>
+              <h2 *ngIf="getData.user_type == 4">ARCHITECT REDEEM DETAIL</h2>
 
 
               <!-- <a class="blue"  *ngIf="getData.receive_status == ''  &&  getData.gift_status != 'Reject'" (click)="changeStatus(getData.id)">Status</a> -->
@@ -388,9 +388,9 @@
                   </ul>
                   <ul>
                     
-                    <li *ngIf="getData.payment_type != 'Gift'">
-                      <p>Points Transfer Mobile No.</p>
-                      <span>{{!getData.payment_number ? 'N/A' : getData.payment_number}}</span>
+                    <li *ngIf="getData.payment_type == 'UPI ID'">
+                      <p>UPI ID Number</p>
+                      <span>{{!getData.upi_id ? 'N/A' : getData.upi_id}}</span>
                     </li>
                     <li *ngIf="getData.payment_type == 'Gift'">
                       <p>Shipping Address</p>
@@ -404,6 +404,7 @@
                       <p>Cash Points Status</p>
                       <span class="{{getData.receive_status}}">{{!getData.receive_status ? 'N/A' : getData.receive_status}}</span>
                     </li>
+                   
                     <li *ngIf="getData.redeem_type == 'gift'">
                       <p>Gift Points Status</p>
                       <span class="{{getData.receive_status}}">{{!getData.receive_status ? 'N/A' : getData.receive_status}}</span>
@@ -422,6 +423,24 @@
                     <li  *ngIf="getData.receive_remark && getData.receive_status=='Received'">
                       <p>Receiving Remark</p>
                       <span>{{getData.receive_remark}}</span>
+                    </li>
+                  </ul>
+                  <ul *ngIf="getData.payment_type == 'Bank Transfer'">
+                    <li>
+                      <p>Bank Name</p>
+                      <span>{{getData.bank_name}}</span>
+                    </li>
+                    <li>
+                      <p>Account Holder Name</p>
+                      <span>{{getData.account_holder_name}}</span>
+                    </li>
+                    <li>
+                      <p>Account Number</p>
+                      <span>{{getData.account_no}}</span>
+                    </li>
+                    <li>
+                      <p>IFSC Code</p>
+                      <span>{{getData.ifsc_code}}</span>
                     </li>
                   </ul>
                   <ul *ngIf="getData.reject_reason && getData.gift_status=='Reject' ">

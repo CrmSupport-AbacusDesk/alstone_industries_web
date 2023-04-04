@@ -13,32 +13,32 @@
     
     <div class="navigation">
         <ul>
-            <li><a routerLink="/dashboard"  routerLinkActive="active" (click)="refershCount()">Dashboard</a></li>
-            <li><a routerLink="/offer-list"  routerLinkActive="active" (click)="refershCount()">Offer</a></li>
-            <li><a routerLink="/gift-list"  routerLinkActive="active" (click)="refershCount()">Gift Gallery</a></li>
-            <li><a routerLink="/redeem-request-list" routerLinkActive="active" (click)="refershCount()">Redeem Request
+            <li><a routerLink="/dashboard"  routerLinkActive="active" (click)="refershCount()" *ngIf="this.db.datauser.id==1 || this.db.datauser.dashboard==1">Dashboard</a></li>
+            <li><a routerLink="/offer-list"  routerLinkActive="active" (click)="refershCount()" *ngIf="this.db.datauser.id==1 || this.db.datauser.offer==1">Offer</a></li>
+            <li><a routerLink="/gift-list"  routerLinkActive="active" (click)="refershCount()" *ngIf="this.db.datauser.id==1 || this.db.datauser.gift_gallery==1">Gift Gallery</a></li>
+            <li><a routerLink="/redeem-request-list" routerLinkActive="active" (click)="refershCount()" *ngIf="this.db.datauser.id==1 || this.db.datauser.redeem_request==1">Redeem Request
                 <!-- <span *ngIf="pending_redeem_request > 0 ">{{pending_redeem_request}} </span> -->
               </a></li>
-            <li><a routerLink="/karigar-list/Carpenter" routerLinkActive="active" (click)="refershCount()">Carpenter</a></li>
-            <li><a routerLink="/karigar-list/Masons" routerLinkActive="active" (click)="refershCount()">Masons</a></li>
-            <li><a routerLink="/karigar-list/Fabricator" routerLinkActive="active" (click)="refershCount()">Fabricator</a></li>
-            <li><a routerLink="/dealer-list/1" routerLinkActive="active" (click)="refershCount()">Architect</a></li>
-            <li><a routerLink="/distributor-list/1" routerLinkActive="active">Sales Executive</a></li>
-            <li><a routerLink="/coupon-code-list" routerLinkActive="active" (click)="refershCount()">Coupon Codes</a></li>
-            <li><a routerLink="/site-list/1" routerLinkActive="active">Site</a></li>
-            <li><a routerLink="/purchase-list"  routerLinkActive="active">Purchase</a></li>
+            <li><a routerLink="/karigar-list/Carpenter" routerLinkActive="active" (click)="refershCount()" *ngIf="this.db.datauser.id==1 || this.db.datauser.carpenter==1">Carpenter</a></li>
+            <li><a routerLink="/karigar-list/Masons" routerLinkActive="active" (click)="refershCount()" *ngIf="this.db.datauser.id==1 || this.db.datauser.masons==1">Masons</a></li>
+            <li><a routerLink="/karigar-list/Fabricator" routerLinkActive="active" (click)="refershCount()" *ngIf="this.db.datauser.id==1 || this.db.datauser.fabricator==1">Fabricator</a></li>
+            <li><a routerLink="/dealer-list/1" routerLinkActive="active" (click)="refershCount()" *ngIf="this.db.datauser.id==1 || this.db.datauser.architect==1">Architect</a></li>
+            <li><a routerLink="/distributor-list/1" routerLinkActive="active" *ngIf="this.db.datauser.id==1 || this.db.datauser.sales_executive==1">Sales Executive</a></li>
+            <li><a routerLink="/coupon-code-list" routerLinkActive="active" (click)="refershCount()" *ngIf="this.db.datauser.id==1 || this.db.datauser.coupon_code==1">Coupon Codes</a></li>
+            <li><a routerLink="/site-list/1" routerLinkActive="active" *ngIf="this.db.datauser.id==1 || this.db.datauser.site==1">Site</a></li>
+            <li><a routerLink="/purchase-list"  routerLinkActive="active" *ngIf="this.db.datauser.id==1 || this.db.datauser.purchase==1">Purchase</a></li>
             <!-- <li><a routerLink="/contractor-list" routerLinkActive="active" (click)="refershCount()">Retailer Code 
                 <span *ngIf="pending_redeem_request_retailer > 0 ">{{pending_redeem_request_retailer}} </span>
           </a></li> -->
             <li>
-                <a routerLink="/feedback-list" routerLinkActive="active" (click)="refershCount()">Feedback
+                <a routerLink="/feedback-list" routerLinkActive="active" (click)="refershCount()" *ngIf="this.db.datauser.id==1 || this.db.datauser.feedback==1">Feedback
                    <!-- <span *ngIf="unreadFeedCount > 0 ">{{unreadFeedCount}} </span> -->
                 </a>
             </li>
             <!-- <li><a routerLink="/site-gallery" routerLinkActive="active">Site Gallery</a></li> -->
             <!-- <li><a routerLink="/furniture-ideas" routerLinkActive="active">Furniture Ideas</a></li> -->
-            <li><a routerLink="/faq-questionnaire" routerLinkActive="active">FAQ</a></li>
-            <li><a routerLink="/digitallist" routerLinkActive="active">Master</a></li>         
+            <li><a routerLink="/faq-questionnaire" routerLinkActive="active" *ngIf="this.db.datauser.id==1 || this.db.datauser.faq==1">FAQ</a></li>
+            <li><a routerLink="/digitallist" routerLinkActive="active" *ngIf="this.db.datauser.id==1 || this.db.datauser.master==1">Master</a></li>         
         </ul>
     </div>
     
