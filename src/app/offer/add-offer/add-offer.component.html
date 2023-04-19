@@ -256,7 +256,7 @@
                                 </div> 
                             </div>
                             <div class="save un-save" [ngClass]="{loading: savingData}" >
-                                <button mat-button  [disabled]="savingData" (click)="saveOffer(f)" >SAVE</button>
+                                <button mat-button  [disabled]="savingData" (click)=" f.form.valid && saveOffer(f)" >SAVE</button>
                             </div>
                         </form>
                     </div>
