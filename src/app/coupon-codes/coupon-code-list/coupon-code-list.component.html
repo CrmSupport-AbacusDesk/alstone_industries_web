@@ -131,7 +131,6 @@
                             <th class="w130 text-center" >Product Size</th> -->
                             <th class="w180">Coupon Code</th>
                             <th class="w130">Brand Name</th>
-
                             <th>Remark</th>
                             <th class="w50 text-center" >Action</th>
                         </tr>                        
@@ -200,7 +199,8 @@
                             <th>Used Date & Used By</th>
                             <th class="w110">Mobile No.</th>
                             <th class="w80 text-center ">Points</th>   
-                            <th class="w160">Remark</th>           
+                            <th class="w160">Remark</th>  
+                            <th class="w100">View Locations Map</th>
                             <th class="w100">State</th>           
                             <th class="w100">District</th>           
                         </tr>
@@ -297,7 +297,9 @@
                                         </div>
                                     </div>
                                 </div>
-                            </th>           
+                            </th>  
+                            <th class="w100"></th>
+
                             <th class="w100">
                                 <div class="form-area">
                                     <div class="search-form">
@@ -334,7 +336,8 @@
                             <th>Used Date & Used By</th>
                             <th class="w110">Mobile No.</th>
                             <th class="w80 text-center ">Points</th>   
-                            <th class="w160">Remark</th>           
+                            <th class="w160">Remark</th> 
+                            <th class="w100">View Locations Map</th>
                             <th class="w100">State</th>           
                             <th class="w100">District</th>           
                         </tr>
@@ -431,7 +434,9 @@
                                         </div>
                                     </div>
                                 </div>
-                            </th>           
+                            </th> 
+                            <th class="w100"></th>
+
                             <th class="w100">
                                 <div class="form-area">
                                     <div class="search-form">
@@ -468,7 +473,8 @@
                             <th>Used Date & Used By</th>
                             <th class="w110">Mobile No.</th>
                             <th class="w80 text-center ">Points</th>   
-                            <th class="w160">Remark</th>           
+                            <th class="w160">Remark</th>  
+                            <th class="w100">View Locations Map</th>
                             <th class="w100">State</th>           
                             <th class="w100">District</th>           
                         </tr>
@@ -565,7 +571,9 @@
                                         </div>
                                     </div>
                                 </div>
-                            </th>           
+                            </th>   
+                            <th class="w100"></th>
+
                             <th class="w100">
                                 <div class="form-area">
                                     <div class="search-form">
@@ -693,7 +701,13 @@
                         <td class="w110">{{val.mobile_no}}</td>
                         <td class="w80 text-center"><span class="back-bg">{{val.karigar_coupon_value}}</span></td> 
 
-                        <td class="w160">{{val.remark}}</td>   
+                        <td class="w160">{{val.remark}}</td> 
+                        <!-- <td class="w100" *ngIf="val.coupon_scan_lat==null"></td> -->
+                        <td class="w100">
+                            <a style="color:blue;text-decoration: underline;"
+                                href="http://maps.google.com/maps?q={{val.coupon_scan_lat}},{{val.coupon_scan_long}}"
+                                target="blank">View Locations Map</a>
+                        </td>  
                         <td class="w100">{{val.state}}</td>   
                         <td class="w100">{{val.district}}</td>  
                       
@@ -720,7 +734,13 @@
                         <td class="w110">{{val.mobile_no}}</td>
                         <td class="w80 text-center"><span class="back-bg">{{val.karigar_coupon_value}}</span></td> 
 
-                        <td class="w160">{{val.remark}}</td>   
+                        <td class="w160">{{val.remark}}</td> 
+                        <!-- <td class="w100" *ngIf="val.coupon_scan_lat==null"></td> -->
+                        <td class="w100" >
+                            <a style="color:blue;text-decoration: underline;"
+                                href="http://maps.google.com/maps?q={{val.coupon_scan_lat}},{{val.coupon_scan_long}}"
+                                target="blank">View Locations Map</a>
+                        </td>   
                         <td class="w100">{{val.state}}</td>   
                         <td class="w100">{{val.district}}</td>  
                       
@@ -747,7 +767,14 @@
                         <td class="w110">{{val.mobile_no}}</td>
                         <td class="w80 text-center"><span class="back-bg">{{val.karigar_coupon_value}}</span></td> 
 
-                        <td class="w160">{{val.remark}}</td>   
+                        <td class="w160">{{val.remark}}</td>  
+                        <!-- <td class="w100" *ngIf="val.coupon_scan_lat==null"></td> -->
+                        <!-- *ngIf="val.coupon_scan_lat !=0  && val.coupon_scan_lat!=null  && val.coupon_scan_lat!='' " -->
+                        <td class="w100" >
+                            <a style="color:blue;text-decoration: underline;"
+                                href="http://maps.google.com/maps?q={{val.coupon_scan_lat}},{{val.coupon_scan_long}}"
+                                target="blank">View Locations Map</a>
+                        </td>  
                         <td class="w100">{{val.state}}</td>   
                         <td class="w100">{{val.district}}</td>  
                       
