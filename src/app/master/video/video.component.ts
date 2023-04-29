@@ -27,6 +27,8 @@ export class VideoComponent implements OnInit {
 
   ngOnInit() {
     this.getVedioList('');
+    this.getProduct();
+    
   }
 
   last_page: number ;
@@ -37,6 +39,7 @@ export class VideoComponent implements OnInit {
   isInvoiceDataExist = false;
   filter:any = {};
   filtering : any = false;
+  product_code:any=[];
 
   redirect_previous() {
     this.current_page--;
@@ -178,5 +181,18 @@ updateStatus(i,event)
           });
         }
       }
+
+      getProduct(){
+        this.db.post_rqst( '', 'app_karigar/getProduct?page=').subscribe(r=>{
+          console.log(r);
+          this.product_code=r['productData'];
+        })
+      }
+
+      product_name:any;
+      getprod(product){
+        this.vedioForm.product_name=product.product_point_group
+      }
+  
 
 }

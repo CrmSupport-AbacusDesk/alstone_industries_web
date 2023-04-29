@@ -209,7 +209,7 @@ h1, h2, h3, h4, h5, h6
 
 .light-bg
 {
-    background: #F2F2F2 !important;
+    background: #ffffff !important;
 }
 
 .dark-red
@@ -3000,7 +3000,7 @@ table
 //                         a
 //                         {
 //                             color: #ffffff;
-//                             background: #18161f;
+//                             background: #ff4a00;
 //                             padding: 0px 10px;
 //                             text-decoration: none;
 //                             border-radius: 4px 4px 0px 0px;
@@ -3035,7 +3035,7 @@ table
                             
 //                             &.active, &:hover
 //                             {
-//                                 background: #ca9137;
+//                                 background: #ffba00;
 //                                 color: var(--white);
 //                             }
 //                         }
@@ -3129,7 +3129,7 @@ table
 
 $twhite:#ffffff;
 $secondary:#54595F;
-$theme:#ca9137;
+$theme:#ffba00;
 
 
 header
@@ -3177,7 +3177,7 @@ header
                 a
                 {
                     color: $twhite;
-                    background: #18161f;
+                    background: #ff4a00;
                     padding: 0px 10px;
                     text-decoration: none;
                     border-radius: 4px 4px 0px 0px;
@@ -3195,7 +3195,7 @@ header
                     
                     &.active, &:hover
                     {
-                        background: #ca9137;
+                        background: #ffba00;
                         color: var(--white);
                     }
                 }
@@ -8816,5 +8816,5 @@ mat-icon
 
 
 i.dlt_ico {
-    background-color: #ca9137 !important;
+    background-color: #ffba00 !important;
 }

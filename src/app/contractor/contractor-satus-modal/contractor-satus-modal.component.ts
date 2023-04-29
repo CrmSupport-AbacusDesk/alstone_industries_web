@@ -17,7 +17,7 @@ export class ContractorSatusModalComponent implements OnInit {
   conData1:any={};
   contractorData:any =[];
   pointValue:any ={};
-  contractor_id:any;
+  dealer_id:any;
   karigarform:any={};
 
   saveflag : any = false;
@@ -26,7 +26,7 @@ export class ContractorSatusModalComponent implements OnInit {
   constructor( @Inject(MAT_DIALOG_DATA) public data, public db: DatabaseService, public dialog: DialogComponent, public dialogRef: MatDialog) { 
     console.log(data);
     this.dataValue = data['target'];
-    this.contractor_id = data['contractor_id'];
+    this.dealer_id = data['dealer_id'];
     this.id = data['id'];
     this.couponTransfer.coupon_points =  data.point
 
@@ -147,7 +147,7 @@ export class ContractorSatusModalComponent implements OnInit {
       }
       
       else {
-        this.db.post_rqst({'request_id':this.id, 'contractor_id':this.contractor_id, 'return_points':this.karigarform.return_point}, 'app_master/return_contractor_points')
+        this.db.post_rqst({'request_id':this.id, 'dealer_id':this.dealer_id, 'return_points':this.karigarform.return_point}, 'app_master/return_contractor_points')
         .subscribe( r => {
           console.log(r);
           if(r['status'] == "UPDATED"){
@@ -164,7 +164,7 @@ export class ContractorSatusModalComponent implements OnInit {
     pointSubmit1(){
       this.saveflag = true;
       
-        this.db.post_rqst({'request_id':this.id, 'contractor_id':this.contractor_id, 'add_point':this.karigarform.add_point}, 'app_master/add_contractor_points')
+        this.db.post_rqst({'request_id':this.id, 'dealer_id':this.dealer_id, 'add_point':this.karigarform.add_point}, 'app_master/add_contractor_points')
         .subscribe( r => {
           console.log(r);
           if(r['status'] == "UPDATED"){

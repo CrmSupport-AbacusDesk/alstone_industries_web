@@ -22,7 +22,7 @@
                         </div>
                         <div class="cs-item">
                             <span>{{offer_Architect}}</span>
-                            <p>Architect</p>
+                            <p>Dealer</p>
                         </div>
                     </div>
                  
@@ -49,7 +49,7 @@
                         </div>
                         <div class="cs-item">
                             <span>{{pending_redeem_request_architects}}</span>
-                            <p>Architect</p>
+                            <p>Dealer</p>
                         </div>
                     </div>
                 </li>
@@ -73,14 +73,14 @@
                             <span>{{user_Fabricator}}</span>
                             <p style="font-size:10px">Fabricator</p>
                         </div>
-                        <div class="cs-item" (click)="goto_karigarsPage(4)">
+                        <div class="cs-item" (click)="goto_karigarsPage(6)">
                             <span>{{user_Architect}}</span>
-                            <p style="font-size:10px">Architect</p>
+                            <p style="font-size:10px">Dealer</p>
                         </div>
-                        <div class="cs-item" (click)="goto_karigarsPage(5)">
+                        <!-- <div class="cs-item" (click)="goto_karigarsPage(5)">
                             <span>{{user_Sales_Executive}}</span>
                             <p style="font-size:8px;line-height: 10px;">Sales Executive</p>
-                        </div>
+                        </div> -->
                     </div>
                 </li>
                 <li matRipple style="background: #3949ab;" (click)="goto_offergiftPage()">
@@ -116,7 +116,7 @@
                             <a class="" [ngClass]="{'active': showKarigarList == true}"  (click)="getstatewisekarigar(1)" mat-button>Carpenter</a>
                             <a class="" [ngClass]="{'active': showMasonslist == true}"  (click)="getstatewisekarigar(2)" mat-button>Masons</a>
                             <a class="" [ngClass]="{'active': showFabricatorList == true}" (click)="getstatewisekarigar(3)" mat-button>Fabricator</a>
-                            <a class="" [ngClass]="{'active': showArchitectList == true}" (click)="getstatewisekarigar(4)" mat-button>Architect</a>
+                            <a class="" [ngClass]="{'active': showArchitectList == true}" (click)="getstatewisekarigar(6)" mat-button>Dealer</a>
 
                             <!-- <a class="" mat-button>Distributor</a> -->
                         </div>
@@ -221,7 +221,7 @@
                     <a class="" [ngClass]="{'active': showbirthdayKarigar == true}"  (click)="getKarigarbirthday(1)" mat-button>Carpenter</a>
                     <a class="" [ngClass]="{'active': showbirthdayMasons == true}"  (click)="getKarigarbirthday(2)" mat-button>Masons</a>
                     <a class="" [ngClass]="{'active': showbirthdayFabricator == true}" (click)="getKarigarbirthday(3)" mat-button>Fabricator</a>
-                    <a class="" [ngClass]="{'active': showbirthdayArchitect == true}" (click)="getKarigarbirthday(4)" mat-button>Architect</a>
+                    <a class="" [ngClass]="{'active': showbirthdayArchitect == true}" (click)="getKarigarbirthday(6)" mat-button>Dealer</a>
 
                 </div>
             </div>
@@ -284,7 +284,7 @@
                     <a class="" [ngClass]="{'active': showSuparkarigar == true}"  (click)="getsuparkarigar(1)" mat-button>Carpenter</a>
                     <a class="" [ngClass]="{'active': showSuparMasons == true}"  (click)="getsuparkarigar(2)" mat-button>Masons</a>
                     <a class="" [ngClass]="{'active': showSuparFabricator == true}" (click)="getsuparkarigar(3)" mat-button>Fabricator</a>
-                    <a class="" [ngClass]="{'active': showSuparArchitect == true}" (click)="getsuparkarigar(4)" mat-button>Architect</a>
+                    <a class="" [ngClass]="{'active': showSuparArchitect == true}" (click)="getsuparkarigar(6)" mat-button>Dealer</a>
 
                 </div>
             </div>
@@ -373,7 +373,7 @@
                     <a class="" [ngClass]="{'active': show_carpenter_graph == true}"  (click)="getRegistratonkarigar(1)" mat-button>Carpenter</a>
                     <a class="" [ngClass]="{'active': show_masons_graph == true}"  (click)="getRegistratonkarigar(2)" mat-button>Masons</a>
                     <a class="" [ngClass]="{'active': show_fabricator_graph == true}" (click)="getRegistratonkarigar(3)" mat-button>Fabricator</a>
-                    <a class="" [ngClass]="{'active': show_architect_graph == true}" (click)="getRegistratonkarigar(4)" mat-button>Architect</a>
+                    <a class="" [ngClass]="{'active': show_architect_graph == true}" (click)="getRegistratonkarigar(6)" mat-button>Dealer</a>
 
                 </div>
             </div>

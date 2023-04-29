@@ -25,7 +25,9 @@
                                             <div class="col s6 ">
                                                 <div class="detail-field">
                                                     <p>User Type</p>
-                                                    <span>{{getData.user_type}}</span>
+                                                    <span *ngIf="getData.user_type!='Karigar'">{{getData.user_type}}</span>
+                                                    <span *ngIf="getData.user_type=='Karigar'">Carpenter/Masons/Fabricator</span>
+
                                                 </div>
                                             </div>
                                             

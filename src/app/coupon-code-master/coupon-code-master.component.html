@@ -44,7 +44,7 @@
               <th class="w100">Carpenter Point</th>
               <th class="w100">Masons Point</th>
               <th class="w100">Fabricator Point</th>
-              <th class="w100">Architect Point</th>
+              <th class="w100">Dealer Point</th>
               <th class="w100">Status</th>
 
 
@@ -128,7 +128,7 @@
               <td class="w100 text-center">{{val.karigar_point}}</td>
               <td class="w100 text-center">{{val.masons_point}}</td>
               <td class="w100 text-center">{{val.fabricator_point}}</td>
-              <td class="w100 text-center">{{val.architect_point}}</td>
+              <td class="w100 text-center">{{val.dealer_point}}</td>
 
                 <td class="w100 text-center">
                   <mat-slide-toggle [name]="'status'+i" [(ngModel)]="val.newsStatus" (change)="updateStatus(i,$event)" ></mat-slide-toggle>
@@ -197,7 +197,7 @@
             <div class="option-field">
               <div class="control-field">
                 <mat-form-field class="cs-input">
-                  <input matInput placeholder="Architect Point" name="architect_point"  [(ngModel)]="productForm.architect_point" #architect_point="ngModel" required>
+                  <input matInput placeholder="Dealer Point" name="dealer_point"  [(ngModel)]="productForm.dealer_point" #dealer_point="ngModel" required>
                 </mat-form-field>  
               </div>
             </div>

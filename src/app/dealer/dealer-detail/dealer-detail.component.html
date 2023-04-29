@@ -12,7 +12,7 @@
                     <div class="full-offer">
                         <div class="top-heading no-justify">
                             <a class="back-btn" (click)="goBack()"><i class="material-icons">arrow_back</i></a>
-                            <h2>ARCHITECT DETAIL</h2>
+                            <h2>DEALER DETAIL</h2>
                             <!-- <div class="btn-align">
                                 <button class="back-btn" (click)="openBonusPoint()">BONUS POINTS</button>
                             </div> -->
@@ -92,6 +92,15 @@
                                                     <option class="Pending" value="Pending">Pending</option>
                                                     <option class="Suspect" value="Suspect">Suspect</option>
                                                 </select>
+                                            </div>
+                                        </li>
+
+                                        <li>
+                                            <p>GST No.</p>
+                                            <div class="right-cont">
+                                                <span>{{getData.gst_number}}</span>
+
+                                             
                                             </div>
                                         </li>
                                         <!-- <li>
@@ -268,7 +277,7 @@
 
 
             
-            <div class="col s6">
+            <!-- <div class="col s6">
                 <div class="sprate-box gift-offer">
                     <div class="full-offer">
                         <div class="top-heading">
@@ -298,7 +307,7 @@
 
 
 
-            </div>
+            </div> -->
 
             <div class="row">
                 <div class="used-code">
@@ -315,20 +324,20 @@
                                     </li>
 
 
-                                    <li (click)="mode='2'; getSalesUserSites()" [ngClass]="{'active': mode == '2'}" >
+                                    <!-- <li (click)="mode='2'; getSalesUserSites()" [ngClass]="{'active': mode == '2'}" >
                                         <a>
                                             <p>SITES DETAIL</p>
                                             <span>{{total_site}}</span>
                                         </a>
-                                    </li>
+                                    </li> -->
                                  
 
-                                    <li (click)="mode='3'; getPurchaseList()" [ngClass]="{'active': mode == '3'}" >
+                                    <!-- <li (click)="mode='3'; getPurchaseList()" [ngClass]="{'active': mode == '3'}" >
                                         <a>
                                             <p>PURCHASE ORDERS</p>
                                             <span>{{total_dealers}}</span>
                                         </a>
-                                    </li>
+                                    </li> -->
 
                                  
 

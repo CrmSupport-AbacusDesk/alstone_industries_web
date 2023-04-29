@@ -91,8 +91,8 @@
                             <th class="w100">Mobile</th>
                             <th class="w135">State</th>
                             <th class="w135">District</th>
-                            <!-- <th class="w150">Dealer</th>
-                            <th class="w150">Dealer Contact</th> -->
+                            <th class="w150">Dealer</th>
+                            <th class="w150">Dealer Contact</th>
                             <th class="w150 text-center">
                                 <div class="ml0">
                                     <button mat-button style="padding: 0px 6px !important;" (click)="sortByWallet()">
@@ -151,13 +151,13 @@
                                     <i class="material-icons">search</i>
                                 </div>
                             </th>
-                            <!-- <th class="w150">
+                            <th class="w150">
                                 <div class="search-form">
                                     <input type="text" placeholder="Dealer" [(ngModel)]="filter.dealer"  (keyup.enter)="current_page = 1;getKarigarList('')">
                                     <i class="material-icons">search</i>
                                 </div>
-                            </th> -->
-                            <!-- <th class="w150"></th> -->
+                            </th>
+                            <th class="w150"></th>
             
                             <th class="w150">
                                 <!-- <div class="search-form">
@@ -217,8 +217,8 @@
                                 <td class="w135">{{val.state | titlecase }}</td>
                                 <td class="w135">{{val.district | titlecase }}</td>
         
-                                <!-- <td class="w150">{{val.parent_counter_name | titlecase }}</td> -->
-                                <!-- <td class="w150">{{val.parent_counter_contact_person | titlecase }} - {{val.parent_counter_mobile}}</td> -->
+                                <td class="w150">{{val.parent_counter_name | titlecase }}</td>
+                                <td class="w150">{{val.parent_counter_contact_person | titlecase }} - {{val.parent_counter_mobile}}</td>
                                 <td class="w150 text-center"> {{val.total_wallet_point}}</td>
                                 <!-- <td class="w70 text-center"><span class="back-bg">{{val.redeem_request}}</span></td> -->
         

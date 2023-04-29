@@ -251,7 +251,7 @@ export class KarigarDetailComponent implements OnInit {
         }
         else
         {
-            this.router.navigate(['/karigar-list/'+this.page_number]);
+            this.router.navigate(['/karigar-list/'+this.userType]);
         }
     }
     

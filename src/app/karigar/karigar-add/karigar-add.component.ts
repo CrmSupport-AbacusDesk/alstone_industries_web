@@ -67,7 +67,8 @@ export class KarigarAddComponent implements OnInit {
                 this.getKarigarDetails();
             }
             this.getStateList();
-            this.AssignSaleUser();
+            this.AssignDealer('');
+            // this.AssignSaleUser();
             this.AssignDistributor();
             this.get_karigar_type();
             this.karigarform.country_id = 99;
@@ -222,6 +223,14 @@ export class KarigarAddComponent implements OnInit {
         .subscribe(d => {
             this.loading_list = false;
             this.sales_users = d.sales_users;
+        });
+    }
+   dealerList:any=[];
+    AssignDealer(search)
+    {
+        this.db.post_rqst({'filter':{'search':search}},'app_karigar/dealerList')
+        .subscribe(d => {
+            this.dealerList = d.karigars;
         });
     }
     

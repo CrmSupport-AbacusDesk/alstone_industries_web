@@ -58,7 +58,8 @@
                         </div>
                     </div>
                     <div class="content">
-                        <p>{{val.desc  | titlecase}}</p>
+                        <p>{{val.product_name  | titlecase}} - {{val.desc  | titlecase}}</p>
+
                     </div>
                     <div class="choose-one">
                         <div class="mat-toggal">
@@ -97,6 +98,23 @@
                             <input matInput placeholder="URL" name="url" [(ngModel)] = "vedioForm.url" #url="ngModel" required>
                         </mat-form-field>  
                     </div>
+                </div>
+
+                <div class="col s12">
+                    <div class="option-field">
+                        <div class="control-field pl">
+                            <mat-form-field class="cs-input">
+                                <mat-select placeholder="Product Name" name="product_point_id"  [(ngModel)]="vedioForm.product_point_id" #product_point_id="ngModel" 
+                                required>
+                                    <mat-option *ngFor="let val of product_code" [value]="val.product_point_id" (click)="getprod(val)">
+                                        {{val.product_point_group}}
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
+        
+                    </div>
+                   
                 </div>
                 
                 

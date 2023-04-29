@@ -196,7 +196,7 @@ export class DealerAddComponent implements OnInit {
       }
       else
       {
-          this.karigarform.user_type = 4;
+          this.karigarform.user_type = 6;
       }
       this.db.insert_rqst( { 'karigar' : this.karigarform }, 'karigar/addKarigar')
       .subscribe( d => {
@@ -209,10 +209,10 @@ export class DealerAddComponent implements OnInit {
           }
           this.router.navigate(['dealer-list/1']);
           if(this.karigarform.karigar_edit_id){
-          this.dialog.success('Architect has been successfully Updated');
+          this.dialog.success('Dealer has been successfully Updated');
           }
           else{
-          this.dialog.success('Architect has been successfully Added');
+          this.dialog.success('Dealer has been successfully Added');
           }
         
       });

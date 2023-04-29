@@ -31,7 +31,7 @@ export class DealerListComponent implements OnInit {
     dealer_reject : any = 0;
     dealer_suspect : any = 0;
     dealer_verified : any = 0;
-     userType = 4;
+     userType = 6;
 
     
     constructor(public db: DatabaseService, public dialog: DialogComponent,public route:ActivatedRoute,public alrt:MatDialog) {

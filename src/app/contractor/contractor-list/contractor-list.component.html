@@ -66,9 +66,9 @@
             <tr>
               <th class="w50">&nbsp;</th>
               <th class="w150">Date</th>
-              <th class="w200">Company Name </th>
+              <th>Company Name </th>
               <th class="w150"> Mobile No.</th>
-              <th class="w200">Distributor Detail</th>
+              <!-- <th class="w200">Distributor Detail</th> -->
               <th class="w160 text-center">Total Item</th>
               <th class="w80 text-center">Qty.</th>
               <!-- <th class="w60 text-center">Wallet</th> -->
@@ -101,7 +101,7 @@
                   </mat-form-field>
                 </div>
               </th>
-              <th class="w200">
+              <th >
                 <div class="search-form">
                   <input type="text" placeholder="Search..." [(ngModel)]="filter.retailer_company_name"
                     (keyup.enter)="current_page = 1; contractorList('')">
@@ -116,13 +116,13 @@
                 </div>
               </th>
 
-              <th class="w200">
+              <!-- <th class="w200">
                 <div class="search-form">
                   <input type="text" placeholder="Search..." [(ngModel)]="filter.distributor_detail"
                     (keyup.enter)="current_page = 1; contractorList('')">
                   <i class="material-icons">search</i>
                 </div>
-              </th>
+              </th> -->
               <th class="w160">&nbsp;</th>
               <th class="w80 text-center">
                 <div class="search-form">
@@ -173,10 +173,10 @@
           <tr *ngFor="let row of data; let i = index">
             <td class="w50">{{ ( (current_page - 1 ) * 20 ) + ( i+1 ) }}</td>
             <td class="w150">{{row.date_created | date: 'dd MMM yyyy'}} </td>
-            <td class="w200"><a class="blue" routerLink="/dealer-detail/{{row.contractor_id}}/{{current_page}}"
+            <td ><a class="blue" routerLink="/dealer-detail/{{row.dealer_id}}/{{current_page}}"
                 routerLinkActive="active" (click)="set_filter(filter)">{{row.retailer_company_name}}</a></td>
             <td class="w150">{{row.retailer_mobile}}</td>
-            <td class="w200">{{row.company_name}} {{row.distributor_mobile}}</td>
+            <!-- <td class="w200">{{row.company_name}} {{row.distributor_mobile}}</td> -->
 
             <td class="w160 text-center">
               <div class="flex-group">
@@ -222,10 +222,10 @@
               <a class="blue" style="cursor: pointer;"
                 >
                 <div class="ic_prt">
-                  <button (click)="modalOpen(3, data, row.id, row.type, row.points, row.contractor_id)" mat-fab class="pls_btn" routerLinkActive="active">
+                  <button (click)="modalOpen(3, data, row.id, row.type, row.points, row.dealer_id)" mat-fab class="pls_btn" routerLinkActive="active">
                     <mat-icon class="pl_ic">add</mat-icon>
                   </button>
-                  <div class="no-img" (click)="modalOpen(4, data, row.id, row.type, row.points, row.contractor_id)">
+                  <div class="no-img" (click)="modalOpen(4, data, row.id, row.type, row.points, row.dealer_id)">
                     <img src="assets/minus_icon.png">
                   </div>
                 </div>

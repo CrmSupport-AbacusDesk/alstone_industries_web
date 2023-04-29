@@ -225,7 +225,7 @@
             <tr>
               <th class="w60">Sr. No.</th>
               <th>Company Name</th>
-              <th>Distributor Detail</th>
+              <!-- <th>Distributor Detail</th> -->
               <th class="w130">Brand Name</th>
               <th class="w70  text-center">Quantity</th>
             </tr>
@@ -238,7 +238,7 @@
             <tr  *ngFor="let row of conDetail.parts; let i = index">
               <td class="w60">{{i+1}}</td>
               <td>{{conDetail.retailer_company_name | titlecase}}</td>
-              <td>{{conDetail.distributor_company_name | titlecase}} - {{conDetail.distributor_mobile}}</td>
+              <!-- <td>{{conDetail.distributor_company_name | titlecase}} - {{conDetail.distributor_mobile}}</td> -->
               <td class="w130">{{row.product_point_group | titlecase}}</td>
               <!-- <td>{{row.item_name}}</td> -->
               <td class="w70  text-center">{{row.qty}}</td>
@@ -347,7 +347,7 @@
             <tr>
               <th class="w60">Sr. No.</th>
               <th>Company Name</th>
-              <th>Distributor Detail</th>
+              <!-- <th>Distributor Detail</th> -->
               <th class="w130">Brand Name</th>
               <th class="w70  text-center">Quantity</th>
             </tr>
@@ -360,7 +360,7 @@
             <tr  *ngFor="let row of conDetail.parts; let i = index">
               <td class="w60">{{i+1}}</td>
               <td>{{conDetail.retailer_company_name | titlecase}} </td>
-              <td>{{conDetail.distributor_company_name | titlecase}} - {{conDetail.distributor_mobile}}</td>
+              <!-- <td>{{conDetail.distributor_company_name | titlecase}} - {{conDetail.distributor_mobile}}</td> -->
               <td class="w130">{{row.product_point_group | titlecase}}</td>
               <!-- <td>{{row.item_name}}</td> -->
               <td class="w70  text-center">{{row.qty}}</td>

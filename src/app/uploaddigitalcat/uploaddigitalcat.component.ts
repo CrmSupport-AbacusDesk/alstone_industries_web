@@ -22,8 +22,12 @@ export class UploaddigitalcatComponent implements OnInit {
   typecheck:any='';
   istrue:boolean=false;
   category:any={};
+  product_code:any=[];
+  product:any
   // cat_name:any={}
-  constructor(public db: DatabaseService,public dialog: DialogComponent, public alrt:MatDialog,public dialogRef: MatDialogRef<UploaddigitalcatComponent>) { }
+  constructor(public db: DatabaseService,public dialog: DialogComponent, public alrt:MatDialog,public dialogRef: MatDialogRef<UploaddigitalcatComponent>) {
+    this.getProduct();
+   }
 
   ngOnInit() {
   }
@@ -60,6 +64,10 @@ export class UploaddigitalcatComponent implements OnInit {
         this.loading = true; 
         this.formData.append('pdf', this.file, this.file.name);
         this.formData.append('cat_name',this.category.cat_name);
+        this.formData.append('product_id',this.product_name);
+        this.formData.append('product_name',this.product_id);
+
+
         this.db.fileData( this.formData, 'product_catalogue')
         .subscribe(d => {  
             this.loading = false;
@@ -77,5 +85,21 @@ export class UploaddigitalcatComponent implements OnInit {
             } 
               
         },err => {console.log(err);  this.formData = new FormData(); this.loading = false; });
+    }
+
+    product_name:any;
+    product_id:any;
+    getprod(product){
+
+      this.product_name=product.product_point_id
+      this.product_id=product.product_point_group
+
+    }
+
+    getProduct(){
+      this.db.post_rqst( '', 'app_karigar/getProduct?page=').subscribe(r=>{
+        console.log(r);
+        this.product_code=r['productData'];
+      })
     }
 }

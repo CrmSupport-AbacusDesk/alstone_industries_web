@@ -124,7 +124,7 @@ export class DashboardComponent implements OnInit {
             this.show_masons_graph = false;
             this.getmonthwisedetail('3');
         }
-        else if(type==4){
+        else if(type==6){
             this.show_architect_graph=true;
             this.show_carpenter_graph = false;
             this.show_masons_graph = false;
@@ -210,7 +210,7 @@ export class DashboardComponent implements OnInit {
                 this.showSuparMasons=false;
                 this.get_super_karigars(3);
             }
-            else if(type==4){
+            else if(type==6){
                 this.showSuparArchitect=true;
                 this.showSuparkarigar=false;
                 this.showSuparMasons=false;
@@ -359,7 +359,7 @@ export class DashboardComponent implements OnInit {
                 this.showMasonslist=false;
                 this.state_wise_karigar(3);
             }
-            else if(type==4){
+            else if(type==6){
                 this.showArchitectList=true;
                 this.showKarigarList=false;
                 this.showMasonslist=false;
@@ -531,7 +531,7 @@ export class DashboardComponent implements OnInit {
                 this.showbirthdayMasons=false;
                 this.showBirthdayCarpenter(3);
             }
-            else if(type==4){
+            else if(type==6){
                 this.showbirthdayArchitect=true;
                 this.showbirthdayKarigar=false;
                 this.showbirthdayMasons=false;
