@@ -214,7 +214,7 @@ export class DealerDetailComponent implements OnInit {
         this.loading_list = true;
         this.filter.date = this.filter.date  ? this.db.pickerFormat(this.filter.date) : '';
         if( this.filter.date ||  this.filter.start_date ||  this.filter.end_date)this.filtering = true;
-        this.db.post_rqst({'filter':this.filter, 'architect_id': this.karigar_id}, 'karigar/getKarigarSite')
+        this.db.post_rqst({'filter':this.filter, 'dealer_id': this.karigar_id}, 'karigar/getKarigarSite')
         .subscribe(d => {
             console.log(d);
             

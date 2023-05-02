@@ -5,7 +5,7 @@
 
 
 $mat-primary: (
-500: #ca9137,
+500: #ffba00,
 contrast: (
 )
 );
@@ -34,7 +34,7 @@ $mytheme-theme: mat-light-theme($mytheme-primary, $mytheme-accent, $mytheme-warn
 @include angular-material-theme($mytheme-theme);
 
 :root {
-    --primary: #ca9137;
+    --primary: #ffba00;
     --primary-rgb: 88,138,7;
     --primary-contrast: #ffffff;
     --primary-contrast-rgb: 255,255,255;

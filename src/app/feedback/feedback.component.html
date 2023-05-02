@@ -156,9 +156,9 @@
                                     {{val.first_name | titlecase}} {{val.last_name | titlecase}} - (Fabricator)
                                 </a>
                             </ng-container>
-                            <ng-container *ngIf="val.user_type=='4'">
+                            <ng-container *ngIf="val.user_type=='6'">
                                 <a class="blue" routerLink="/dealer-detail/{{val.karigar_id}}/{{current_page}}" routerLinkActive="active">
-                                    {{val.first_name | titlecase}} {{val.last_name | titlecase}} - (Architect)
+                                    {{val.first_name | titlecase}} {{val.last_name | titlecase}} - (Dealer)
                                 </a>
                             </ng-container>
                             <ng-container *ngIf="val.user_type=='5'">

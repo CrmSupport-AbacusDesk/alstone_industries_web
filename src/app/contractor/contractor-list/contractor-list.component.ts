@@ -127,7 +127,7 @@ export class ContractorListComponent implements OnInit {
     }
     
     
-    modalOpen(target,data, id, type, point, contractor_id) {
+    modalOpen(target,data, id, type, point, dealer_id) {
       console.log(target);
       console.log(type);
       console.log(data);
@@ -142,7 +142,7 @@ export class ContractorListComponent implements OnInit {
             id, 
             type,
             point,
-            contractor_id
+            dealer_id
           }
         });
         dialogRef.afterClosed().subscribe(result => {

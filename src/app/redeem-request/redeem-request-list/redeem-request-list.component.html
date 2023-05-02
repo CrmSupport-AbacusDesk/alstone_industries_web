@@ -276,16 +276,16 @@
                                         {{val.first_name | titlecase}} {{val.last_name | titlecase}} - (Fabricator)
                                     </a>
                                 </ng-container>
-                                <ng-container *ngIf="val.user_type=='4'">
+                                <ng-container *ngIf="val.user_type=='6'">
                                     <a class="blue" routerLink="/dealer-detail/{{val.user_id}}/{{current_page}}" routerLinkActive="active">
-                                        {{val.first_name | titlecase}} {{val.last_name | titlecase}} - (Architect)
+                                        {{val.first_name | titlecase}} {{val.last_name | titlecase}} - (Dealer)
                                     </a>
                                 </ng-container>
-                                <ng-container *ngIf="val.user_type=='5'">
+                                <!-- <ng-container *ngIf="val.user_type=='5'">
                                     <a class="blue" routerLink="/distributor-detail/{{val.user_id}}/{{current_page}}" routerLinkActive="active">
                                         {{val.first_name | titlecase}} {{val.last_name | titlecase}} - (Sales Executive)
                                     </a>
-                                </ng-container>
+                                </ng-container> -->
                                
                             </td>
                             <td class="w85"> <a class="blue pl5" routerLink="/redeem-request-detail/{{val.id}}">{{val.invoice_id}}</a></td>

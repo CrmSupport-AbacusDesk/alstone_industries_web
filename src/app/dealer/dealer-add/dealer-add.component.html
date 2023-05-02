@@ -12,7 +12,7 @@
                 <div class="sprate-box ">
                     <div class="full-offer">
                         <div class="top-heading">
-                            <h2>FULL ARCHITECT INFORMATION</h2>
+                            <h2>FULL DEALER INFORMATION</h2>
                             <p>Indicates required fields ( * )</p>
                         </div>
                     </div>
@@ -20,7 +20,7 @@
                         <div class="col s12">
                             <div class="option-field">
                                 <div class="row mb0">
-                                    <div class="col s4">
+                                    <div class="col s3">
                                         <div class="control-field">
                                             <mat-form-field class="cs-input">
                                                 <input matInput placeholder="First Name" name="first_name"
@@ -29,7 +29,7 @@
                                             </mat-form-field>
                                         </div>
                                     </div>
-                                    <div class="col s4">
+                                    <div class="col s3">
                                         <div class="control-field">
                                             <mat-form-field class="cs-input">
                                                 <input matInput placeholder="Last Name" name="last_name"
@@ -39,7 +39,7 @@
                                         </div>
                                     </div>
                                     
-                                    <div class="col s4">
+                                    <div class="col s3">
                                         <div class="control-field">
                                             <mat-form-field class="cs-input">
                                                 <input placeholder="D.O.B" class="h46" [(ngModel)]="karigarform.dob"
@@ -51,9 +51,22 @@
                                             </mat-form-field>
                                         </div>
                                     </div>
+
+                                    <div class="col s3">
+                                        <div class="control-field">
+                                            <mat-form-field class="cs-input">
+                                                <input placeholder="D.O.A" class="h46" [(ngModel)]="karigarform.doa"
+                                                (click)="openDatePicker(pickerDoa)" [max]="date1" name="doa"
+                                                matInput [matDatepicker]="pickerDoa" readonly>
+                                                <mat-datepicker-toggle matSuffix [for]="pickerDoa">
+                                                </mat-datepicker-toggle>
+                                                <mat-datepicker #pickerDoa></mat-datepicker>
+                                            </mat-form-field>
+                                        </div>
+                                    </div>
                                 </div>
                                 <div class="row mb0">
-                                    <div class="col s4 ">
+                                    <div class="col s4">
                                         <div class="control-field">
                                             <mat-form-field class="cs-input">
                                                 <input matInput placeholder="Company Name " name="company_name"
@@ -62,6 +75,19 @@
                                             </mat-form-field>
                                         </div>
                                     </div>
+                                    <div class="col s4 ">
+                                        <div class="control-field">
+                                            <mat-form-field  class="cs-input">
+                                                <input matInput placeholder="GST No." name="gst_number" pattern="^[0-9]{2}[A-Z]{5}[0-9]{4}[A-Z]{1}[1-9A-Z]{1}Z[0-9A-Z]{1}$"  #gst_number="ngModel" [(ngModel)]="karigarform.gst_number" required>
+                                              </mat-form-field>
+                                              <div class="alert alert-danger" *ngIf="gst_number.touched || f.submitted">
+                                                <p *ngIf="gst_number.errors?.pattern">Enter Valid GST No.</p>
+                                              </div>
+                                        </div>
+                                    </div>
+
+
+                                    
                                     
                                     
                                     <div class="col s4">
@@ -74,26 +100,6 @@
                                             </mat-form-field>
                                         </div>
                                     </div>
-                                    
-                                    
-                                    <div class="col s4">
-                                        <div class="control-field">
-                                            <mat-form-field class="cs-input">
-                                                <input placeholder="D.O.A" class="h46" [(ngModel)]="karigarform.doa"
-                                                (click)="openDatePicker(pickerDoa)" [max]="date1" name="doa"
-                                                matInput [matDatepicker]="pickerDoa" readonly>
-                                                <mat-datepicker-toggle matSuffix [for]="pickerDoa">
-                                                </mat-datepicker-toggle>
-                                                <mat-datepicker #pickerDoa></mat-datepicker>
-                                            </mat-form-field>
-                                        </div>
-                                    </div>
-                                    
-                                    
-                                    
-                                    
-                                    
-                                    
                                     
                                     
                                     
@@ -144,9 +150,8 @@
                             </div>
                         </div>
                     </div>
-                    
-                    
-                    
+
+
                     <div class="col s4">
                         <div class="option-field">
                             <div class="control-field">
@@ -170,8 +175,56 @@
                             </mat-option>
                         </mat-select>
                     </mat-form-field>
+                    </div>
+                    </div>
+                    </div>
+                    </div>
+                    
+                    <div class="col s4" style="margin-top: 3px;">
+                        <div class="control-field">
+                            <div>
+                                <mat-form-field class="cs-input ">
+                                    <input matInput placeholder="City" name="city"
+                                    [(ngModel)]="karigarform.city" #city="ngModel" required>
+                                </mat-form-field>
+                            </div>
+                        </div>
+                    
+                    
+                    
+                    
+                        
+                    
+                        
+                    </div>
+                    
+                    
+                    
+                  
+
+
+    <div class="col s4 ">
+        <div class="option-field">
+            <div class="col s12 ">
+                <div class="control-field">
+                    <mat-form-field class="cs-input">
+                        <textarea matInput placeholder="Address" class="h107" name="address"
+                        [(ngModel)]="karigarform.address" #address="ngModel"
+                        required></textarea>
+                    </mat-form-field>
                 </div>
             </div>
+            
+            
+            
+            <!-- <div class="col s6 " [hidden]='true'>
+                <div class="control-field">
+                    <mat-form-field class="cs-input">
+                        <input matInput name="karigar_type" placeholder="User Type"
+                        value="Dealer">
+                    </mat-form-field>
+                </div>
+            </div> -->
         </div>
     </div>
     
@@ -200,51 +253,7 @@
 
 
 
-<div class="col s4" style="margin-top: 3px;">
-    <div class="control-field">
-        <div>
-            <mat-form-field class="cs-input ">
-                <input matInput placeholder="City" name="city"
-                [(ngModel)]="karigarform.city" #city="ngModel" required>
-            </mat-form-field>
-        </div>
-    </div>
 
-    <div class="control-field">
-        <mat-form-field class="cs-input">
-            <mat-select placeholder="Assign Sales Executive" #sales_user_id="ngModel"  name="sales_user_id"  [(ngModel)]="karigarform.sales_user_id" (selectionChange)="AssignSaleUser()" required>
-            <mat-option  *ngFor="let row of sales_users"  [value]="row.id">{{row.full_name}}</mat-option>
-        </mat-select>
-    </mat-form-field>
-</div>
-
-    
-</div>
-
-<div class="col s4 ">
-    <div class="option-field">
-        <div class="col s12 ">
-            <div class="control-field">
-                <mat-form-field class="cs-input">
-                    <textarea matInput placeholder="Address" class="h107" name="address"
-                    [(ngModel)]="karigarform.address" #address="ngModel"
-                    required></textarea>
-                </mat-form-field>
-            </div>
-        </div>
-        
-        
-        
-        <div class="col s6 " [hidden]='true'>
-            <div class="control-field">
-                <mat-form-field class="cs-input">
-                    <input matInput name="karigar_type" placeholder="User Type"
-                    value="Dealer">
-                </mat-form-field>
-            </div>
-        </div>
-    </div>
-</div>
 
 
 </div>
