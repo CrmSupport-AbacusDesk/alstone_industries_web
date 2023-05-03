@@ -94,7 +94,7 @@
                             <input type="file" (change)="onUploadChange1($event)" style="display:none;" accept=".png, .jpg, .jpeg" required />
                             
                             <!-- <img src="{{addOffer.imgId ?uploadUrl + addOffer.offer_banner : addOffer.offer_banner}}"> -->
-                            <img src="{{addOffer ?uploadUrl + addOffer.offer_banner : addOffer.offer_banner}}"  alt="" id="img" style="cursor: pointer;">
+                            <img src="{{uploadUrl+addOffer ?uploadUrl + addOffer.offer_banner : addOffer.offer_banner}}"  alt="" id="img" style="cursor: pointer;">
                             <!-- <img  [src]="uploadUrl + addOffer.offer_banner?addOffer.offer_banner:'../assets/default-image.png' " alt="" id="img" style="cursor: pointer;"> -->
                             <div *ngIf="!addOffer.offer_banner">
                               <h4>Upload Image</h4>

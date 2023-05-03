@@ -104,9 +104,9 @@
                     <div class="option-field">
                         <div class="control-field pl">
                             <mat-form-field class="cs-input">
-                                <mat-select placeholder="Product Name" name="product_point_id"  [(ngModel)]="vedioForm.product_point_id" #product_point_id="ngModel" 
+                                <mat-select placeholder="Product Name" name="product_id"  [(ngModel)]="vedioForm.product_id" #product_id="ngModel" 
                                 required>
-                                    <mat-option *ngFor="let val of product_code" [value]="val.product_point_id" (click)="getprod(val)">
+                                    <mat-option *ngFor="let val of product_code" [value]="val.product_id" (click)="getprod(val)">
                                         {{val.product_point_group}}
                                     </mat-option>
                                 </mat-select>

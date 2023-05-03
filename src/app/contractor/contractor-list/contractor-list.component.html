@@ -59,17 +59,20 @@
       </div>
     </div>
 
-    <div class="css-table">
+    <div class="css-table hr-scroll-table">
       <div class="sticky-header">
         <div class="header">
           <table>
             <tr>
-              <th class="w50">&nbsp;</th>
-              <th class="w150">Date</th>
-              <th>Company Name </th>
-              <th class="w150"> Mobile No.</th>
+              <th class="w30">&nbsp;</th>
+              <th class="w90">Date</th>
+              <th class="w200">Company Name </th>
+              <th class="w100"> Mobile No.</th>
               <!-- <th class="w200">Distributor Detail</th> -->
-              <th class="w160 text-center">Total Item</th>
+              <th class="w90"> Bill Date</th>
+              <th class="w150"> Bill No.</th>
+              <th class="w100"> Bill Amount</th>
+              <th class="w200 text-center">Total Item</th>
               <th class="w80 text-center">Qty.</th>
               <!-- <th class="w60 text-center">Wallet</th> -->
               <th class="w100 text-center">Status</th>
@@ -87,8 +90,8 @@
         <div class="header border-bott">
           <table>
             <tr>
-              <th class="w50">&nbsp;</th>
-              <th class="w150">
+              <th class="w30">&nbsp;</th>
+              <th class="w90">
                 <div class="date-form">
                   <mat-form-field>
                     <i *ngIf="filter.date" class="material-icons"
@@ -101,16 +104,44 @@
                   </mat-form-field>
                 </div>
               </th>
-              <th >
+              <th  class="w200">
                 <div class="search-form">
                   <input type="text" placeholder="Search..." [(ngModel)]="filter.retailer_company_name"
                     (keyup.enter)="current_page = 1; contractorList('')">
                   <i class="material-icons">search</i>
                 </div>
               </th>
-              <th class="w150">
+              <th class="w100">
                 <div class="search-form">
                   <input type="number" placeholder="Search..." [(ngModel)]="filter.retailer_mobile"
+                    (keyup.enter)="current_page = 1; contractorList('')">
+                  <i class="material-icons">search</i>
+                </div>
+              </th>
+
+              <th class="w90">
+                <div class="date-form">
+                  <mat-form-field>
+                    <i *ngIf="filter.bill_date" class="material-icons"
+                      (click)="filter.bill_date = '';contractorList('') ">clear</i>
+
+                    <input placeholder="Bill Date" [(ngModel)]="filter.bill_date" name="date" (click)="openDatePicker(picker2)"
+                      matInput (dateChange)="contractorList('')" [matDatepicker]="picker2" readonly>
+                    <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+                    <mat-datepicker #picker2></mat-datepicker>
+                  </mat-form-field>
+                </div>
+              </th>
+              <th class="w150 text-center">
+                <div class="search-form">
+                  <input type="text" placeholder="Search..." [(ngModel)]="filter.bill_no"
+                    (keyup.enter)="current_page = 1; contractorList('')">
+                  <i class="material-icons">search</i>
+                </div>
+              </th>
+              <th class="w100 text-center">
+                <div class="search-form">
+                  <input type="text" placeholder="Search..." [(ngModel)]="filter.bill_amount"
                     (keyup.enter)="current_page = 1; contractorList('')">
                   <i class="material-icons">search</i>
                 </div>
@@ -123,7 +154,7 @@
                   <i class="material-icons">search</i>
                 </div>
               </th> -->
-              <th class="w160">&nbsp;</th>
+              <th class="w200">&nbsp;</th>
               <th class="w80 text-center">
                 <div class="search-form">
                   <input type="text" placeholder="Search..." [(ngModel)]="filter.total_qty"
@@ -162,80 +193,83 @@
           </table>
         </div>
       </div>
-    </div>
-  </div>
-
-
-  <div class="css-table">
-    <div class="table-container">
-      <div class="table-body">
-        <table>
-          <tr *ngFor="let row of data; let i = index">
-            <td class="w50">{{ ( (current_page - 1 ) * 20 ) + ( i+1 ) }}</td>
-            <td class="w150">{{row.date_created | date: 'dd MMM yyyy'}} </td>
-            <td ><a class="blue" routerLink="/dealer-detail/{{row.dealer_id}}/{{current_page}}"
-                routerLinkActive="active" (click)="set_filter(filter)">{{row.retailer_company_name}}</a></td>
-            <td class="w150">{{row.retailer_mobile}}</td>
-            <!-- <td class="w200">{{row.company_name}} {{row.distributor_mobile}}</td> -->
-
-            <td class="w160 text-center">
-              <div class="flex-group">
-                <ng-container *ngFor="let item of row.image; let i = index" >
-                  <div class="">
-                    <img [src]="uploadUrl+item.image" (click)="openDialog(uploadUrl + item.image)">
-
-
-                  </div>
-                </ng-container>
-                <a class="blue" *ngIf="row.total_items > 0" style="cursor: pointer;"
-                  (click)="modalOpen(1, data, row.id, row.type, row.points,'')">{{row.total_items}}</a>
-              </div>
-            </td>
-
-
-            <td class="w80 text-center">{{row.total_qty}}</td>
-            <td class="w100 text-center">
-              <div class="center" style="display: unset;" *ngIf="row.status != 'Approved'">
-                <select class="{{row.status}}" [name]="'status'+i" placeholder="Status" [(ngModel)]="row.status"
-                  (click)="modalOpen(2, data, row.id, row.type, row.points)">
-                  <option class="Verified" value="Approved">Approved</option>
-                  <option class="Pending" value="Pending">Pending</option>
-                  <option class="Reject" value="Reject">Reject</option>
-                </select>
-              </div>
-
-              <strong class="Approved" *ngIf="row.status == 'Approved'">
-                {{row.status}}
-              </strong>
-            </td>
-            <!-- text-right -->
-            <td class="w100 text-right"><strong>{{row.points}}</strong></td>
-            <!-- <td class="w150">{{row.status_reason}}</td> -->
-            <td class="w100 text-right"><strong class="Reject">{{row.return_points}}</strong></td>
-
-
-            <td class="w100 text-center" style="color: green;"><strong>{{row.add_point}}</strong></td>
-
-            <td class="w100 text-center"><strong>{{row.points + row.add_point - row.return_points}}</strong></td>
-
-            <td class="w100 text-right">
-              <a class="blue" style="cursor: pointer;"
-                >
-                <div class="ic_prt">
-                  <button (click)="modalOpen(3, data, row.id, row.type, row.points, row.dealer_id)" mat-fab class="pls_btn" routerLinkActive="active">
-                    <mat-icon class="pl_ic">add</mat-icon>
-                  </button>
-                  <div class="no-img" (click)="modalOpen(4, data, row.id, row.type, row.points, row.dealer_id)">
-                    <img src="assets/minus_icon.png">
-                  </div>
+      <div class="table-container">
+        <div class="table-body">
+          <table>
+            <tr *ngFor="let row of data; let i = index">
+              <td class="w30">{{ ( (current_page - 1 ) * 20 ) + ( i+1 ) }}</td>
+              <td class="w90">{{row.date_created | date: 'dd MMM yyyy'}} </td>
+              <td  class="w200"><a class="blue" routerLink="/dealer-detail/{{row.dealer_id}}/{{current_page}}"
+                  routerLinkActive="active" (click)="set_filter(filter)">{{row.retailer_company_name}}</a></td>
+              <td class="w100">{{row.retailer_mobile}}</td>
+              <td class="w90">{{row.bill_date | date: 'dd MMM yyyy'}} </td>
+              <td class="w150">{{row.bill_no }} </td>
+              <td class="w100">{{row.bill_amount }} </td>
+  
+              <!-- <td class="w200">{{row.company_name}} {{row.distributor_mobile}}</td> -->
+  
+              <td class="w200 text-center">
+                <div class="flex-group">
+                  <ng-container *ngFor="let item of row.image; let i = index" >
+                    <div class="">
+                      <img [src]="uploadUrl+item.image" (click)="openDialog(uploadUrl + item.image)">
+  
+  
+                    </div>
+                  </ng-container>
+                  <a class="blue" *ngIf="row.total_items > 0" style="cursor: pointer;"
+                    (click)="modalOpen(1, data, row.id, row.type, row.points,'')">{{row.total_items}}</a>
                 </div>
-              </a>
-            </td>
-          </tr>
-        </table>
+              </td>
+  
+  
+              <td class="w80 text-center">{{row.total_qty}}</td>
+              <td class="w100 text-center">
+                <div class="center" style="display: unset;" *ngIf="row.status != 'Approved'">
+                  <select class="{{row.status}}" [name]="'status'+i" placeholder="Status" [(ngModel)]="row.status"
+                    (click)="modalOpen(2, data, row.id, row.type, row.points)">
+                    <option class="Verified" value="Approved">Approved</option>
+                    <option class="Pending" value="Pending">Pending</option>
+                    <option class="Reject" value="Reject">Reject</option>
+                  </select>
+                </div>
+  
+                <strong class="Approved" *ngIf="row.status == 'Approved'">
+                  {{row.status}}
+                </strong>
+              </td>
+              <!-- text-right -->
+              <td class="w100 text-right"><strong>{{row.points}}</strong></td>
+              <!-- <td class="w150">{{row.status_reason}}</td> -->
+              <td class="w100 text-right"><strong class="Reject">{{row.return_points}}</strong></td>
+  
+  
+              <td class="w100 text-center" style="color: green;"><strong>{{row.add_point}}</strong></td>
+  
+              <td class="w100 text-center"><strong>{{row.points + row.add_point - row.return_points}}</strong></td>
+  
+              <td class="w100 text-right">
+                <a class="blue" style="cursor: pointer;"
+                  >
+                  <div class="ic_prt">
+                    <button (click)="modalOpen(3, data, row.id, row.type, row.points, row.dealer_id)" mat-fab class="pls_btn" routerLinkActive="active">
+                      <mat-icon class="pl_ic">add</mat-icon>
+                    </button>
+                    <div class="no-img" (click)="modalOpen(4, data, row.id, row.type, row.points, row.dealer_id)">
+                      <img src="assets/minus_icon.png">
+                    </div>
+                  </div>
+                </a>
+              </td>
+            </tr>
+          </table>
+        </div>
       </div>
     </div>
   </div>
+
+
+ 
 
   <div class="container-outer">
     <div class="container">
