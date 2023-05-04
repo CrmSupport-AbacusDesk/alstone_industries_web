@@ -316,6 +316,13 @@
                             <div class="tabs-list gift-tab-list ">
                                 <ul>
 
+                                    <li class="active" (click)="mode='2'; myPointList()"
+                                    [ngClass]="{'active': mode == '2'}">
+                                    <a>
+                                        <p>EARN POINT REQUEST</p>
+                                        <span>{{totalCount}}</span>
+                                    </a>
+                                </li>
                                     <li (click)="mode='1'; getReedamList()" [ngClass]="{'active': mode == '1'}">
                                         <a>
                                             <p>REDEEM REQUEST</p>
@@ -345,6 +352,12 @@
                                         <a>
                                             <p>OTHER POINTS</p>
                                             <span>{{referral_data.length}}</span>
+                                        </a>
+                                    </li>
+                                    <li (click)="mode='5'; getReferral()" [ngClass]="{'active': mode == '5'}">
+                                        <a>
+                                            <p>COMPANY POINTS TRANSFER</p>
+                                            <span>{{company_point_transfer.length}}</span>
                                         </a>
                                     </li>
                                 </ul>
@@ -566,7 +579,7 @@
                     </div>
 
 
-                    <div class="css-table left-right-10" *ngIf="mode == '2'">
+                    <!-- <div class="css-table left-right-10" *ngIf="mode == '2'">
                         <div class="sticky-header bo-non">
                             <div class="header">
                                 <table>
@@ -623,12 +636,12 @@
                                                 </div>
                                             </div>
                                         </th>
-                                        <!-- <th class="w100">
+                                        <th class="w100">
                                             <div class="search-form">
                                                 <input type="text" placeholder="Search..." [(ngModel)]="filter.sales_zone"  (keyup.enter)="current_page = 1;getSalesUserSites('')">
                                                 <i class="material-icons">search</i>
                                             </div>
-                                        </th> -->
+                                        </th>
                                                                 
                                     </tr>
                                 </table>
@@ -648,17 +661,17 @@
                                         <td class="w250"><a class="blue" routerLink="/site-detail/{{val.id}}/{{current_page}}"  routerLinkActive="active">{{val.address}},{{val.state}}, {{val.district}}</a></td>
                                         <td class="w200">{{val.site_owner_name | titlecase}} - {{val.site_owner_contact}}</td>
                                         <td class="w100">{{val.site_type | titlecase}}</td>
-                                        <!-- <td class="w100">{{val.sales_zone | titlecase}}</td> -->
-                                        <!-- <td>
+                                        <td class="w100">{{val.sales_zone | titlecase}}</td>
+                                        <td>
                                             <ng-container *ngIf="val.pc_id != 0">
                                                 <a class="blue" routerLink="/karigar-detail/{{val.pc_id}}/{{current_page}}"  routerLinkActive="active">{{val.pc_name | titlecase}} - {{val.pc_contact}}</a>
                                             </ng-container>
-                                        </td> -->
-                                        <!-- <td>
+                                        </td>
+                                        <td>
                                             <ng-container *ngIf="val.dealer_id != 0">
                                                 <a class="blue" routerLink="/dealer-detail/{{val.dealer_id}}/{{current_page}}"  routerLinkActive="active">{{val.dealer_name | titlecase}} - {{val.dealer_mobile}}</a>
                                             </ng-container>
-                                        </td> -->
+                                        </td>
                                     </tr>
                                 </table>
                             </div>
@@ -666,6 +679,142 @@
                             <div class="date-not" *ngIf="sites_list.length == 0">
                                 <div class="no-img">
                                     <img src="assets/not-available.jpg"> 
+                                </div>
+                            </div>
+                        </div>
+                    </div> -->
+
+
+                    <div class="css-table " *ngIf="mode == '2'">
+                        <div class="sticky-header bo-non">
+                            <div class="header">
+                                <table>
+                                    <tr>
+                                        <th class="w50"></th>
+                                        <th class="w120">Date Created</th>
+                                        <th class="w150">Bill Number</th>
+                                        <th class="w100">Bill Date</th>
+                                        <th class="w80">Bill Amount</th>
+
+                                        <th class="w200">Total Item</th>
+                                        <th class="w100">Qty</th>
+                                        <th class="w100 text-right">Transfer Points</th>
+                                        <!-- <th class="w200" *ngIf="myPoint.status == 'Reject'">Reason</th> -->
+                                        <th class="w100"> Status</th>
+                                    </tr>
+                                </table>
+                            </div>
+                            <div class="header">
+                                <table>
+                                    <tr>
+                                        <th class="w50"></th>
+                                        <th class="w120">
+                                            <div class="date-form">
+                                                <i *ngIf="filter.date" class="material-icons"
+                                                    (click)="filter.date = '';myPointList() ">clear</i>
+                                                <mat-form-field>
+                                                    <input matInput placeholder=" Date" [(ngModel)]="filter.date"
+                                                        (click)="openDatePicker(picker3)" name="date" matInput
+                                                        (dateChange)="myPointList()" [matDatepicker]="picker3" readonly>
+                                                    <mat-datepicker-toggle matSuffix [for]="picker3">
+                                                    </mat-datepicker-toggle>
+                                                    <mat-datepicker #picker3></mat-datepicker>
+                                                </mat-form-field>
+                                            </div>
+                                        </th>
+                                        <th class="w150">
+                                            <div class="search-form">
+                                                <input type="text" placeholder="Search" [(ngModel)]="filter.bill_no"  (keyup.enter)="current_page = 1;myPointList()">
+                                                <i class="material-icons">search</i>
+                                            </div>
+                                        </th>
+                                        <th class="w100">
+                                           
+                                        </th>
+                                        <th class="w80">
+                                            <div class="search-form">
+                                                <input type="text" placeholder="Search" [(ngModel)]="filter.bill_amount"
+                                                    (keyup.enter)="current_page = 1;myPointList()">
+                                                <i class="material-icons">search</i>
+                                            </div>
+                                        </th>
+                                        <th class="w200"></th>
+                                        <th class="w100"></th>
+                                        <th class="w100"></th>
+                                        <!-- <th class="w200" *ngIf="myPoint.status == 'Reject'"></th> -->
+                                        <th class="w100">
+                                            <div class="form-area">
+                                                <div class="slect mr0">
+                                                    <mat-form-field>
+                                                        <mat-label>All</mat-label>
+                                                        <mat-select [(ngModel)]="filter.status" name="status"
+                                                            #status="ngModel" (selectionChange)="myPointList('')">
+                                                            <mat-option class="Suspect" value="">All</mat-option>
+                                                            <mat-option class="Verified" value="Approved">Approved
+                                                            </mat-option>
+                                                            <mat-option class="Pending" value="Pending">Pending
+                                                            </mat-option>
+                                                            <mat-option class="Reject" value="Reject">Reject
+                                                            </mat-option>
+                                                        </mat-select>
+                                                    </mat-form-field>
+                                                </div>
+                                            </div>
+                                        </th>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="table-container">
+                            <div class="table-body" *ngIf="myPoint.length > 0">
+                                <table>
+                                    <tr *ngFor="let val of myPoint; let i = index">
+                                        <td class="w50">{{ i + 1 }}</td>
+                                        <td class="w120">
+                                            <ng-container *ngIf="val.date_created  != '0000-00-00 00:00:00' ">
+                                                {{val.date_created | date: 'dd MMM yyyy'}} </ng-container>
+                                        </td>
+                                        <!-- <td class="w150"> {{val.product_point_group}}</td>
+                                        <td> 
+                                            {{val.product_detail}}
+                                        </td> -->
+                                        <td class="w150"> {{val.bill_no}}</td>
+                                        <td class="w100">
+                                            <ng-container *ngIf="val.date_created  != '0000-00-00 00:00:00' ">
+                                                {{val.bill_date | date: 'dd MMM yyyy'}} </ng-container>
+                                        </td>
+                                        <td class="w100"> {{val.bill_amount}}</td>
+
+                                        <td class="w200">
+
+                                            <div class="flex-group">
+                                                <!-- <ng-container *ngIf="val.image != ''">
+                                                    <div class="">
+                                                        <img [src]="uploadUrl+val.image"
+                                                            (click)="openDialog(uploadUrl + val.image)">
+                                                    </div>
+                                                </ng-container> -->
+                                                <ng-container *ngFor="let item of val.image; let i = index" >
+                                                    <div class="">
+                                                      <img [src]="uploadUrl+item.image" (click)="openDialog(uploadUrl + item.image)">
+                                  
+                                  
+                                                    </div>
+                                                  </ng-container>
+                                                <a class="blue" *ngIf="val.total_items > 0" style="cursor: pointer;"
+                                                    (click)="modalOpen(1, data, val.id, val.type, val.points)">{{val.total_items}}</a>
+                                            </div>
+                                        </td>
+                                        <td class="w100">{{val.total_qty}}</td>
+                                        <td class="w100 "><strong>{{val.points}}</strong></td>
+                                        <!-- <td class="w200" *ngIf="myPoint.status =='Reject'">{{val.status_reason}}</td> -->
+                                        <td class="w100">{{val.status}}</td>
+                                    </tr>
+                                </table>
+                            </div>
+                            <div class="date-not" *ngIf="myPoint.length == 0">
+                                <div class="no-img">
+                                    <img src="assets/not-available.jpg">
                                 </div>
                             </div>
                         </div>
@@ -829,7 +978,39 @@
 
                   
 
-
+                    <div class="css-table" *ngIf="mode == '5'">
+                        <div class="sticky-header">
+                            <div class="header">
+                                <table>
+                                    <tr>
+                                        <th class="w50">S No</th>
+                                        <th class="w200">Date Created</th>
+                                        <th class="w100">Log Type</th>
+                                        <th class="w100">Points</th>
+                                        <th>Summary</th>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="table-container">
+                            <div class="table-body" *ngIf="company_point_transfer.length > 0">
+                                <table>
+                                    <tr *ngFor="let val of company_point_transfer; let i = index">
+                                        <td class="w50">{{ i + 1 }}</td>
+                                        <td class="w200">{{ val.date_created | date: 'dd MMM yyyy' }}</td>
+                                        <td class="w100">{{val.log_type}}</td>
+                                        <td class="w100">{{val.points}}</td>
+                                        <td>{{val.summary}}</td>
+                                    </tr>
+                                </table>
+                            </div>
+                            <div class="date-not" *ngIf="company_point_transfer.length == '0'">
+                                <div class="no-img">
+                                    <img src="assets/not-available.jpg">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
 
 
                 </div>
