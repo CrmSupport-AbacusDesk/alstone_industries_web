@@ -91,7 +91,11 @@ export class ContractorListComponent implements OnInit {
     this.loading_list = true;
     this.loading_list = true;
     this.filter.date = this.filter.date  ? this.db.pickerFormat(this.filter.date) : '';
+    this.filter.bill_date = this.filter.bill_date  ? this.db.pickerFormat(this.filter.bill_date) : '';
+
     if( this.filter.date)this.filtering = true;
+    this.filter.mode = 0;
+    if( this.filter.bill_date)this.filtering = true;
     this.filter.mode = 0;
     
     if(action=='refresh')
