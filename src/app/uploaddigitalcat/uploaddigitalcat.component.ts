@@ -64,8 +64,10 @@ export class UploaddigitalcatComponent implements OnInit {
         this.loading = true; 
         this.formData.append('pdf', this.file, this.file.name);
         this.formData.append('cat_name',this.category.cat_name);
-        this.formData.append('product_id',this.product_name);
-        this.formData.append('product_name',this.product_id);
+        this.formData.append('product_id',this.product_id);
+        this.formData.append('product_name',this.product_name);
+
+        console.log(this.formData)
 
 
         this.db.fileData( this.formData, 'product_catalogue')
@@ -91,15 +93,15 @@ export class UploaddigitalcatComponent implements OnInit {
     product_id:any;
     getprod(product){
 
-      this.product_name=product.product_point_id
-      this.product_id=product.product_point_group
+      this.product_id=product.product_point_id
+      this.product_name=product.product
 
     }
 
     getProduct(){
-      this.db.post_rqst( '', 'app_karigar/getProduct?page=').subscribe(r=>{
+      this.db.post_rqst( '', 'app_karigar/getProducts').subscribe(r=>{
         console.log(r);
-        this.product_code=r['productData'];
+        this.product_code=r['product'];
       })
     }
 }

@@ -74,13 +74,18 @@ export class VideoComponent implements OnInit {
 
   editvideo(id,index){
     console.log(id);
+    this.getProduct();
     
     console.log(index)
+    console.log(this.vedios)
     let data = this.vedios.filter( x => x.id==id);
+
     this.vedioForm=data[0];
+
     this.vedios.id= this.vedioForm.id;
     console.log( this.vedios.id);
     console.log(this.vedioForm);
+    this.vedioForm.product_id=this.vedioForm.product_name
   }
 
   addVideo()
@@ -183,15 +188,17 @@ updateStatus(i,event)
       }
 
       getProduct(){
-        this.db.post_rqst( '', 'app_karigar/getProduct?page=').subscribe(r=>{
+        this.db.post_rqst( '', 'app_karigar/getProducts').subscribe(r=>{
           console.log(r);
-          this.product_code=r['productData'];
+          this.product_code=r['product'];
+          
+
         })
       }
 
       product_name:any;
       getprod(product){
-        this.vedioForm.product_name=product.product_point_group
+        this.vedioForm.product_name=product.product
       }
   
 
